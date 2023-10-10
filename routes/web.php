@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Referensi\DiagnosaController;
-use App\Http\Controllers\Referensi\FaskesController;
-use App\Http\Controllers\Referensi\PoliController;
-use App\Http\Controllers\SEP\CariController;
-use App\Http\Controllers\SEP\FingerPrintController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SEP\CariController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Referensi\PoliController;
+use App\Http\Controllers\SEP\FingerPrintController;
+use App\Http\Controllers\Referensi\FaskesController;
+use App\Http\Controllers\Referensi\DiagnosaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('login', [LoginController::class, 'login']);
 
 Route::group(['prefix' => 'referensi', 'as' => 'referensi.'], function () {
     Route::get('diagnosa/{namaKodeDiagnosa}', [DiagnosaController::class, 'getDiagnosa'])
