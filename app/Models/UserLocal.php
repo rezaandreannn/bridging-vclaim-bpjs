@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\File;
 
 class UserLocal extends Model
 {
-    protected $filePath = 'storage/app/users.json';
+
+    public function index()
+    {
+        return json_decode(File::get(storage_path('app/users.json')), true)['users'];
+    }
 
     public function findUserByEmail($email)
     {

@@ -9,12 +9,19 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    public function index()
+    {
+        return view();
+    }
+
     public function login(Request $request)
     {
         $user = new UserLocal();
+        dd($user);
         $userData = $user->findUserByEmail('andreanreza042@gmail.com');
 
         if ($userData && Hash::check($request->input('password'), $userData['password'])) {
+
             // Berhasil login
             return "Selamat datang, " . $userData['email'];
         }
