@@ -7,6 +7,7 @@ use App\Http\Controllers\Referensi\PoliController;
 use App\Http\Controllers\SEP\FingerPrintController;
 use App\Http\Controllers\Referensi\FaskesController;
 use App\Http\Controllers\Referensi\DiagnosaController;
+use App\Http\Controllers\Rujukan\RujukanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,9 @@ Route::group(['prefix' => 'SEP', 'as' => 'SEP.'], function () {
         ->name('finger.index');
     Route::get('finger/peserta/{noKartu}/tanggalPelayanan/{tanggalPelayanan}', [FingerPrintController::class, 'getNoKartu'])
         ->name('finger.peserta');
+});
+
+Route::group(['prefix' => 'Rujukan', 'as' => 'rujukan.'], function () {
+    Route::get('/{nomorKartu}', [RujukanController::class, 'byNomorRujukan'])
+        ->name('by-nomor-kartu');
 });
