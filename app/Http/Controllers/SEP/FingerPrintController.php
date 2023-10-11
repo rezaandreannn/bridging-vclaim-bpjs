@@ -10,14 +10,14 @@ use App\Repositories\FingerPrintRepository;
 
 class FingerPrintController extends Controller
 {
-      /**
+    /**
      * The user repository implementation.
      *
      * @var FingerPrintRepository
      */
     protected $fingerPrint;
 
-      /**
+    /**
      * Create a new controller instance.
      *
      * @param  FingerPrintRepository  $fingerPrint
@@ -36,14 +36,20 @@ class FingerPrintController extends Controller
      */
     public function index($tanggalPelayanan)
     {
-        return $this->fingerPrint->byTanggal($tanggalPelayanan);
+        $data = $this->fingerPrint->byTanggal($tanggalPelayanan);
+        if ($data['metaData']['code'] == 200) {
+            return $data['response']['list'];
+        } else {
+            return $data;
+        }
         // $endpoint = 'SEP/FingerPrint/List/Peserta/TglPelayanan/' . $tanggalPelayanan;
         // return $this->bridging->getRequest($endpoint);
     }
 
     public function getNoKartu($noKartu, $tanggalPelayanan)
     {
-        $endpoint = 'SEP/FingerPrint/Peserta/' . $noKartu . '/TglPelayanan/' . $tanggalPelayanan;
-        return $this->bridging->getRequest($endpoint);
+        return $this->fingerPrint->byNoKartuAndTanggal($noKartu, $tanggalPelayanan);
+        // $endpoint = 'SEP/FingerPrint/Peserta/' . $noKartu . '/TglPelayanan/' . $tanggalPelayanan;
+        // return $this->bridging->getRequest($endpoint);
     }
 }
