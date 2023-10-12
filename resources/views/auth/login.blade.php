@@ -19,17 +19,14 @@
             <div>
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="" type="email" name="email" :value="old('email', 'andreanreza042@gmail.com')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class=""
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+                <x-input id="password" class="" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <!-- Remember Me -->
@@ -42,9 +39,9 @@
 
             <div class="d-flex justify-content-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="text-muted" href="{{ route('password.request') }}" style="margin-right: 15px; margin-top: 15px;">
-                        {{ __('Forgot your password?') }}
-                    </a>
+                <a class="text-muted" href="{{ route('password.request') }}" style="margin-right: 15px; margin-top: 15px;">
+                    {{ __('Forgot your password?') }}
+                </a>
                 @endif
 
                 <x-button class="ml-3">
@@ -53,4 +50,19 @@
             </div>
         </form>
     </x-auth-card>
+    @push('js-guest')
+    <script>
+        const emailInput = document.getElementById('email');
+
+        // Get the original email value
+        const originalEmail = emailInput.value;
+
+        // Create the masked email for display
+        const maskedEmail = originalEmail.replace(/.{7}/, '*******');
+
+        // Set the masked email as the input's value for display
+        emailInput.value = maskedEmail;
+
+    </script>
+    @endpush
 </x-guest-layout>
