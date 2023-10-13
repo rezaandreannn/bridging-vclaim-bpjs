@@ -1,9 +1,13 @@
 <x-guest-layout>
     <x-auth-card>
+
         <x-slot name="logo">
-            <a href="/" class="d-flex justify-content-center mb-4">
-                <x-application-logo width=64 height=64 />
-            </a>
+            <div class="d-flex justify-content-center align-items-center mb-2">
+                <x-application-logo src="{{ asset('img/logo_rsumm.png')}}" class="mr-4" />
+                <h2 class="text-center mt-3">ANJUNGAN <br> MANDIRI</h2>
+
+                <x-application-logo src="{{ asset('img/paripurna.png')}}" class="ml-4" />
+            </div>
         </x-slot>
 
         <!-- Session Status -->
@@ -12,57 +16,74 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" id="login-form">
             @csrf
 
             <!-- Email Address -->
             <div>
-                <x-label for="email" :value="__('Email')" />
+                {{-- <x-label for="email" :value="__('Email')" /> --}}
 
-                <x-input id="email" class="" type="email" name="email" :value="old('email', 'andreanreza042@gmail.com')" required autofocus />
+                <x-input id="email" class="" type="hidden" name="email" :value="old('email', 'andreanreza042@gmail.com')" readonly />
             </div>
 
             <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+            <div class="">
+                <x-label for="password" :value="__('Masukan PIN 8 karakter')" />
 
-                <x-input id="password" class="" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="" type="password" name="password" required autocomplete="current-password" placeholder="********" />
+                <div class="mt-2 text-danger text-small" id="pin-error" style="display: none;">PIN salah, coba lagi.</div>
             </div>
 
             <!-- Remember Me -->
-            <div class="mt-3 form-check">
+            {{-- <div class="mt-3 form-check">
                 <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
                 <label for="remember_me" class="form-check-label text-sm">
                     {{ __('Remember me') }}
-                </label>
-            </div>
+            </label>
+            </div> --}}
 
-            <div class="d-flex justify-content-end mt-4">
+            {{-- <div class="d-flex justify-content-end mt-4">
                 @if (Route::has('password.request'))
                 <a class="text-muted" href="{{ route('password.request') }}" style="margin-right: 15px; margin-top: 15px;">
-                    {{ __('Forgot your password?') }}
-                </a>
-                @endif
+            {{ __('Forgot your password?') }}
+            </a>
+            @endif
 
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
+            <x-button class="ml-3">
+                {{ __('Log in') }}
+            </x-button>
+            </div> --}}
         </form>
     </x-auth-card>
     @push('js-guest')
     <script>
-        const emailInput = document.getElementById('email');
+        document.addEventListener('DOMContentLoaded', function() {
+            const pinInput = document.getElementById('password'); // Ganti dengan ID yang sesuai
+            const pinError = document.getElementById('pin-error'); // ID pesan kesalahan
 
-        // Get the original email value
-        const originalEmail = emailInput.value;
+            pinInput.addEventListener('input', function() {
+                const pinValue = this.value;
+                const correctPin = 'rsumm2023'; // Ganti dengan PIN yang benar
 
-        // Create the masked email for display
-        const maskedEmail = originalEmail.replace(/.{7}/, '*******');
+                let isPartialMatch = false;
 
-        // Set the masked email as the input's value for display
-        emailInput.value = maskedEmail;
+                if (pinValue.length == correctPin.length) {
+                    if (pinValue == correctPin) {
+                        // Jika PIN benar, otomatis submit form dan sembunyikan pesan kesalahan
+                        pinError.style.display = 'none';
+                        document.getElementById('login-form').submit();
+                    } else {
+                        // Jika PIN salah, tampilkan pesan kesalahan
+                        pinError.style.display = 'block';
+                    }
+                } else {
+                    // Reset pesan kesalahan ketika pengguna masih melakukan pencocokan sebagian
+                    pinError.style.display = 'none';
+                }
+            });
+        });
 
     </script>
+
     @endpush
 </x-guest-layout>

@@ -12,7 +12,7 @@ class RujukanController extends Controller
     /**
      * The user repository implementation.
      *
-     * @var FingerPrintRepository
+     * @var RujukanRepository
      */
     protected $rujukan;
 
@@ -33,5 +33,6 @@ class RujukanController extends Controller
      */
     public function byNomorRujukan($nomorRujukan)
     {
+        $data = $this->rujukan->byNomorKartu($nomorRujukan);
     }
 }

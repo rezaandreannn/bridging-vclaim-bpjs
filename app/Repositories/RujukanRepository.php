@@ -21,7 +21,7 @@ class RujukanRepository
 
     public function byNomorKartu($nomorKartu)
     {
-        $endpoint = 'Rujukan/' . $nomorKartu;
+        $endpoint = 'Rujukan/List/Peserta/' . $nomorKartu;
         $result = $this->bridging->getRequest($endpoint);
         return json_decode($result, true);
     }

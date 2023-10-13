@@ -54,12 +54,12 @@
                     {{-- end content --}}
 
                     {{-- footer --}}
-                    <div class="simple-footer">
+                    {{-- <div class="simple-footer">
                         Copyright &copy; {{ config('app.name') }} {{ date('Y') }}
-                    </div>
-                    {{-- end footer --}}
-                </div>
+                </div> --}}
+                {{-- end footer --}}
             </div>
+    </div>
     </div>
     </section>
     </div>
