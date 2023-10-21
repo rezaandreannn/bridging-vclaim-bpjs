@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Bpjs\Bridging\Vclaim\BridgeVclaim;
 
-class CariController extends Controller
+class HistoyController extends Controller
 {
     protected $bridging;
 
@@ -17,12 +17,12 @@ class CariController extends Controller
 
 
 
-    public function index($status)
+    public function index($noKartu)
     {
-        // dd($status);
-        $endpoint = 'Monitoring/Klaim/Tanggal/2023-08-12/JnsPelayanan/2/Status/' . $status;
+
+        $endpoint = 'monitoring/HistoriPelayanan/NoKartu/' . $noKartu . '/tglMulai/2023-08-21/tglAkhir/2023-10-21';
         $data = $this->bridging->getRequest($endpoint);
         $result = json_decode($data, true);
-        dd($result['response']['klaim']);
+        dd($result);
     }
 }

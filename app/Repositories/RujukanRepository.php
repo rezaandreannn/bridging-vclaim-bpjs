@@ -19,9 +19,23 @@ class RujukanRepository
      * @return mixed The retrieved Rujukan data, or null if not found.
      */
 
-    public function byNomorKartu($nomorKartu)
+    public function getByNomorKartu($nomorKartu)
     {
         $endpoint = 'Rujukan/List/Peserta/' . $nomorKartu;
+        $result = $this->bridging->getRequest($endpoint);
+        return json_decode($result, true);
+    }
+
+    public function findByNomorKartu($nomorKartu)
+    {
+        $endpoint = 'Rujukan/Peserta/' . $nomorKartu;
+        $result = $this->bridging->getRequest($endpoint);
+        return json_decode($result, true);
+    }
+
+    public function listRujukanKhusus($bulan, $tahun)
+    {
+        $endpoint = 'Rujukan/Khusus/List/Bulan/' . $bulan . '/Tahun/' . $tahun;
         $result = $this->bridging->getRequest($endpoint);
         return json_decode($result, true);
     }

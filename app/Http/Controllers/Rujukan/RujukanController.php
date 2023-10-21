@@ -33,6 +33,11 @@ class RujukanController extends Controller
      */
     public function byNomorRujukan($nomorRujukan)
     {
-        $data = $this->rujukan->byNomorKartu($nomorRujukan);
+        $data = $this->rujukan->findByNomorKartu($nomorRujukan);
+    }
+
+    public function listRujukanKhusus()
+    {
+        return $this->rujukan->listRujukanKhusus(10, 2023);
     }
 }
