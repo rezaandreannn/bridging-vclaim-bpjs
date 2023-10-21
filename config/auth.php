@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Peserta;
+
 return [
 
     /*
@@ -14,7 +16,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'peserta',
         'passwords' => 'users',
     ],
 
@@ -39,6 +41,10 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'peserta' => [
+            'driver' => 'session',
+            'provider' => 'pesertas',
         ],
     ],
 
@@ -65,10 +71,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'pesertas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Peserta::class,
+        ],
     ],
 
     /*

@@ -2,16 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SEP\CariController;
+use App\Http\Controllers\Frond\SepController;
+use App\Http\Controllers\GetPasienController;
+use App\Http\Controllers\SEP\HistoyController;
 use App\Http\Controllers\Referensi\DpjpController;
 use App\Http\Controllers\Rujukan\RujukanController;
 use App\Http\Controllers\SEP\FingerPrintController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frond\NewRujukanController;
-use App\Http\Controllers\Frond\SepController;
 use App\Http\Controllers\Frond\SuratKontrolController;
+use App\Http\Controllers\RencanaKontrol\FindSepController;
+use App\Http\Controllers\Auth\AuthenticatedPesertaController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
+use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
-use App\Http\Controllers\SEP\HistoyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +28,38 @@ use App\Http\Controllers\SEP\HistoyController;
 |
 */
 
-Route::get('/', [AuthenticatedSessionController::class, 'create'])
+// Route::get('/', [AuthenticatedSessionController::class, 'create'])
+//     ->middleware('guest')
+//     ->name('login');
+
+Route::get('/', [AuthenticatedPesertaController::class, 'create'])
     ->middleware('guest')
-    ->name('login');
+    ->name('login.peserta.index');
 
-Route::get('/app', function () {
-    return view('layouts.app');
-})->name('app');
+Route::post('/login/peserta', [AuthenticatedPesertaController::class, 'store'])
+    ->middleware('guest')
+    ->name('login.peserta');
 
-Route::get('/dashboard', [VerifikasiIdentitasController::class, 'index'])->name('dashboard');
+    Route::post('/logout/peserta', [AuthenticatedPesertaController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('logout.peserta');
+
+    Route::get('/app', function () {
+        return view('layouts.app');
+    })->name('app');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+//** -- ROUTE RENCANA KONTROL -- **// 
+Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
+    Route::get('sep', FindSepController::class)->middleware(['auth'])->name('sep');
+    Route::get('/pasien', GetPasienController::class);
+    
+});
+
+// Route::get('/dashboard', [VerifikasiIdentitasController::class, 'index'])->name('dashboard');
 Route::post('/verifikasi', [VerifikasiIdentitasController::class, 'proses'])->name('verifikasi.identitas');
 Route::get('/rujukan/{nomorKartu}', [VerifikasiIdentitasController::class, 'selectRujukan'])->name('rujukan.select');
 Route::get('/rujukan/baru/{nomorKartu}', [NewRujukanController::class, 'index'])->name('rujukan.baru');
@@ -59,4 +86,5 @@ Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
 Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);
 Route::get('SEP/{noSEP}', [CariController::class, 'index']);
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth_peserta.php';
