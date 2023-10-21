@@ -32,11 +32,11 @@ Route::get('/app', function () {
     return view('layouts.app');
 })->name('app');
 
-Route::get('/dashboard', [VerifikasiIdentitasController::class, 'index'])->middleware(['auth'])->name('dashboard');
-Route::post('/verifikasi', [VerifikasiIdentitasController::class, 'proses'])->middleware(['auth'])->name('verifikasi.identitas');
-Route::get('/rujukan/{nomorKartu}', [VerifikasiIdentitasController::class, 'selectRujukan'])->middleware(['auth'])->name('rujukan.select');
-Route::get('/rujukan/baru/{nomorKartu}', [NewRujukanController::class, 'index'])->middleware(['auth'])->name('rujukan.baru');
-Route::get('/suratkontrol/{nomorKartu}', [SuratKontrolController::class, 'index'])->middleware(['auth'])->name('surat.kontrol');
+Route::get('/dashboard', [VerifikasiIdentitasController::class, 'index'])->name('dashboard');
+Route::post('/verifikasi', [VerifikasiIdentitasController::class, 'proses'])->name('verifikasi.identitas');
+Route::get('/rujukan/{nomorKartu}', [VerifikasiIdentitasController::class, 'selectRujukan'])->name('rujukan.select');
+Route::get('/rujukan/baru/{nomorKartu}', [NewRujukanController::class, 'index'])->name('rujukan.baru');
+Route::get('/suratkontrol/{nomorKartu}', [SuratKontrolController::class, 'index'])->name('surat.kontrol');
 
 // SEP
 Route::get('sep/{nomorKartu}', [SepController::class, 'index']);
