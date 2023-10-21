@@ -1,0 +1,4 @@
+CONS_ID=7749
+SECRET_KEY=7hEF4A8987
+API_BPJS_VCLAIM=https://apijkn.bpjs-kesehatan.go.id/vclaim-rest/
+USER_KEY_VCLAIM=766ea39f78ae41ee1a3bd95cd1b75d39
