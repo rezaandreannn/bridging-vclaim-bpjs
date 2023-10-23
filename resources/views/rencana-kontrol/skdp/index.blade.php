@@ -1,7 +1,7 @@
 <x-app-layout>
     <section class="section">
         <div class="section-header">
-            <h1>Dashboard</h1>
+            <h1>Form Surat Kontrol</h1>
         </div>
 
     </section>

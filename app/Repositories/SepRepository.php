@@ -13,10 +13,17 @@ class SepRepository
         $this->bridging = new BridgeVclaim();
     }
 
-    public function findByNomor($nomorSep)
+    public function findByNomor($noSep)
     {
-        $endpoint = 'SEP/' . $nomorSep;
+        $endpoint = 'SEP/' . $noSep;
         $data = $this->bridging->getRequest($endpoint);
-        $result = json_decode($data, true);
+        return json_decode($data, true);
+    }
+
+    public function history($noKartu, $startDate, $endDate)
+    {
+        $endpoint = 'monitoring/HistoriPelayanan/NoKartu/' . $noKartu . '/tglMulai/' . $startDate . '/tglAkhir/' . $endDate;
+        $data = $this->bridging->getRequest($endpoint);
+        return json_decode($data, true);
     }
 }

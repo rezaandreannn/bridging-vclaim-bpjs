@@ -18,7 +18,6 @@ class PesertaSeeder extends Seeder
         $client = new Client();
         $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran';
         $response = $client->get($endpoint);
-        dd($response->getStatusCode());
 
         if ($response->getStatusCode() === 200) {
             $data = json_decode($response->getBody()->getContents(), true);

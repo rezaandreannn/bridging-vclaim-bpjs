@@ -17,12 +17,12 @@ class CariController extends Controller
 
 
 
-    public function index($status)
+    public function index($no_sep)
     {
-        // dd($status);
-        $endpoint = 'Monitoring/Klaim/Tanggal/2023-08-12/JnsPelayanan/2/Status/' . $status;
+
+        $endpoint = 'SEP/' . $no_sep;
         $data = $this->bridging->getRequest($endpoint);
         $result = json_decode($data, true);
-        dd($result['response']['klaim']);
+        dd($result);
     }
 }

@@ -16,7 +16,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'peserta',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
