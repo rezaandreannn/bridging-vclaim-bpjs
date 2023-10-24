@@ -28,16 +28,13 @@ class RujukanController extends Controller
     }
     /**
      * Get Nomor Rujukan.
-     * @param int $nomorRujukan
      * @return mixed The retrieved Rujukan data, or null if not found.
      */
-    public function byNomorRujukan($nomorRujukan)
-    {
-        $data = $this->rujukan->findByNomorKartu($nomorRujukan);
-    }
 
-    public function listRujukanKhusus()
+    public function list(Request $request)
     {
-        return $this->rujukan->listRujukanKhusus(10, 2023);
+        $noKartu = $request->session()->get('identitas');
+        $response = $this->rujukan->getByNomorKartu($noKartu);
+        dd($response);
     }
 }

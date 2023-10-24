@@ -31,12 +31,11 @@
         </ul>
         </li>
 
-        <li class="dropdown {{ request()->is('rj*') ? 'active' : '' }}">
+        <li class="dropdown {{ request()->is('rujukan*') ? 'active' : '' }}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-notes-medical"></i>
                 <span>Rujukan</span></a>
             <ul class="dropdown-menu">
-                <li class="{{ request()->is('rj/medis*') ? 'active' : '' }}"><a class="nav-link" href="">By Nomor
-                        Rujukan</a></li>
+                <li class="{{ request()->is('rujukan/list*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('rujukan.list')}}">List Rujukan</a></li>
             </ul>
         </li>
 

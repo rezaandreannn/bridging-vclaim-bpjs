@@ -25,7 +25,8 @@ class VerifiedNomorController extends Controller
             $data = $result['data'][0];
             $request->session()->put('identitas', $data['No_Identitas']);
         } else {
-            return redirect()->back()->withInput('data tidak sesuai');
+            $message = 'No MR tidak Terdaftar';
+            return redirect()->back()->withErrors(['error' => $message]);
         }
 
         return redirect()->route('dashboard');

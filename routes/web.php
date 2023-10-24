@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
+use App\Http\Controllers\Rujukan\ListRujukanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,11 @@ Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
     Route::get('/skdp/create', [SkdpController::class, 'index'])->name('skdp.create');
 });
 
+// ROUTE RUJUKAN 
+Route::prefix('rujukan')->name('rujukan.')->group(function () {
+    Route::get('list', [RujukanController::class, 'list'])->middleware(['auth'])->name('list');
+});
+
 // ROUTE SEP
 Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
@@ -94,7 +100,7 @@ Route::get('sep/history/{nomorKartu}', [HistoyController::class, 'index']);
 
 
 Route::get('/rujukan/biodata/{noIdentitas}', [VerifikasiIdentitasController::class, 'identitas'])->middleware(['auth'])->name('rujukan.biodata');
-Route::get('/rujukan/list/{noIdentitas}', [VerifikasiIdentitasController::class, 'listRujukan'])->middleware(['auth'])->name('rujukan.list');
+// Route::get('/rujukan/list/{noIdentitas}', [VerifikasiIdentitasController::class, 'listRujukan'])->middleware(['auth'])->name('rujukan.list');
 
 
 
@@ -107,4 +113,5 @@ Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);
 Route::get('SEP/{noSEP}', [CariController::class, 'index']);
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/pasien.php';
 // require __DIR__ . '/auth_peserta.php';
