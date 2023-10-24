@@ -30,6 +30,9 @@ class VerifiedNomorController extends Controller
             } elseif (strlen($data['No_Identitas']) !== 13) {
                 $message = 'No Kartu Tidak Sesuai (Harus 13 karakter)';
                 return redirect()->back()->withErrors(['error' => $message]);
+            } elseif ($data['KodeRekanan'] != '032') {
+                $message = 'Peserta Terdaftar Sebagai Pasien Umum';
+                return redirect()->back()->withErrors(['error' => $message]);
             }
             $request->session()->put('identitas', $data['No_Identitas']);
         } else {

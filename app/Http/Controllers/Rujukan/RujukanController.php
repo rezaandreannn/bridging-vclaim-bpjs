@@ -37,7 +37,6 @@ class RujukanController extends Controller
         $noKartu = $request->session()->get('identitas');
         $response = $this->rujukan->getByNomorKartu($noKartu);
         $dataRujukan = $response['response']['rujukan'];
-        // dd($dataRujukan);
 
         $rujukans = [];
         foreach ($dataRujukan as $rujukan) {
@@ -53,7 +52,11 @@ class RujukanController extends Controller
         return view('rujukan.list', compact('rujukans'));
     }
 
-    public function listRs()
+    public function listRs(Request $request)
     {
+        $noKartu = $request->session()->get('identitas');
+        $response = $this->rujukan->getListRsByNomorKartu($noKartu);
+        $dataRujukan = $response['response'];
+        dd($dataRujukan);
     }
 }

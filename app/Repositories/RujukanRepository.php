@@ -39,4 +39,11 @@ class RujukanRepository
         $result = $this->bridging->getRequest($endpoint);
         return json_decode($result, true);
     }
+
+    public function getListRsByNomorKartu($nomorKartu)
+    {
+        $endpoint = 'Rujukan/RS/List/Peserta/' . $nomorKartu;
+        $result = $this->bridging->getRequest($endpoint);
+        return json_decode($result, true);
+    }
 }
