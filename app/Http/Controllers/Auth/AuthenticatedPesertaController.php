@@ -17,13 +17,13 @@ class AuthenticatedPesertaController extends Controller
      */
     public function create()
     {
-        try {
-            \Artisan::call('db:seed', [
-                '--class' => 'PesertaSeeder'
-            ]);
-        } catch (\Throwable $th) {
-            // dd($th);
-        }
+        // try {
+        //     \Artisan::call('db:seed', [
+        //         '--class' => 'PesertaSeeder'
+        //     ]);
+        // } catch (\Throwable $th) {
+        //     // dd($th);
+        // }
 
         return view('auth.login-peserta');
     }
