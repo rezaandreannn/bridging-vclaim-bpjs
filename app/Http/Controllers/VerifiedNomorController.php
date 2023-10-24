@@ -19,10 +19,18 @@ class VerifiedNomorController extends Controller
     public function verified(Request $request)
     {
         $noMr = $request->no_mr;
-        $response = Http::get('https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran/' . $noMr);
+        $response = Http::get('http://192.168.2.120/api.simrs/index.php/api/pasien/pendaftaran/' . $noMr);
         if ($response->status() == 200) {
             $result = json_decode($response->getBody()->getContents(), true);
             $data = $result['data'][0];
+            // handle error no kartu
+            if ($data['No_Identitas'] == null) {
+                $message = 'No Kartu Di SimRS Kosong';
+                return redirect()->back()->withErrors(['error' => $message]);
+            } elseif (strlen($data['No_Identitas']) !== 13) {
+                $message = 'No Kartu Tidak Sesuai (Harus 13 karakter)';
+                return redirect()->back()->withErrors(['error' => $message]);
+            }
             $request->session()->put('identitas', $data['No_Identitas']);
         } else {
             $message = 'No MR tidak Terdaftar';

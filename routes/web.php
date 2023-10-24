@@ -77,6 +77,7 @@ Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
 // ROUTE RUJUKAN 
 Route::prefix('rujukan')->name('rujukan.')->group(function () {
     Route::get('list', [RujukanController::class, 'list'])->middleware(['auth'])->name('list');
+    Route::get('list/rs', [RujukanController::class, 'listRs'])->middleware(['auth'])->name('list.rs');
 });
 
 // ROUTE SEP

@@ -22,30 +22,28 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-notes-medical"></i>
                     <span>Rencana Kontrol</span></a>
                 <ul class="dropdown-menu">
-                    {{-- <li><a class="nav-link" href="{{ route('rencana_kontrol.sep')}}">SEP</a>
+                    <li><a class="nav-link" href="{{ route('rencana_kontrol.skdp.create')}}">Buat Surat Kontrol</a></li>
+                    <li><a class="nav-link" href="layout-default.html">SKDP</a></li>
+                    {{-- <li><a class="nav-link" href="layout-default.html">SPRI</a></li> --}}
+                </ul>
             </li>
-            <li><a class="nav-link" href="layout-default.html">Cari No Surat Kontrol</a></li> --}}
-            <li><a class="nav-link" href="{{ route('rencana_kontrol.skdp.create')}}">Buat Surat Kontrol</a></li>
-            <li><a class="nav-link" href="layout-default.html">SKDP</a></li>
-            {{-- <li><a class="nav-link" href="layout-default.html">SPRI</a></li> --}}
-        </ul>
-        </li>
 
-        <li class="dropdown {{ request()->is('rujukan*') ? 'active' : '' }}">
-            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-notes-medical"></i>
-                <span>Rujukan</span></a>
-            <ul class="dropdown-menu">
-                <li class="{{ request()->is('rujukan/list*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('rujukan.list')}}">List Rujukan</a></li>
-            </ul>
-        </li>
+            <li class="dropdown {{ request()->is('rujukan*') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-notes-medical"></i>
+                    <span>Rujukan</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->is('rujukan/list*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('rujukan.list')}}">List Rujukan Pcare</a></li>
+                    <li class="{{ request()->is('rujukan/list/rs*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('rujukan.list.rs')}}">List Rujukan Rs</a></li>
+                </ul>
+            </li>
 
-        <li class="dropdown {{ request()->is('sep*') ? 'active' : '' }}">
-            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-medical-alt"></i>
-                <span>SEP</span></a>
-            <ul class="dropdown-menu">
-                <li class="{{ request()->is('sep/history*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sep.history')}}">History</a></li>
-            </ul>
-        </li>
+            <li class="dropdown {{ request()->is('sep*') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-medical-alt"></i>
+                    <span>SEP</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->is('sep/history*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sep.history')}}">History</a></li>
+                </ul>
+            </li>
 
 
 
