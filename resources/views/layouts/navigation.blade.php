@@ -22,7 +22,7 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-notes-medical"></i>
                     <span>Rencana Kontrol</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('rencana_kontrol.skdp.create')}}">Buat Surat Kontrol</a></li>
+                    <li><a class="nav-link" href="{{ route('rencana_kontrol.list')}}">List</a></li>
                     <li><a class="nav-link" href="layout-default.html">SKDP</a></li>
                     {{-- <li><a class="nav-link" href="layout-default.html">SPRI</a></li> --}}
                 </ul>

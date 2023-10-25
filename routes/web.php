@@ -18,6 +18,7 @@ use App\Http\Controllers\RencanaKontrol\FindSepController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
+use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
 use App\Http\Controllers\Rujukan\ListRujukanController;
@@ -72,6 +73,7 @@ Route::get('/delete-session-verify', [VerifiedNomorController::class, 'forgetSes
 Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
     Route::get('sep', FindSepController::class)->middleware(['auth'])->name('sep');
     Route::get('/skdp/create', [SkdpController::class, 'index'])->name('skdp.create');
+    Route::get('/list', [ListSuratKontrolController::class, 'list'])->name('list');
 });
 
 // ROUTE RUJUKAN 

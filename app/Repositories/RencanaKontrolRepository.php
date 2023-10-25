@@ -14,15 +14,15 @@ class RencanaKontrolRepository
     }
 
     /**
-     * Get Surat Kontrol By Nomor Kartu.
-     * @param string $nomorKartu
+     * Get Surat Kontrol.
+     * @param string|int $bulan
+     * @param string|int $tahun
+     * @param string|int $nomorKartu
      * @return mixed The retrieved Surat Kontrol data, or null if not found.
      */
 
-    public function findByNomorKartu($nomorKartu)
+    public function getByNomorKartu($bulan, $tahun, $nomorKartu)
     {
-        $bulan = date('m');
-        $tahun = date('Y');
         $endpoint = 'RencanaKontrol/ListRencanaKontrol/Bulan/' . $bulan . '/Tahun/' . $tahun . '/NoKartu/' . $nomorKartu . '/filter/1';
         $result = $this->bridging->getRequest($endpoint);
         return json_decode($result, true);
