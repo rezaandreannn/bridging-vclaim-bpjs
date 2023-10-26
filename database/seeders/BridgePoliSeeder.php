@@ -17,12 +17,17 @@ class BridgePoliSeeder extends Seeder
         $data = [
             // penyakit dalam(INT)
             [
+                'kode_dokter_rs' => '111',
+                'kode_poli' => 'INT',
+                'kode_dokter_bpjs' => '18642'
+            ],
+            [
                 'kode_dokter_rs' => '113',
                 'kode_poli' => 'INT',
                 'kode_dokter_bpjs' => '260234'
             ],
             [
-                'kode_dokter_rs' => '141',
+                'kode_dokter_rs' => '140',
                 'kode_poli' => 'INT',
                 'kode_dokter_bpjs' => '9971'
             ],
