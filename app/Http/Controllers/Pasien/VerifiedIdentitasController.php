@@ -45,6 +45,8 @@ class VerifiedIdentitasController extends Controller
         return redirect()->route('pasien.dashboard');
     }
 
+
+
     public function forgetSessionIdentitas(Request $request)
     {
 
