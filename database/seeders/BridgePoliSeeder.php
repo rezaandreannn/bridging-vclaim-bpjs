@@ -31,6 +31,11 @@ class BridgePoliSeeder extends Seeder
                 'kode_poli' => 'INT',
                 'kode_dokter_bpjs' => '9971'
             ],
+            [
+                'kode_dokter_rs' => '148',
+                'kode_poli' => 'MAT',
+                'kode_dokter_bpjs' => '219202'
+            ],
             // Tambahkan data lainnya sesuai kebutuhan
         ];
 

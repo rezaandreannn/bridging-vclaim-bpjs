@@ -24,13 +24,13 @@ class VerifiedIdentitasController extends Controller
             // handle error no kartu
             if ($data['No_Identitas'] == null) {
                 $message = 'No Kartu Di SimRS Kosong';
-                return redirect()->back()->withErrors(['error' => $message]);
+                return redirect()->back()->with('error', $message);
             } elseif (strlen($data['No_Identitas']) !== 13) {
                 $message = 'No Kartu Tidak Sesuai (Harus 13 karakter)';
-                return redirect()->back()->withErrors(['error' => $message]);
+                return redirect()->back()->with('error', $message);
             } elseif ($data['KodeRekanan'] != '032') {
                 $message = 'Peserta Terdaftar Sebagai Pasien Umum';
-                return redirect()->back()->withErrors(['error' => $message]);
+                return redirect()->back()->with('error', $message);
             }
             $sessionPasien = [
                 'no_identitas' => $data['No_Identitas'],

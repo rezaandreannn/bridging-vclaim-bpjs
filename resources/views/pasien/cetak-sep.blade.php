@@ -35,7 +35,7 @@
                 <div class="p-2">
                 </div>
                 <div>
-                    <img src="./bpjs.png" class="img-thumbnail border-0" style="width: 100%;">
+                    <img src="{{ asset('img/bpjs-amiz.png')}}" class="img-thumbnail border-0" style="width:100%;">
                 </div>
                 <div>
                 </div>

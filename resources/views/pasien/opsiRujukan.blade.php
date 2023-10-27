@@ -22,5 +22,6 @@
     </x-auth-card>
     <a href="{{ route('pasien.forget')}}" class="btn btn-info btn-lg">Kembali</a>
     @push('js-guest')
+    @include('sweetalert::alert')
     @endpush
 </x-guest-layout>

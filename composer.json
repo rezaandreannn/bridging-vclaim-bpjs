@@ -12,6 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "nullpunkt/lz-string-php": "^1.3",
+        "realrashid/sweet-alert": "^7.1",
         "virusphp/bridging-bpjs": "^2.1"
     },
     "require-dev": {

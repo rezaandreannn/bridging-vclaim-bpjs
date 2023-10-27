@@ -7,7 +7,6 @@ use App\Models\BridgePoli;
 use Illuminate\Http\Request;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\SEP\FingerPrintController;
 use App\Repositories\FingerPrintRepository;
 use App\Repositories\RujukanRepository;
 
@@ -43,7 +42,7 @@ class InsertSepByRujukan extends Controller
                 // cek apakah pasien sudah finger 
                 $findFinger = $this->cekFinger($nomorKartu);
                 if ($poli != 'ANA' && $findFinger['kode'] != 1) {
-                    dd($findFinger['status']);
+                    return redirect()->back()->with('error', $findFinger['status']);
                 }
                 // cek apakah poli rujukan sama dengan pendaftaran online rs
                 if ($poli == $poliRs) {
@@ -51,19 +50,21 @@ class InsertSepByRujukan extends Controller
                 }
                 // get histori sep untuk
                 $sepHistories = $this->getHistoriSep($nomorKartu);
+
                 foreach ($sepHistories as $sepHistory) {
                     $noRujukan = $sepHistory['noRujukan'];
+                    // $no = '080305010823P002397';
                     if ($noRujukan == $rujukans[0]['noKunjungan']) {
-                        // data rujukan sudah tercetak sep, untuk buat sep harus buat surat kontrol
-                        dd('data rujukan sudah tercetak sep, silahkan pilih surat kontrol untuk cetak sep');
+                        $message = 'data rujukan sudah tercetak SEP, Silahkan pilih kontrol untuk cetak sep';
+                        return redirect()->back()->with('error', $message);
                     }
                 }
                 // SEP belum tercetak
                 return view('pasien.cetak-sep', compact('rujukans'));
             }
         } else {
-            $message = 'rujukan tidak ditemukan';
-            return redirect()->back()->with('message', $message);
+            $message = 'Rujukan tidak ditemukan';
+            return redirect()->back()->with('error', $message);
         }
     }
 
