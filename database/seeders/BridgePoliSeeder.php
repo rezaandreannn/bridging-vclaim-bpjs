@@ -17,22 +17,22 @@ class BridgePoliSeeder extends Seeder
         $data = [
             // penyakit dalam(INT)
             [
-                'kode_dokter_rs' => '111',
+                'kode_dokter_rs' => '111', // dr. Agung Budi Prasetiyo
                 'kode_poli' => 'INT',
                 'kode_dokter_bpjs' => '18642'
             ],
             [
-                'kode_dokter_rs' => '113',
+                'kode_dokter_rs' => '113', // dr. SLAMET WIDODO, Sp. PD 
                 'kode_poli' => 'INT',
                 'kode_dokter_bpjs' => '260234'
             ],
             [
-                'kode_dokter_rs' => '140',
+                'kode_dokter_rs' => '140', // dr. Toumi Shiddiqi, Sp. P.D., M. Kes
                 'kode_poli' => 'INT',
                 'kode_dokter_bpjs' => '9971'
             ],
             [
-                'kode_dokter_rs' => '148',
+                'kode_dokter_rs' => '148', // dr. ANDRIAN SUNER, Sp.M
                 'kode_poli' => 'MAT',
                 'kode_dokter_bpjs' => '219202'
             ],

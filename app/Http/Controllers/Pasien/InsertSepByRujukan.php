@@ -29,38 +29,133 @@ class InsertSepByRujukan extends Controller
         $nomorKartu = session()->get('pasien')['no_identitas'];
         $kodeDokterRs = session()->get('pasien')['kode_dokter_rs'];
 
+        // cek session apakah masih aktif
+        if (!session()->has('pasien')) {
+            return redirect()->back()->with('error', 'Sesi telah habis');
+        }
+
         // get rujukan by nomor kartu
         $response = $this->rujukanRepository->getByNomorKartu($nomorKartu);
         if ($response['metaData']['code'] == 200) {
-            $dataRujukan = $response['response']['rujukan'];
+            // ambil data rujukan yang sesuai dengan pendaftaran online
             $rujukans = [];
+            $dataRujukan = $response['response']['rujukan'];
+
+            // get row kode dokter dari pendaftaran online
+            $bridge = $this->findPoli($kodeDokterRs);
+            $poliRs = $bridge['kode_poli'];
+
             foreach ($dataRujukan as $rujukan) {
-                // ambil poli berdasarkan pendaftaran online
-                $bridge = $this->findPoli($kodeDokterRs);
-                $poliRs = $bridge['kode_poli'];
-                $poli = $rujukan['poliRujukan']['kode'];
-                // cek apakah pasien sudah finger 
-                $findFinger = $this->cekFinger($nomorKartu);
-                if ($poli != 'ANA' && $findFinger['kode'] != 1) {
-                    return redirect()->back()->with('error', $findFinger['status']);
-                }
-                // cek apakah poli rujukan sama dengan pendaftaran online rs
-                if ($poli == $poliRs) {
+                $poliRujukan = $rujukan['poliRujukan'];
+                $poliKode = $poliRujukan['kode'];
+
+                // Bandingkan kode poli dengan kode yang ada di database
+                if ($poliKode == $poliRs) {
                     $rujukans[] = $rujukan;
                 }
-                // get histori sep untuk
-                $sepHistories = $this->getHistoriSep($nomorKartu);
+            }
 
-                foreach ($sepHistories as $sepHistory) {
-                    $noRujukan = $sepHistory['noRujukan'];
-                    // $no = '080305010823P002397';
-                    if ($noRujukan == $rujukans[0]['noKunjungan']) {
-                        $message = 'data rujukan sudah tercetak SEP, Silahkan pilih kontrol untuk cetak sep';
-                        return redirect()->back()->with('error', $message);
+            // cek apakah pasien sudah finger 
+            $findFinger = $this->cekFinger($nomorKartu);
+
+            // if ($poliRs != 'ANA' && $findFinger['kode'] != 1) {
+            //     return redirect()->back()->with('error', $findFinger['status']);
+            // }
+
+            // cek rujukan sudah terbit SEP atau belum
+            if ($rujukans != null) {
+                // ambil histori SEP
+                $sepHistories = $this->getHistoriSep($nomorKartu);
+                // cek apakah SEP ada
+                if ($sepHistories != null) {
+                    foreach ($sepHistories as $sepHistory) {
+                        $noRujukan = $sepHistory['noRujukan'];
+                        if ($noRujukan == $rujukans[0]['noKunjungan']) {
+                            $message = 'data rujukan sudah terbit SEP, Silahkan pilih kontrol untuk cetak sep';
+                            return redirect()->back()->with('error', $message);
+                        }
                     }
                 }
-                // SEP belum tercetak
+                // jika SEP belum ada makan insert SEP
+                $dataRujukan = $rujukans[0];
+                $requestData = [
+                    'request' => [
+                        't_sep' => [
+                            "noKartu" => $dataRujukan['peserta']['noKartu'],
+                            "tglSep" => date('Y-m-d'),
+                            "ppkPelayanan" => "0107R006",
+                            "jnsPelayanan" => "2", //rawat jalan
+                            "klsRawat" => [
+                                "klsRawatHak" => $dataRujukan['peserta']['hakKelas']['kode'],
+                                "klsRawatNaik" => "",
+                                "pembiayaan" => "",
+                                "penanggungJawab" => ""
+                            ],
+                            "noMR" => $dataRujukan['peserta']['mr']['noMR'] ?? '214942',
+                            "rujukan" => [
+                                "asalRujukan" => "1", //faskes 1
+                                "tglRujukan" => $dataRujukan['tglKunjungan'],
+                                "noRujukan" => $dataRujukan['noKunjungan'],
+                                "ppkRujukan" => $dataRujukan['provPerujuk']['kode']
+                            ],
+                            "catatan" => "",
+                            "diagAwal" => $dataRujukan['diagnosa']['kode'],
+                            "poli" => [
+                                "tujuan" => $dataRujukan['poliRujukan']['kode'],
+                                "eksekutif" => "0"
+                            ],
+                            "cob" => [
+                                "cob" => "0"
+                            ],
+                            "katarak" => [
+                                "katarak" => "0"
+                            ],
+                            "jaminan" => [
+                                "lakaLantas" => "0",
+                                "noLP" => "",
+                                "penjamin" => [
+                                    "tglKejadian" => "",
+                                    "keterangan" => "",
+                                    "suplesi" => [
+                                        "suplesi" => "0",
+                                        "noSepSuplesi" => "",
+                                        "lokasiLaka" => [
+                                            "kdPropinsi" => "",
+                                            "kdKabupaten" => "",
+                                            "kdKecamatan" => ""
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            "tujuanKunj" => "0",
+                            "flagProcedure" => "",
+                            "kdPenunjang" => "",
+                            "assesmentPel" => "",
+                            "skdp" => [
+                                "noSurat" => "",
+                                "kodeDPJP" => ""
+                            ],
+                            "dpjpLayan" => $bridge['kode_dokter_bpjs'], //diambil dari relasi table dokter bridge
+                            "noTelp" => $dataRujukan['peserta']['mr']['noMR'] ?? '082374958632',
+                            "user" => auth()->user()->name ?? ''
+                        ]
+                    ]
+                ];
+
+                // dd($requestData);
+
+                $insert = json_encode($requestData, true);
+                $response = $this->sepRepository->insert($insert);
+                if ($response['metaData']['code'] == 200) {
+                    dd($response);
+                } else {
+                    $message = $response['metaData']['message'];
+                    return redirect()->back()->with('error', $message);
+                }
                 return view('pasien.cetak-sep', compact('rujukans'));
+            } else {
+                $message = 'Rujukan tidak ditemukan';
+                return redirect()->back()->with('error', $message);
             }
         } else {
             $message = 'Rujukan tidak ditemukan';
@@ -83,7 +178,12 @@ class InsertSepByRujukan extends Controller
         $startDate = $currentDate->copy()->subDays(90)->toDateString();
 
         $result =  $this->sepRepository->history($noKartu,  $startDate, $endDate);
-        return $result['response']['histori'];
+        // dd($result['metaData']['code'] == 200);
+        if ($result['metaData']['code'] == 200) {
+            return $result['response']['histori'];
+        } else {
+            return $result['response'];
+        }
     }
 
     private function cekFinger($nomorKartu)

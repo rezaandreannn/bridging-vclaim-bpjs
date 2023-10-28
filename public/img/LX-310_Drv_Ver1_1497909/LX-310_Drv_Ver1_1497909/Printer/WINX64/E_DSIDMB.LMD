@@ -1,0 +1,12 @@
+[ProfileInf]
+LPT_Channel00=268500995
+LPT_ChnlMode00=7
+LPT_Channel01=268435461
+LPT_ChnlMode01=7
+LPT_ChnlStsCmd00="1B,40,1B,40,1B,28,52,08,00,00,52,45,4D,4F,54,45,31,53,54,02,00,00,01,53,4D,02,00,00,01,1B,00,00,00"
+LPT_ChnlStsCmd01="73,74,01,00,01"
+LPT_ReadTotalTimeOut=10000
+LPT_ReadIntervalTimeOut=20
+LPT_SetTimeOutFlag=1
+CBT Enable=1
+LPT_SupportUSBReprint=1

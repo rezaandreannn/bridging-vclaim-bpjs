@@ -26,4 +26,11 @@ class SepRepository
         $data = $this->bridging->getRequest($endpoint);
         return json_decode($data, true);
     }
+
+    public function insert($data)
+    {
+        $endpoint = 'SEP/2.0/insert';
+        $data = $this->bridging->postRequest($endpoint, $data);
+        return json_decode($data, true);
+    }
 }

@@ -18,6 +18,7 @@ use App\Http\Controllers\RencanaKontrol\FindSepController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
+use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
@@ -110,6 +111,7 @@ Route::get('/rujukan/biodata/{noIdentitas}', [VerifikasiIdentitasController::cla
 Route::get('rujukan/{nomorRujukan}', [RujukanController::class, 'byNomorRujukan'])->name('rujukan.index');
 
 Route::get('dpjp', [DpjpController::class, 'getDpjp']);
+Route::get('peserta', [FindByNomorKartuController::class, 'index']);
 
 Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
 Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);

@@ -11,10 +11,12 @@
             @page {
                 size: 21cm 14cm;
                 margin: 0;
+
             }
 
             body {
                 margin: 0;
+                margin-top: 50px;
                 padding: 0;
             }
 
