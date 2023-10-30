@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Pasien;
+namespace App\Http\Controllers\Pasien\Frond;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

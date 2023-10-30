@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Pasien;
+namespace App\Http\Controllers\Pasien\Frond;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,5 +12,4 @@ class SelectOpsiController extends Controller
     {
         return view('pasien.opsiRujukan');
     }
-
 }

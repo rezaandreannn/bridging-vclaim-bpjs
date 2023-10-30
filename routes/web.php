@@ -4,7 +4,6 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SEP\CariController;
 use App\Http\Controllers\Frond\SepController;
-use App\Http\Controllers\GetPasienController;
 use App\Http\Controllers\SEP\HistoyController;
 use App\Http\Controllers\VerifiedNomorController;
 use App\Http\Controllers\Referensi\DpjpController;
@@ -17,6 +16,8 @@ use App\Http\Controllers\RencanaKontrol\SkdpController;
 use App\Http\Controllers\RencanaKontrol\FindSepController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Back\Monitoring\KlaimController;
+use App\Http\Controllers\Back\PesertaController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
@@ -52,7 +53,7 @@ Route::post('/logout/peserta', [AuthenticatedPesertaController::class, 'destroy'
     ->name('logout.peserta');
 
 Route::get('/app', function () {
-    return view('layouts.app');
+    return view('peserta');
 })->name('app');
 
 Route::get('/dashboard', function () {
@@ -86,6 +87,15 @@ Route::prefix('rujukan')->name('rujukan.')->group(function () {
 // ROUTE SEP
 Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
+});
+
+// ROUTE PESERTA 
+Route::get('pendaftaran/pasien', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
+
+
+// MONITORING
+Route::prefix('monitoring')->name('monitoring.')->group(function () {
+    Route::get('klaim', [KlaimController::class, 'index'])->middleware(['auth'])->name('klaim');
 });
 
 

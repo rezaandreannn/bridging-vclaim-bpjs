@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Pasien;
+namespace App\Http\Controllers\Pasien\Frond;
 
 use Carbon\Carbon;
 use App\Models\BridgePoli;
 use Illuminate\Http\Request;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
-use App\Repositories\FingerPrintRepository;
 use App\Repositories\RujukanRepository;
+use App\Repositories\FingerPrintRepository;
 
-class InsertSepByRujukan extends Controller
+class RujukanNewController extends Controller
 {
     protected $rujukanRepository;
     protected $sepRepository;
