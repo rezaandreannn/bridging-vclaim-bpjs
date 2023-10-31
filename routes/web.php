@@ -80,6 +80,8 @@ Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
     Route::get('/list', [ListSuratKontrolController::class, 'list'])->name('list');
 });
 
+Route::get('print', [NewRujukanController::class, 'cetak']);
+
 // ROUTE RUJUKAN 
 Route::prefix('rujukan')->name('rujukan.')->group(function () {
     Route::get('list', [RujukanController::class, 'list'])->middleware(['auth'])->name('list');

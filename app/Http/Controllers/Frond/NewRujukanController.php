@@ -8,6 +8,8 @@ use App\Repositories\RujukanRepository;
 use App\Repositories\ReferensiRepository;
 use App\Repositories\FingerPrintRepository;
 use Laravel\Sail\Console\PublishCommand;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 class NewRujukanController extends Controller
 {
@@ -49,5 +51,42 @@ class NewRujukanController extends Controller
         $data = json_decode($dataEncode, true);
         $result = $data['response'];
         return $result;
+    }
+
+    public function cetak(){
+
+        $connector = new FilePrintConnector(config('app.printer_url'));
+        $printer = new Printer($connector);
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+
+        $printer->setEmphasis();
+        $printer->text("RSU MUHAMMADIYAH METRO\n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Jl. Soekarno Hatta No.42 Mulyojati 16B \n Metro Barat Kota Metro\n\n");
+
+
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Nama Pasien : parjo \n\n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("No MR : tes \n\n");
+
+
+        $printer->setTextSize(1, 1);
+        $printer->setEmphasis();
+        $printer->text("Telah Melakukan Finger dan Cetak SEP \n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Pada " . date('d-m-Y h:i:s'));
+        $printer->feed(3);
+
+        $printer->cut();
+        $printer->close();
+        return redirect()->back();
     }
 }

@@ -14,6 +14,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    
+    'printing'    => env('PRINTING', true),
+    'printer_url' => env('PRINTER_URL', "\\\\MSI\\EPSON TM-T82X Receipt"),
 
     /*
     |--------------------------------------------------------------------------
