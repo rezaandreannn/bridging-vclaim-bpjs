@@ -36,7 +36,7 @@ class VerifiedNomorController extends Controller
             }
             $request->session()->put('identitas', $data['No_Identitas']);
         } else {
-            $message = 'No MR tidak Terdaftar';
+            $message = 'Maaf Anda Belum melakukan Pendaftaran Online';
             return redirect()->back()->withErrors(['error' => $message]);
         }
 

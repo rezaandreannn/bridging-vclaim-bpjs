@@ -38,7 +38,7 @@ class VerifiedIdentitasController extends Controller
             ];
             $request->session()->put('pasien', $sessionPasien);
         } else {
-            $message = 'No MR tidak Terdaftar';
+            $message = 'Mohon Maaf Anda Belum melakukan Pendaftran Online';
             return redirect()->back()->withErrors(['error' => $message]);
         }
 

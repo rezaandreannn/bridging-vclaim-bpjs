@@ -136,7 +136,7 @@ class RujukanNewController extends Controller
                                 "kodeDPJP" => ""
                             ],
                             "dpjpLayan" => $bridge['kode_dokter_bpjs'], //diambil dari relasi table dokter bridge
-                            "noTelp" => $dataRujukan['peserta']['mr']['noMR'] ?? '082374958627',
+                            "noTelp" => '082374958627',
                             "user" => auth()->user()->name ?? ''
                         ]
                     ]
