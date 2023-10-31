@@ -9,6 +9,8 @@ use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 class RujukanNewController extends Controller
 {
@@ -147,7 +149,18 @@ class RujukanNewController extends Controller
                 $insert = json_encode($requestData, true);
                 $response = $this->sepRepository->insert($insert);
                 if ($response['metaData']['code'] == 200) {
-                    dd($response);
+                    $data = $response['sep'];
+                    $printData = [
+                        'noSep' => $data['noSep'],
+                        'tglSep' => $data['tglSep'],
+                        'noKartu' => $data['peserta']['noKartu'],
+                        'noMr' => $data['peserta']['noMr'],
+                        'nama' => $data['peserta']['nama'],
+                        'poli' => $data['poli'],
+                        'jnsPelayanan' => $data['jnsPelayanan']
+                    ];
+                    $this->cetak($printData);
+                    return redirect()->route('pasien.verify');
                 } else {
                     $message = $response['metaData']['message'];
                     return redirect()->back()->with('error', $message);
@@ -194,5 +207,43 @@ class RujukanNewController extends Controller
         $data = json_decode($dataEncode, true);
         $result = $data['response'];
         return $result;
+    }
+
+    public function cetak($printData)
+    {
+
+        $connector = new FilePrintConnector(config('app.printer_url'));
+        $printer = new Printer($connector);
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+
+        $printer->setEmphasis();
+        $printer->text("RSU MUHAMMADIYAH METRO\n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Jl. Soekarno Hatta No.42 Mulyojati 16B \n Metro Barat Kota Metro\n\n");
+
+
+
+        $printer->setTextSize(1, 1);
+        $printer->text("No SEP : " . $printData['noSep'] . " \n\n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("No MR : tes \n\n");
+
+
+        $printer->setTextSize(1, 1);
+        $printer->setEmphasis();
+        $printer->text("Telah Melakukan Finger dan Cetak SEP \n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Pada " . date('d-m-Y h:i:s'));
+        $printer->feed(3);
+
+        $printer->cut();
+        $printer->close();
+        return redirect()->back();
     }
 }
