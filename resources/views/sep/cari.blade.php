@@ -104,7 +104,7 @@
             <div class="card-footer">
                 <div class="text-md-right">
                     <div class="float-lg-left mb-lg-0 mb-3">
-                        <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-trash-alt"></i> Hapus SEP</button>
+                        <a href="{{ route('sep.delete', $sep['noSep'])}}" class="btn btn-danger btn-icon icon-left"><i class="fas fa-trash-alt"></i> Hapus SEP</a>
                         <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-edit"></i> Edit SEP</button>
                     </div>
                     <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-print"></i> Print</button>

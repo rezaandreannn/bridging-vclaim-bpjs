@@ -33,4 +33,21 @@ class FindByNomorController extends Controller
 
         return view('SEP.cari', compact('sep'));
     }
+
+    public function deleteSep($noSep)
+    {
+        $data = [
+            'request' => [
+                't_sep' => [
+                    'noSep' => $noSep,
+                    'user' => auth()->user()->name ?? 'admin'
+                ]
+            ]
+        ];
+
+
+        $delete = json_encode($data, true);
+        $this->sepRepository->delete($delete);
+        return redirect()->back()->with('success', 'No SEP Berhasil Di Hapus');
+    }
 }

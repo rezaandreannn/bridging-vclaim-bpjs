@@ -104,6 +104,7 @@ Route::prefix('monitoring')->name('monitoring.')->group(function () {
 // SEP
 Route::prefix('SEP')->name('sep.')->group(function () {
     Route::get('cari', [FindByNomorController::class, 'index'])->middleware(['auth'])->name('cari');
+    Route::get('delete/{noSep}', [FindByNomorController::class, 'deleteSep'])->middleware(['auth'])->name('delete');
 });
 
 

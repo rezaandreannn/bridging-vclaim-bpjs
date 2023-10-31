@@ -33,4 +33,11 @@ class SepRepository
         $data = $this->bridging->postRequest($endpoint, $data);
         return json_decode($data, true);
     }
+
+    public function delete($data)
+    {
+        $endpoint = 'SEP/2.0/delete';
+        $data = $this->bridging->deleteRequest($endpoint, $data);
+        return json_decode($data, true);
+    }
 }
