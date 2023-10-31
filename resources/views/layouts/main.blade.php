@@ -45,7 +45,7 @@
                                 SEP
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">History SEP</a>
+                                <a class="dropdown-item" href="{{ route('sep.cari')}}">Cari SEP</a>
                                 {{-- <a class="dropdown-item" href="#">Hapus SEP</a> --}}
                                 <div class="dropdown-divider"></div>
                                 {{-- <a class="dropdown-item" href="#">History SEP</a> --}}
@@ -59,13 +59,13 @@
 
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {{ request()->is('monitoring*') ? 'active' : ''}}">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                                 Monitoring
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Data Kunjungan</a>
-                                <a class="dropdown-item" href="#">Data Klaim</a>
+                                <a class="dropdown-item {{ request()->is('monitoring/kunjungan*') ? 'active' : ''}}" href="{{ route('monitoring.kunjungan')}}">Data Kunjungan</a>
+                                <a class="dropdown-item {{ request()->is('monitoring/klaim*') ? 'active' : ''}}" href="{{ route('monitoring.klaim')}}">Data Klaim</a>
                                 <a class="dropdown-item" href="#">Histori Peserta</a>
                                 <a class="dropdown-item" href="#">Data Klaim Jasa Raharja</a>
                                 <div class="dropdown-divider"></div>

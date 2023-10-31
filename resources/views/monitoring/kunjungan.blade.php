@@ -2,26 +2,17 @@
     <section class="section">
         <div class="section-header" style="margin-top: -80px;">
             <form class="form-inline" action="" method="get">
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input type="date" name="tanggal" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">
+                <label class="sr-only" for="tanggal">Tanggal</label>
+                <input type="date" name="tanggal" value="{{ request()->input('tanggal')}}" class="form-control mb-2 mr-sm-2" id="tanggal">
 
                 <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
                 <div class="input-group mb-2 mr-sm-2">
                     <select class="form-control form-select" name="jenis_pelayanan">
                         <option selected>Pilih Jenis Pelayanan</option>
-                        <option value="1">Rawat Inap</option>
-                        <option value="2">Rawat Jalan</option>
+                        <option value="1" {{ request()->input('jenis_pelayanan') == 1 ? 'selected' : ''}}>Rawat Inap</option>
+                        <option value="2" {{ request()->input('jenis_pelayanan') == 2 ? 'selected' : ''}}>Rawat Jalan</option>
                     </select>
 
-                </div>
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <select class="form-control form-select" name="status_klaim">
-                        <option selected>Pilih Status Klaim</option>
-                        <option value="1">Proses Verifikasi</option>
-                        <option value="2">Proses Verifikasi</option>
-                        <option value="3">Klaim</option>
-                    </select>
                 </div>
                 <button class="btn btn-primary btn-lg mb-2"><i class="fas fa-filter"></i> Filter</button>
             </form>
@@ -29,7 +20,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h4>Data Klaim</h4>
+                <h4>Data Kunjungan</h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -37,29 +28,31 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">No MR</th>
+                                <th scope="col">No SEP</th>
                                 <th scope="col">No Kartu</th>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Nama</th>
-                                <th scope="col">Dokter</th>
+                                <th scope="col">Poli</th>
+                                <th scope="col">No Rujukan</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach($pasiens as $pasien)
+                            @foreach($kunjungans as $kunjungan)
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
-                            <td width="10%">{{ $pasien['No_MR']}}</td>
-                            <td width="15%">{{ $pasien['No_Identitas']}}</td>
-                            <td width="15%">{{ $pasien['Tanggal']}}</td>
-                            <td width="12%">{{ $pasien['Nama_Pasien']}}</td>
-                            <td width="20%">{{ $pasien['Nama_Dokter']}}</td>
-                            <td>
-                                <a href="" class="btn btn-primary btn-sm"><i class="fas fa-info p-1"></i></a>
-                                <a href="" class="btn btn-primary btn-sm"><i class="far fa-copy"></i></a>
-                            </td>
+                                <td width="15%">{{ $kunjungan['noSep']}}</td>
+                                <td width="15%">{{ $kunjungan['noKartu']}}</td>
+                                <td width="15%">{{ $kunjungan['tglSep']}}</td>
+                                <td width="12%">{{ $kunjungan['nama']}}</td>
+                                <td width="10%">{{ $kunjungan['poli']}}</td>
+                                <td width="15%">{{ $kunjungan['noRujukan']}}</td>
+                                <td>
+                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-trash-alt"></i></a>
+
+                                </td>
                             </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

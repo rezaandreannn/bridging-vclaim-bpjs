@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Back\Monitoring;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\MonitoringRepository;
-use Illuminate\Http\Request;
 
-class KlaimController extends Controller
+class KunjunganController extends Controller
 {
     protected $monitoringRepository;
 
@@ -17,24 +17,23 @@ class KlaimController extends Controller
 
     public function index(Request $request)
     {
-        $klaims = [];
+        $kunjungans = [];
         if ($request->jenis_pelayanan) {
             $tanggal = $request->tanggal ?? date('Y-m-d');
             $pelayanan = $request->jenis_pelayanan;
 
-            $statusKlaim = $request->status_klaim;
 
-            $data =  $this->monitoringRepository->klaim($tanggal, $pelayanan, $statusKlaim);
+            $data =  $this->monitoringRepository->kunjungan($tanggal, $pelayanan);
             if ($data['metaData']['code'] == 200) {
-                $klaims = $data['response']['klaim'];
-                dd($klaims);
+                $kunjungans = $data['response']['sep'];
+                // dd($kunjungans);
             } else {
-                $klaims = [];
-                dd($klaims);
+                $kunjungans = [];
+                // dd($kunjungans);
             }
         }
 
 
-        return view('monitoring.klaim', compact('klaims'));
+        return view('monitoring.kunjungan', compact('kunjungans'));
     }
 }

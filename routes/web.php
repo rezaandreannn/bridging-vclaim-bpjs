@@ -17,7 +17,9 @@ use App\Http\Controllers\RencanaKontrol\FindSepController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KlaimController;
+use App\Http\Controllers\Back\Monitoring\KunjunganController;
 use App\Http\Controllers\Back\PesertaController;
+use App\Http\Controllers\Back\SEP\FindByNomorController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
@@ -96,6 +98,12 @@ Route::get('pendaftaran/pasien', [PesertaController::class, 'index'])->middlewar
 // MONITORING
 Route::prefix('monitoring')->name('monitoring.')->group(function () {
     Route::get('klaim', [KlaimController::class, 'index'])->middleware(['auth'])->name('klaim');
+    Route::get('kunjungan', [KunjunganController::class, 'index'])->middleware(['auth'])->name('kunjungan');
+});
+
+// SEP
+Route::prefix('SEP')->name('sep.')->group(function () {
+    Route::get('cari', [FindByNomorController::class, 'index'])->middleware(['auth'])->name('cari');
 });
 
 
