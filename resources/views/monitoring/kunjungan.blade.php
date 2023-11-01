@@ -41,7 +41,12 @@
                             @foreach($kunjungans as $kunjungan)
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
-                                <td width="15%">{{ $kunjungan['noSep']}}</td>
+                                <td width="20%">
+                                    <span class="copy-text" data-clipboard-text="{{ $kunjungan['noSep'] }}">
+                                        {{ $kunjungan['noSep'] }}
+                                    </span>
+                                    <button class="btn-copy btn btn-warning btn-sm" data-clipboard-text="{{ $kunjungan['noSep'] }}"><i class="fas fa-copy"></i></button>
+                                </td>
                                 <td width="15%">{{ $kunjungan['noKartu']}}</td>
                                 <td width="15%">{{ $kunjungan['tglSep']}}</td>
                                 <td width="12%">{{ $kunjungan['nama']}}</td>
@@ -49,10 +54,10 @@
                                 <td width="15%">{{ $kunjungan['noRujukan']}}</td>
                                 <td>
                                     <a href="" class="btn btn-primary btn-sm"><i class="fas fa-trash-alt"></i></a>
-
                                 </td>
                             </tr>
                             @endforeach
+                            <div class="popup" id="popup">Teks telah disalin ke clipboard!</div>
                         </tbody>
                     </table>
                 </div>
@@ -70,6 +75,28 @@
             font-size: 13px;
         }
 
+        .popup {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            animation: popupFade 2s forwards;
+        }
+
+        @keyframes popupFade {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
     </style>
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
@@ -78,10 +105,42 @@
     @endpush
 
     @push('js-libraries')
+
     <script src="{{ asset('stisla/node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
+    <script>
+        // Inisialisasi Clipboard.js pada halaman pertama
+        var clipboard = new ClipboardJS('.btn-copy');
+
+        clipboard.on('success', function(e) {
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
+        });
+
+        $(document).ready(function() {
+            var table = $('#example').DataTable();
+
+            // Event handler untuk setiap kali DataTable digambar ulang
+            table.on('draw.dt', function() {
+                // Inisialisasi Clipboard.js setelah penggambaran ulang
+                clipboard = new ClipboardJS('.btn-copy');
+
+                clipboard.on('success', function(e) {
+                    popup.style.display = 'block';
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                    }, 2000);
+                });
+            });
+        });
+
+    </script>
     @endpush
 </x-main-layout>

@@ -8,11 +8,11 @@
         </form>
         {{-- </div> --}}
 
+        @if($sep != null)
         <div class="card">
             <div class="card-header">
                 <h4>Detail SEP </h4>
             </div>
-            @if($sep != null)
             <div class="card-body">
                 <div class="row">
                     <div class="col-3">
@@ -111,9 +111,11 @@
                 </div>
             </div>
             @else
+            @if(request()->input('no_sep'))
             <div class="alert alert-danger" role="alert">
                 <span>Data Tidak ditemukan</span>
             </div>
+            @endif
             @endif
     </section>
 
@@ -141,5 +143,6 @@
     <script src="{{ asset('stisla/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
+    @include('sweetalert::alert')
     @endpush
 </x-main-layout>

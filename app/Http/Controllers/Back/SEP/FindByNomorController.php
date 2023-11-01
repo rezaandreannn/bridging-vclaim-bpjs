@@ -45,7 +45,6 @@ class FindByNomorController extends Controller
             ]
         ];
 
-
         $delete = json_encode($data, true);
         $this->sepRepository->delete($delete);
         return redirect()->back()->with('success', 'No SEP Berhasil Di Hapus');
