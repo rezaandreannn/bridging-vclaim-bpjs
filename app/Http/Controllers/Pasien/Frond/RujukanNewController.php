@@ -149,7 +149,8 @@ class RujukanNewController extends Controller
                 $insert = json_encode($requestData, true);
                 $response = $this->sepRepository->insert($insert);
                 if ($response['metaData']['code'] == 200) {
-                    $data = $response['sep'];
+                    // $dataResponse = json_decode($response, true);
+                    $data = $response['response']['sep'];
                     $printData = [
                         'noSep' => $data['noSep'],
                         'tglSep' => $data['tglSep'],
@@ -224,13 +225,20 @@ class RujukanNewController extends Controller
         $printer->setTextSize(1, 1);
         $printer->text("Jl. Soekarno Hatta No.42 Mulyojati 16B \n Metro Barat Kota Metro\n\n");
 
-
+        $printer->setTextSize(1, 1);
+        $printer->text("No SEP : " . $printData['noSep'] . " \n");
 
         $printer->setTextSize(1, 1);
-        $printer->text("No SEP : " . $printData['noSep'] . " \n\n");
+        $printer->text("No MR : " . $printData['noMr'] . " \n");
 
         $printer->setTextSize(1, 1);
-        $printer->text("No MR : tes \n\n");
+        $printer->text("Nama : ". $printData['nama'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Poli Tujuan : " . $printData['poli'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Jenis Pelayanan : " . $printData['jnsPelayanan'] . " \n");
 
 
         $printer->setTextSize(1, 1);
@@ -239,7 +247,15 @@ class RujukanNewController extends Controller
         $printer->setEmphasis(false);
 
         $printer->setTextSize(1, 1);
-        $printer->text("Pada " . date('d-m-Y h:i:s'));
+        $printer->text("Pada " . date('d-m-Y h:i:s'). "\n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Poli : \n\n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Penunjang : \n\n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Kasir : \n\n");
+      
         $printer->feed(3);
 
         $printer->cut();
