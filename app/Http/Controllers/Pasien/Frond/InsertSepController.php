@@ -9,19 +9,21 @@ use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
+use App\Repositories\RencanaKontrolRepository;
 
 class InsertSepController extends Controller
 {
     protected $rujukanRepository;
     protected $sepRepository;
     protected $fingerPrintRepository;
+    protected $rencanaKontrolRepository;
 
-
-    public function __construct(Request $request, RujukanRepository $rujukanRepository, SepRepository $sepRepository, FingerPrintRepository $fingerPrintRepository)
+    public function __construct(RujukanRepository $rujukanRepository, SepRepository $sepRepository, FingerPrintRepository $fingerPrintRepository, RencanaKontrolRepository $rencanaKontrolRepository)
     {
         $this->rujukanRepository = $rujukanRepository;
         $this->sepRepository = $sepRepository;
         $this->fingerPrintRepository = $fingerPrintRepository;
+        $this->rencanaKontrolRepository = $rencanaKontrolRepository;
     }
 
     public function byNewRujukan(Request $request)
@@ -175,8 +177,65 @@ class InsertSepController extends Controller
         }
     }
 
-    public function byOldSepAndAddSuratKontrol()
+    public function byOldSepAndAddSuratKontrol(Request $request)
     {
+        // CEK APAKAH SESSION MASIH AKTIF
+        if ($request->session()->has('pasien')) {
+            $nomorKartu = $request->session()->get('pasien')['no_identitas'];
+            $kodeDokterRs = $request->session()->get('pasien')['kode_dokter_rs'];
+        } else {
+            return redirect()->back()->with('error', 'Sesi telah habis');
+        }
+
+        try {
+            //CARI NO SEP BERDASARKAN POLI YANG SAMA DENGAN PENDAFTARAN ONLINE
+            $sepHistories = $this->getHistoriSep($nomorKartu);
+
+            // CEK APAKAH SEP ADA
+            if ($sepHistories != null) {
+                $oldSep = [];
+                // GET 1 BARIS DARI BERDASARKAN KODE DOKTER YANG ADA DI RS
+                $bridge = $this->findPoli($kodeDokterRs);
+                $poliRs = $bridge['kode_poli'];
+
+                foreach ($sepHistories as $sepHistory) {
+                    $getPoliTujuan = $sepHistory['poliTujSep'];
+
+                    // Bandingkan kode poli dengan kode yang ada di database
+                    if ($getPoliTujuan == $poliRs) {
+                        $oldSep = $sepHistory;
+                    }
+                }
+                // AMBIL NO SEP
+                $noSep = $oldSep['noSep'];
+                // INSERT RENCANA KONTROL BY NO SEP
+                $requestData = [
+                    'request' => [
+                        'noSEP' => $noSep,
+                        'kodeDokter' => $bridge['kode_dokter_bpjs'],
+                        'poliKontrol' => $bridge['kode_poli'],
+                        'tglRencanaKontrol' => date('Y-m-d'),
+                        'user' => 'admin' ?? 'admin'
+                    ]
+                ];
+
+                $insert = json_encode($requestData, true);
+                $insertRencanKontrol = $this->rencanaKontrolRepository->insert($insert);
+
+                if ($insertRencanKontrol['metaData']['code'] == 200) {
+                    $response = $insertRencanKontrol['response'];
+                    // AMBIL NO RENCANA KONTROL UNTUK KEPERLUAN INSERT SEP
+                    $noSurat = $response['noSuratKontrol'];
+                    $kodeDPJP = $bridge['kode_dokter_bpjs'];
+                } else {
+                    return redirect()->back()->with('error', $insertRencanKontrol['metaData']['message']);
+                }
+            } else {
+                return redirect()->back()->with('error', 'No SEP Tidak Tersedia');
+            }
+        } catch (\Throwable $th) {
+            dd($th);
+        }
     }
 
     private function findPoli($kodeDokterRs)

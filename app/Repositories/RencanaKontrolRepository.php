@@ -27,4 +27,18 @@ class RencanaKontrolRepository
         $result = $this->bridging->getRequest($endpoint);
         return json_decode($result, true);
     }
+
+    public function findSep($noSep)
+    {
+        $endpoint = 'RencanaKontrol/nosep/' . $noSep;
+        $result = $this->bridging->getRequest($endpoint);
+        return json_decode($result, true);
+    }
+
+    public function insert($data)
+    {
+        $endpoint = 'RencanaKontrol/insert';
+        $data = $this->bridging->postRequest($endpoint, $data);
+        return json_decode($data, true);
+    }
 }

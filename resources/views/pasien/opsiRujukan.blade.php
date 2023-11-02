@@ -33,7 +33,7 @@
                     <p class="card-text"><small>Pasien Kontrol yaitu pasien dengan</small></p>
                     <center>
                         <div class="pt-2 pr-2">
-                            <a href="" class="btn btn-danger btn-lg">Pasien Kontrol</a>
+                            <a href="{{ route('pasien.rencankontrol.sep')}}" class="btn btn-danger btn-lg">Pasien Kontrol</a>
                         </div>
                     </center>
 

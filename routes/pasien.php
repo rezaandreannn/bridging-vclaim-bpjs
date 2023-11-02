@@ -13,4 +13,5 @@ Route::prefix('pasien')->name('pasien.')->group(function () {
     Route::get('/select-item', [SelectOpsiController::class, 'index'])->name('dashboard');
     // Route::get('/rujukan', [RujukanNewController::class, 'insertSEP'])->name('rujukan.sep');
     Route::get('/sep/create/byRujukan', [InsertSepController::class, 'byNewRujukan'])->name('rujukan.sep');
+    Route::get('/sep/create/kontrol', [InsertSepController::class, 'byOldSepAndAddSuratKontrol'])->name('rencankontrol.sep');
 });
