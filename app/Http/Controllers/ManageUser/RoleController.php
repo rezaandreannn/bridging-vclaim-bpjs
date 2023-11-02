@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\ManageUser;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
@@ -15,6 +16,10 @@ class RoleController extends Controller
     public function index()
     {
         //
+        $title = 'Role';
+        $roles = Role::all();
+
+        return view('manajemen-user.role.index', \compact('roles','title'));
     }
 
     /**
@@ -36,6 +41,12 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        Role::create([
+            'name' => $request->name,
+            'guard_name' => $request->guard_name
+        ]);
+        $message = 'Created has role successfully!';
+        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -70,6 +81,13 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $role = Role::findOrFail($id);
+        $role->update([
+            'name' => $request->name,
+            'guard_name' => $request->guard_name
+        ]);
+        $message = 'Updated has role successfully!';
+        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -81,5 +99,9 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+        $role = Role::findOrFail($id);
+        $role->delete();
+        $message = 'Removed has role succesfully!';
+        return redirect()->back()->with('success', $message);
     }
 }

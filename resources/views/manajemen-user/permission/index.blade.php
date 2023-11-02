@@ -1,7 +1,7 @@
 <x-app-layout>
     <section class="section">
         <div class="section-header">
-            <h1>Master Data Role</h1>
+            <h1>Master Data Permission</h1>
         </div>
 
     </section>
@@ -14,29 +14,29 @@
                         <div class="card-body">
                         <div class="pb-2">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                             <i class="ion ion-plus"> </i> Add Role
+                             <i class="ion ion-plus"> </i> Add permission
                         </button>
                         </div>
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Role name</th>
+                                        <th>permission name</th>
                                         <th>Guard Name</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($roles as $role)
+                                    @foreach($permissions as $permission)
                                     <tr>
                                         <td style="width: 5%">{{ $loop->iteration }}</td>
-                                        <td>{{ $role->name }}</td>
-                                        <td>{{ $role->guard_name }}</td>
+                                        <td>{{ $permission->name }}</td>
+                                        <td>{{ $permission->guard_name }}</td>
                                         
                                         <td>
-                                        <x-a-link-edit-modal param="{{ $role->id }}">
+                                        <x-a-link-edit-modal param="{{ $permission->id }}">
                                                     </x-a-link-edit-modal>
-                                            <x-button-delete action="{{ route('admin.role.destroy', $role->id) }}" />
+                                            <x-button-delete action="{{ route('admin.permission.destroy', $permission->id) }}" />
                                         </td>
                                     </tr>
                                     @endforeach
@@ -60,18 +60,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.role.store')}}" method="POST">
+                <form action="{{ route('admin.permission.store')}}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Role Name <i><small class="required-label"></small></i>
+                            <label>permission Name <i><small class="required-label"></small></i>
                             </label>
                             <input type="text" name="name" class="form-control" required="">
                             <div class="valid-feedback">
 
                             </div>
                             <div class="invalid-feedback">
-                                <i>Input Role name wajib diisi.</i>
+                                <i>Input permission name wajib diisi.</i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -95,8 +95,8 @@
         </div>
     </div>
 
-    @foreach ($roles as $role)
-    <div class="modal fade" id="editModal{{ $role->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    @foreach ($permissions as $permission)
+    <div class="modal fade" id="editModal{{ $permission->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,25 +105,25 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.role.update', $role->id) }}" method="POST">
+                <form action="{{ route('admin.permission.update', $permission->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Role Name <i><small class="required-label"></small></i>
+                            <label>permission Name <i><small class="required-label"></small></i>
                             </label>
-                            <input type="text" name="name" class="form-control" value="{{ $role->name }}" required="">
+                            <input type="text" name="name" class="form-control" value="{{ $permission->name }}" required="">
                             <div class="valid-feedback">
 
                             </div>
                             <div class="invalid-feedback">
-                                <i>Input role name wajib diisi.</i>
+                                <i>Input permission name wajib diisi.</i>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Guard Name <i><small class="required-label"></small></i>
                             </label>
-                            <input type="text" name="guard_name" class="form-control" value="{{ $role->guard_name }}" required="">
+                            <input type="text" name="guard_name" class="form-control" value="{{ $permission->guard_name }}" required="">
                             <div class="valid-feedback">
 
                             </div>

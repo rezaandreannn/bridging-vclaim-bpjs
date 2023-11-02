@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ManageUser;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -15,6 +16,10 @@ class PermissionController extends Controller
     public function index()
     {
         //
+        $title = 'Permission';
+        $permissions = Permission::all();
+
+        return view('manajemen-user.permission.index', \compact('permissions','title'));
     }
 
     /**
@@ -36,6 +41,12 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         //
+        Permission::create([
+            'name' => $request->name,
+            'guard_name' => $request->guard_name
+        ]);
+        $message = 'Created has permission successfully!';
+        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -70,6 +81,13 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $permission = Permission::findOrFail($id);
+        $permission->update([
+            'name' => $request->name,
+            'guard_name' => $request->guard_name
+        ]);
+        $message = 'Updated has permission successfully!';
+        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -81,5 +99,9 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         //
+        $permission = Permission::findOrFail($id);
+        $permission->delete();
+        $message = 'Removed has permission succesfully!';
+        return redirect()->back()->with('success', $message);
     }
 }
