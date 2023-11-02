@@ -51,6 +51,7 @@
                 <ul class="dropdown-menu">
                     <li class="{{ request()->is('super-admin/role*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.role.index')}}">Role</a></li>
                     <li class="{{ request()->is('super-admin/permission*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.permission.index')}}">Permission</a></li>
+                    <li class="{{ request()->is('super-admin/user*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.user.index')}}">User</a></li>
                 </ul>
             </li>
 
