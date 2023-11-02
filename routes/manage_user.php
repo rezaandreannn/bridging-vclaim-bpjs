@@ -9,4 +9,7 @@ Route::prefix('super-admin')->name('admin.')->group(function () {
     Route::resource('role', RoleController::class)->middleware(['auth'])->except('show');
     Route::resource('permission', PermissionController::class)->middleware(['auth'])->except('show');
     Route::resource('user', UserController::class)->middleware(['auth'])->except('show');
+
+    Route::post('change-role', [UserController::class, 'changeRole'])
+        ->name('change.role');
 });

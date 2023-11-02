@@ -1,1 +1,1 @@
-<a href="{{ $href ?? ''}}" class="btn btn-warning"><i class="far fa-edit"></i></a>
+<a href="{{ $href ?? ''}}" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></a>

@@ -22,9 +22,9 @@ class UserController extends Controller
         $title = 'Role';
         $roles = Role::all();
         $users = User::with('roles')->get();
-       
 
-        return view('manajemen-user.user.index', \compact('roles','title', 'users'));
+
+        return view('manajemen-user.user.index', \compact('roles', 'title', 'users'));
     }
 
     /**
@@ -85,6 +85,10 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        $title = 'Form Edit User';
+        $roles = Role::all();
+        $user = User::find($id);
+        return view('manajemen-user.user.edit', \compact('title', 'user', 'roles'));
     }
 
     /**
@@ -97,6 +101,45 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $user = User::find($id);
+
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+
+        if ($request->roles) {
+
+            if (!$user->hasRole([$request->roles])) {
+
+                $user->assignRole($request->roles);
+            }
+            $user->syncRoles([$request->roles]);
+        }
+
+        $message = 'Updated has user succesfully!';
+        return redirect()->route('admin.user.index')->with('success', $message);
+    }
+
+    public function changeRole(Request $request)
+    {
+        $userId = $request->input('userId');
+        $selectedRoles = $request->input('roles');
+
+        $user = User::find($userId);
+
+        if ($user) {
+            // Sync the selected roles
+            $rolesToAssign = Role::whereIn('id', $selectedRoles)->get();
+            $user->syncRoles($rolesToAssign);
+
+            return redirect()->back()->with('success', 'Roles assigned successfully');
+        }
+
+        return redirect()->back()->with('error', 'User not found');
     }
 
     /**
@@ -108,5 +151,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail($id);
+        $user->delete();
+        $message = 'Removed has user succesfully!';
+        return redirect()->route('admin.user.index')->with('success', $message);
     }
 }
