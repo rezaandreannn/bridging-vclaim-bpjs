@@ -95,7 +95,7 @@ Route::prefix('sep')->name('sep.')->group(function () {
 
 
 // ROUTE PESERTA 
-Route::get('pendaftaran/pasien', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
+Route::get('peserta', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
 
 
 // MONITORING
@@ -133,7 +133,7 @@ Route::get('/rujukan/biodata/{noIdentitas}', [VerifikasiIdentitasController::cla
 Route::get('rujukan/{nomorRujukan}', [RujukanController::class, 'byNomorRujukan'])->name('rujukan.index');
 
 Route::get('dpjp', [DpjpController::class, 'getDpjp']);
-Route::get('peserta', [FindByNomorKartuController::class, 'index']);
+// Route::get('peserta', [FindByNomorKartuController::class, 'index']);
 
 Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
 Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);
