@@ -34,7 +34,7 @@ class FindByNomorController extends Controller
         return view('SEP.cari', compact('sep'));
     }
 
-    public function deleteSep($noSep)
+    public function deleteSep($noSep, Request $request)
     {
         $data = [
             'request' => [
@@ -47,6 +47,7 @@ class FindByNomorController extends Controller
 
         $delete = json_encode($data, true);
         $this->sepRepository->delete($delete);
-        return redirect()->back()->with('success', 'No SEP Berhasil Di Hapus');
+
+        return redirect()->route('sep.cari')->with('success', 'No SEP Berhasil Di Hapus');
     }
 }
