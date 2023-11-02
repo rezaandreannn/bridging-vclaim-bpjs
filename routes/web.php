@@ -93,9 +93,6 @@ Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
 });
 
-Route::prefix('manajemen-user')->name('manajemen-user.')->group(function () {
-    Route::get('role', RoleController::class)->middleware(['auth'])->name('role');
-});
 
 // ROUTE PESERTA 
 Route::get('pendaftaran/pasien', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
@@ -144,4 +141,4 @@ Route::get('SEP/{noSEP}', [CariController::class, 'index']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/pasien.php';
-// require __DIR__ . '/auth_peserta.php';
+require __DIR__ . '/manage_user.php';
