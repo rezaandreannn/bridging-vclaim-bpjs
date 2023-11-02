@@ -1,12 +1,38 @@
 <x-main-layout>
     <section class="section">
-        {{-- <div class="section-header" style="margin-top: -80px;"> --}}
-        <form class="form-inline" action="" method="get" style="margin-top: -50px;">
-            <label class="sr-only" for="no_sep">No SEP</label>
-            <input type="text" name="no_sep" value="{{ request()->input('no_sep')}}" class="form-control mb-2 mr-sm-2" id="no_sep">
-            <button class="btn btn-primary btn-lg mb-2"><i class="fas fa-filter"></i> Filter</button>
+
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-inline" action="" method="get">
+                        {{-- input --}}
+                        <div class="form-group">
+                            {{-- <label>Date</label> --}}
+                            <input type="text" class="form-control datemask" placeholder="YYYY/MM/DD">
+                        </div>
+                        <div class="form-group ml-2" style="width: 300px;">
+                            {{-- <label>Nama Peserta</label> --}}
+                            <select class="form-control select2">
+                                <option>Option 1</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary btn-lg ml-2"><i class="fas fa-search"></i> Cari</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {{-- <div class="section-header" style="margin-top: -80px;">
+            <form class="form-inline" action="" method="get">
+                <input type="date" name="tanggal" value="{{ request()->input('tanggal')}}" class="form-control mb-2 mr-sm-2" id="tanggal">
+        <label class="sr-only" for="no_sep">No SEP</label>
+        <input type="text" name="no_sep" value="{{ request()->input('no_sep')}}" class="form-control mb-2 mr-sm-2" id="no_sep" required>
+        <button class="btn btn-primary btn-lg mb-2"><i class="fas fa-search"></i> Cari</button>
         </form>
-        {{-- </div> --}}
+        </div> --}}
 
         @if($sep != null)
         <div class="card">
@@ -131,6 +157,8 @@
         }
 
     </style>
+
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/bootstrap-daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
@@ -143,6 +171,10 @@
     <script src="{{ asset('stisla/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
+    <script src="{{ asset('stisla/node_modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{ asset('stisla/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('stisla/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' )}}"></script>
+    <script src="{{ asset('stisla/assets/js/page/forms-advanced-forms.js')}}"></script>
     @include('sweetalert::alert')
     @endpush
 </x-main-layout>
