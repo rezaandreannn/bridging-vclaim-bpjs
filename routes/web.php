@@ -26,6 +26,7 @@ use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
+use App\Http\Controllers\SEP\DetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +107,8 @@ Route::prefix('monitoring')->name('monitoring.')->group(function () {
 
 // SEP
 Route::prefix('SEP')->name('sep.')->group(function () {
-    Route::get('cari', [FindByNomorController::class, 'index'])->middleware(['auth'])->name('cari');
+    // Route::get('cari', [FindByNomorController::class, 'index'])->middleware(['auth'])->name('cari');
+    Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
     Route::get('delete/{noSep}', [FindByNomorController::class, 'deleteSep'])->middleware(['auth'])->name('delete');
 });
 
