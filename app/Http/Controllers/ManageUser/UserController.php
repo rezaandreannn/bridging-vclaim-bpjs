@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\ManageUser;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,6 +19,12 @@ class UserController extends Controller
     public function index()
     {
         //
+        $title = 'Role';
+        $roles = Role::all();
+        $users = User::with('roles')->get();
+       
+
+        return view('manajemen-user.user.index', \compact('roles','title', 'users'));
     }
 
     /**
@@ -36,6 +46,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        if ($request->roles) {
+            $user->assignRole([$request->roles]);
+        }
+        $message = 'Created has user succesfully!';
+        return redirect()->back()->with('success', $message);
     }
 
     /**
