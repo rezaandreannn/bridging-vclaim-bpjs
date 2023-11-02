@@ -1,27 +1,29 @@
-<x-main-layout>
+<x-app-layout>
     <section class="section">
-        <div class="section-header" style="margin-top: -80px;">
-            <form class="form-inline" action="" method="get">
-                <label class="sr-only" for="tanggal">Tanggal</label>
-                <input type="date" name="tanggal" value="{{ request()->input('tanggal')}}" class="form-control mb-2 mr-sm-2" id="tanggal">
-
-                <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-                <div class="input-group mb-2 mr-sm-2">
-                    <select class="form-control form-select" name="jenis_pelayanan">
-                        <option selected>Pilih Jenis Pelayanan</option>
-                        <option value="1" {{ request()->input('jenis_pelayanan') == 1 ? 'selected' : ''}}>Rawat Inap</option>
-                        <option value="2" {{ request()->input('jenis_pelayanan') == 2 ? 'selected' : ''}}>Rawat Jalan</option>
-                    </select>
-
-                </div>
-                <button class="btn btn-primary btn-lg mb-2"><i class="fas fa-filter"></i> Filter</button>
-            </form>
+        <div class="section-header">
+            <h4>Data Kunjungan</h4>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="#">Kunjungan</a></div>
+            </div>
         </div>
+        <form class="form-inline" action="" method="get">
+            <label class="sr-only" for="tanggal">Tanggal</label>
+            <input type="date" name="tanggal" value="{{ request()->input('tanggal')}}" class="form-control mb-2 mr-sm-2" id="tanggal">
+
+            <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+            <div class="input-group mb-2 mr-sm-2">
+                <select class="form-control form-select" name="jenis_pelayanan">
+                    <option selected>Pilih Jenis Pelayanan</option>
+                    <option value="1" {{ request()->input('jenis_pelayanan') == 1 ? 'selected' : ''}}>Rawat Inap</option>
+                    <option value="2" {{ request()->input('jenis_pelayanan') == 2 ? 'selected' : ''}}>Rawat Jalan</option>
+                </select>
+
+            </div>
+            <button class="btn btn-primary mb-2"><i class="fas fa-filter"></i> Filter</button>
+        </form>
 
         <div class="card">
-            <div class="card-header">
-                <h4>Data Kunjungan</h4>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="table-1">
@@ -42,22 +44,21 @@
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
                                 <td width="20%">
-                                    <span class="copy-text" data-clipboard-text="{{ $kunjungan['noSep'] }}">
-                                        {{ $kunjungan['noSep'] }}
-                                    </span>
-                                    <button class="btn-copy btn btn-warning btn-sm" data-clipboard-text="{{ $kunjungan['noSep'] }}"><i class="fas fa-copy"></i></button>
+                                    <a href="{{ route('sep.detail', $kunjungan['noSep'])}}">{{ $kunjungan['noSep'] }}</a>
                                 </td>
                                 <td width="15%">{{ $kunjungan['noKartu']}}</td>
                                 <td width="15%">{{ $kunjungan['tglSep']}}</td>
                                 <td width="12%">{{ $kunjungan['nama']}}</td>
-                                <td width="10%">{{ $kunjungan['poli']}}</td>
-                                <td width="15%">{{ $kunjungan['noRujukan']}}</td>
-                                <td>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-trash-alt"></i></a>
+                                <td>{{ $kunjungan['poli']}}</td>
+                                <td width="15%">
+                                    <a href="">{{ $kunjungan['noRujukan']}}</a>
+                                </td>
+                                <td width="25%">
+                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-print"></i></a>
+                                    <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                             @endforeach
-                            <div class="popup" id="popup">Teks telah disalin ke clipboard!</div>
                         </tbody>
                     </table>
                 </div>
@@ -68,33 +69,11 @@
     @push('css-libraries')
     <style>
         table.table td {
-            font-size: 12px;
+            font-size: 11px;
         }
 
         table.table th {
-            font-size: 13px;
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            animation: popupFade 2s forwards;
-        }
-
-        @keyframes popupFade {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0;
-            }
+            font-size: 12px;
         }
 
     </style>
@@ -113,34 +92,5 @@
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
-    <script>
-        // Inisialisasi Clipboard.js pada halaman pertama
-        var clipboard = new ClipboardJS('.btn-copy');
-
-        clipboard.on('success', function(e) {
-            popup.style.display = 'block';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 2000);
-        });
-
-        $(document).ready(function() {
-            var table = $('#example').DataTable();
-
-            // Event handler untuk setiap kali DataTable digambar ulang
-            table.on('draw.dt', function() {
-                // Inisialisasi Clipboard.js setelah penggambaran ulang
-                clipboard = new ClipboardJS('.btn-copy');
-
-                clipboard.on('success', function(e) {
-                    popup.style.display = 'block';
-                    setTimeout(() => {
-                        popup.style.display = 'none';
-                    }, 2000);
-                });
-            });
-        });
-
-    </script>
     @endpush
-</x-main-layout>
+    </x-main-layout>

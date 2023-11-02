@@ -45,7 +45,7 @@
                                 SEP
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('sep.cari')}}">Cari SEP</a>
+                                {{-- <a class="dropdown-item" href="{{ route('sep.cari')}}">Cari SEP</a> --}}
                                 {{-- <a class="dropdown-item" href="#">Hapus SEP</a> --}}
                                 <div class="dropdown-divider"></div>
                                 {{-- <a class="dropdown-item" href="#">History SEP</a> --}}

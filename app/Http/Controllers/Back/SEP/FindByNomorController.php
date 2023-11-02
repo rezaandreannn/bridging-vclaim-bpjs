@@ -24,10 +24,8 @@ class FindByNomorController extends Controller
             $data =  $this->sepRepository->findByNomor($no_sep);
             if ($data['metaData']['code'] == 200) {
                 $sep = $data['response'];
-                // dd($sep);
             } else {
                 $sep = [];
-                // dd($sep);
             }
         }
 
@@ -36,14 +34,14 @@ class FindByNomorController extends Controller
 
     public function deleteSep($noSep, Request $request)
     {
-        $data = [
-            'request' => [
-                't_sep' => [
-                    'noSep' => $noSep,
-                    'user' => auth()->user()->name ?? 'admin'
-                ]
-            ]
-        ];
+        // $data = [
+        //     'request' => [
+        //         't_sep' => [
+        //             'noSep' => $noSep,
+        //             'user' => auth()->user()->name ?? 'admin'
+        //         ]
+        //     ]
+        // ];
 
         $delete = json_encode($data, true);
         $this->sepRepository->delete($delete);
