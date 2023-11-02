@@ -23,7 +23,7 @@ class RencanaKontrolRepository
 
     public function getByNomorKartu($bulan, $tahun, $nomorKartu)
     {
-        $endpoint = 'RencanaKontrol/ListRencanaKontrol/Bulan/' . $bulan . '/Tahun/' . $tahun . '/NoKartu/' . $nomorKartu . '/filter/1';
+        $endpoint = 'RencanaKontrol/ListRencanaKontrol/Bulan/' . $bulan . '/Tahun/' . $tahun . '/NoKartu/' . $nomorKartu . '/filter/2';
         $result = $this->bridging->getRequest($endpoint);
         return json_decode($result, true);
     }

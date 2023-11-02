@@ -4,6 +4,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SEP\CariController;
 use App\Http\Controllers\Frond\SepController;
+use App\Http\Controllers\SEP\DetailController;
 use App\Http\Controllers\SEP\HistoyController;
 use App\Http\Controllers\Back\PesertaController;
 use App\Http\Controllers\VerifiedNomorController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\RencanaKontrol\SkdpController;
 use App\Http\Controllers\Rujukan\ListRujukanController;
 use App\Http\Controllers\Back\SEP\FindByNomorController;
 use App\Http\Controllers\Back\Monitoring\KlaimController;
+use App\Http\Controllers\Peserta\DetailPesertaController;
 use App\Http\Controllers\RencanaKontrol\FindSepController;
 use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
@@ -26,7 +28,6 @@ use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
-use App\Http\Controllers\SEP\DetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,7 @@ Route::prefix('sep')->name('sep.')->group(function () {
 
 // ROUTE PESERTA 
 Route::get('peserta', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
+Route::get('peserta/detail/{noKartu}', DetailPesertaController::class)->middleware(['auth'])->name('peserta.detail');
 
 
 // MONITORING
