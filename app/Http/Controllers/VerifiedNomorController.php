@@ -13,7 +13,11 @@ class VerifiedNomorController extends Controller
 
     public function index()
     {
-        return view('verify');
+        // if (auth()->user()->hasRole('admin')) {
+        //     return redirect()->route('dashboard');
+        // } elseif (auth()->user()->hasRole('mr')) {
+        //     return view('verify2');
+        // }
     }
 
     public function verified(Request $request)

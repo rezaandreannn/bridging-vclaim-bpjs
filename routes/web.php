@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SEP\CariController;
 use App\Http\Controllers\Frond\SepController;
 use App\Http\Controllers\SEP\HistoyController;
+use App\Http\Controllers\Back\PesertaController;
 use App\Http\Controllers\VerifiedNomorController;
 use App\Http\Controllers\Referensi\DpjpController;
 use App\Http\Controllers\Rujukan\RujukanController;
@@ -13,19 +14,18 @@ use App\Http\Controllers\Frond\NewRujukanController;
 use App\Http\Controllers\Frond\SuratKontrolController;
 use App\Http\Controllers\SEP\HistoryPesertaController;
 use App\Http\Controllers\RencanaKontrol\SkdpController;
+use App\Http\Controllers\Rujukan\ListRujukanController;
+use App\Http\Controllers\Back\SEP\FindByNomorController;
+use App\Http\Controllers\Back\Monitoring\KlaimController;
 use App\Http\Controllers\RencanaKontrol\FindSepController;
+use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Back\Monitoring\KlaimController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
-use App\Http\Controllers\Back\PesertaController;
-use App\Http\Controllers\Back\SEP\FindByNomorController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
-use App\Http\Controllers\Peserta\FindByNomorKartuController;
-use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
-use App\Http\Controllers\Rujukan\ListRujukanController;
+use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +91,10 @@ Route::prefix('rujukan')->name('rujukan.')->group(function () {
 // ROUTE SEP
 Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
+});
+
+Route::prefix('manajemen-user')->name('manajemen-user.')->group(function () {
+    Route::get('role', RoleController::class)->middleware(['auth'])->name('role');
 });
 
 // ROUTE PESERTA 

@@ -45,6 +45,14 @@
                 </ul>
             </li>
 
+            <li class="dropdown {{ request()->is('manajemen-user    *') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file-medical-alt"></i>
+                    <span>Manajemen user</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ request()->is('sep/history*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('sep.history')}}">User</a></li>
+                </ul>
+            </li>
+
 
 
 

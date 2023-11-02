@@ -37,7 +37,7 @@
                     <input type="number" id="no_kartu" class="form-control" name="no_mr" value="{{ old('no_mr')}}">
                     {{-- <x-input id="password" class="" type="hidden" name="password" value="password" required /> --}}
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Cari</button>
+                        <button class="btn btn-primary" type="submit">Cari dua dua</button>
                     </div>
                 </div>
                 @if($errors->has('error'))
