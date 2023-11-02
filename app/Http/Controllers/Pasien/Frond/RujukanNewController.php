@@ -60,9 +60,9 @@ class RujukanNewController extends Controller
             // cek apakah pasien sudah finger 
             $findFinger = $this->cekFinger($nomorKartu);
 
-            // if ($poliRs != 'ANA' && $findFinger['kode'] != 1) {
-            //     return redirect()->back()->with('error', $findFinger['status']);
-            // }
+            if ($poliRs != 'ANA' && $findFinger['kode'] != 1) {
+                return redirect()->back()->with('error', $findFinger['status']);
+            }
 
             // cek rujukan sudah terbit SEP atau belum
             if ($rujukans != null) {
@@ -212,7 +212,7 @@ class RujukanNewController extends Controller
 
     public function cetak($printData)
     {
-        
+
 
         $connector = new FilePrintConnector(config('app.printer_url'));
         $printer = new Printer($connector);
@@ -235,7 +235,7 @@ class RujukanNewController extends Controller
         $printer->text("No MR : " . $printData['noMr'] . " \n");
 
         $printer->setTextSize(1, 1);
-        $printer->text("Nama : ". $printData['nama'] . " \n");
+        $printer->text("Nama : " . $printData['nama'] . " \n");
 
         $printer->setTextSize(1, 1);
         $printer->text("Poli Tujuan : " . $printData['poli'] . " \n");
@@ -250,7 +250,7 @@ class RujukanNewController extends Controller
         $printer->setEmphasis(false);
 
         $printer->setTextSize(1, 1);
-        $printer->text("Pada " . date('d-m-Y h:i:s'). "\n\n");
+        $printer->text("Pada " . date('d-m-Y h:i:s') . "\n\n");
         $printer->setTextSize(1, 1);
         $printer->text("-------------------------------- \n\n\n");
 
@@ -264,7 +264,7 @@ class RujukanNewController extends Controller
         $printer->text("Pelayanan Farmasi : \n\n\n");
         $printer->setTextSize(1, 1);
         $printer->text("Pelayanan Kasir : \n\n\n");
-      
+
         $printer->feed(3);
 
         $printer->cut();

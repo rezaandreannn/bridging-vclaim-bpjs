@@ -1,9 +1,16 @@
-<x-main-layout>
+<x-app-layout>
     <section class="section">
-        <div class="card">
-            <div class="card-header">
-                <h4>Data Peserta</h4>
+        <div class="section-header">
+            <h4>Data Peserta</h4>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="#">Peserta</a></div>
             </div>
+        </div>
+
+        <h2 class="section-title">Table</h2>
+        <p class="section-lead">Data Peserta <span class="text-success text-bold">BPJS</span> pada tanggal {{ date('d M, Y')}} </p>
+        <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="table-1">
@@ -24,12 +31,12 @@
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
                                 <td width="10%">{{ $pasien['No_MR']}}</td>
                                 <td width="15%">{{ $pasien['No_Identitas']}}</td>
-                                <td width="15%">{{ $pasien['Tanggal']}}</td>
+                                <td width="15%">{{ \Carbon\Carbon::parse($pasien['Tanggal'])->format('Y-m-d') }}
+                                </td>
                                 <td width="12%">{{ $pasien['Nama_Pasien']}}</td>
                                 <td width="20%">{{ $pasien['Nama_Dokter']}}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-info p-1"></i></a>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="far fa-copy"></i></a>
+                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-info p-1"></i> Detail</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -37,6 +44,10 @@
                     </table>
                 </div>
             </div>
+        </div>
+
+
+
     </section>
 
     {{-- css library --}}
@@ -64,4 +75,4 @@
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
     @endpush
-</x-main-layout>
+    </x-main-layout>
