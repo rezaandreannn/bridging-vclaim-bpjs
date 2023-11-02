@@ -36,7 +36,7 @@
                                 <td width="12%">{{ $pasien['Nama_Pasien']}}</td>
                                 <td width="20%">{{ $pasien['Nama_Dokter']}}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-info p-1"></i> Detail</a>
+                                    <a href="{{ route('peserta.detail', $pasien['No_Identitas'])}}" class="btn btn-primary btn-sm"><i class="fas fa-info p-1"></i> Detail</a>
                                 </td>
                             </tr>
                             @endforeach
