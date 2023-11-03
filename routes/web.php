@@ -25,6 +25,7 @@ use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
+use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
@@ -80,6 +81,7 @@ Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
     Route::get('sep', FindSepController::class)->middleware(['auth'])->name('sep');
     Route::get('/skdp/create', [SkdpController::class, 'index'])->name('skdp.create');
     Route::get('/list', [ListSuratKontrolController::class, 'list'])->name('list');
+    Route::get('/delete/{noSurat}', DeleteRencanaKontrolController::class)->name('delete');
 });
 
 Route::get('print', [NewRujukanController::class, 'cetak']);

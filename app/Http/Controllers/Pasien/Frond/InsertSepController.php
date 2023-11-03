@@ -226,6 +226,9 @@ class InsertSepController extends Controller
                     $response = $insertRencanKontrol['response'];
                     // AMBIL NO RENCANA KONTROL UNTUK KEPERLUAN INSERT SEP
                     $noSurat = $response['noSuratKontrol'];
+
+                    // CARI SURAT KONTROL BERDASARKAN NOMOR
+                    $suratKontrol = $this->rencanaKontrolRepository->findByNomorSurat($noSurat);
                     $kodeDPJP = $bridge['kode_dokter_bpjs'];
                 } else {
                     return redirect()->back()->with('error', $insertRencanKontrol['metaData']['message']);
