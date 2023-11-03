@@ -19,6 +19,13 @@ class RujukanRepository
      * @return mixed The retrieved Rujukan data, or null if not found.
      */
 
+    public function findByNoRujukan($noRujukan)
+    {
+        $endpoint = 'Rujukan/' . $noRujukan;
+        $result = $this->bridging->getRequest($endpoint);
+        return json_decode($result, true);
+    }
+
     public function getByNomorKartu($nomorKartu)
     {
         $endpoint = 'Rujukan/List/Peserta/' . $nomorKartu;

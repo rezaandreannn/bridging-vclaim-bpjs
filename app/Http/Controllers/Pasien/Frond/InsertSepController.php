@@ -229,7 +229,115 @@ class InsertSepController extends Controller
 
                     // CARI SURAT KONTROL BERDASARKAN NOMOR
                     $suratKontrol = $this->rencanaKontrolRepository->findByNomorSurat($noSurat);
-                    $kodeDPJP = $bridge['kode_dokter_bpjs'];
+                    if ($suratKontrol['metaData']['code'] == 200) {
+                        $kodeDokter = $suratKontrol['response']['kodeDokter'];
+                        $namaDokter = $suratKontrol['response']['namaDokter'];
+
+                        // NO SEP UNTUK KEBUTUHAN FIND SEP 
+                        $noSepBySuratKontrol = $suratKontrol['response']['sep']['noSep'];
+                        $findOldSep = $this->sepRepository->findByNomor($noSepBySuratKontrol);
+
+                        // FILTER POLI UNTUK KEBUTUHAN DIAGNOSA
+                        if ($findOldSep['metaData']['code'] == 200) {
+                            $dataSep = $findOldSep['response'];
+
+                            // AMBIL RUJUKAN BUAT KEBUTUHAN ISI FORM SEP RUJUKAN
+                            $noRujukan = $dataSep['noRujukan'];
+                            $rujukan = $this->rujukanRepository->findByNoRujukan($noRujukan);
+
+                            if ($rujukan['metaData']['code'] == 200) {
+                                $dataRujukan = $rujukan['response']['rujukan'];
+
+                                // PEMBERIAN DIAGNOSA UNTUK POLI
+                                if ($bridge['kode_poli'] == 'MAT') {
+                                    $diagnosa = 'H52.6';
+                                } elseif ($bridge['kode_poli'] == 'ORT') {
+                                    $diagnosa = 'Z47.9';
+                                } else {
+                                    $diagnosa = 'Z09.8';
+                                }
+
+                                // dd($dataRujukan);
+
+
+                                $requestData = [
+                                    'request' => [
+                                        't_sep' => [
+                                            "noKartu" => $dataSep['peserta']['noKartu'],
+                                            "tglSep" => date('Y-m-d'),
+                                            "ppkPelayanan" => "0107R006",
+                                            "jnsPelayanan" => "2", //rawat jalan
+                                            "klsRawat" => [
+                                                "klsRawatHak" => $dataRujukan['peserta']['hakKelas']['kode'],
+                                                "klsRawatNaik" => "",
+                                                "pembiayaan" => "",
+                                                "penanggungJawab" => "",
+                                            ],
+                                            "noMR" => $dataSep['peserta']['noMr'],
+                                            "rujukan" => [
+                                                "asalRujukan" => "1", //faskes 1
+                                                "tglRujukan" => $dataRujukan['tglKunjungan'],
+                                                "noRujukan" => $dataRujukan['noKunjungan'],
+                                                "ppkRujukan" => $dataRujukan['provPerujuk']['kode']
+                                            ],
+                                            "catatan" => "",
+                                            "diagAwal" => $diagnosa,
+                                            "poli" => [
+                                                "tujuan" => $dataRujukan['poliRujukan']['kode'],
+                                                "eksekutif" => "0"
+                                            ],
+                                            "cob" => [
+                                                "cob" => "0"
+                                            ],
+                                            "katarak" => [
+                                                "katarak" => "0"
+                                            ],
+                                            "jaminan" => [
+                                                "lakaLantas" => "0",
+                                                "noLP" => "",
+                                                "penjamin" => [
+                                                    "tglKejadian" => "",
+                                                    "keterangan" => "",
+                                                    "suplesi" => [
+                                                        "suplesi" => "0",
+                                                        "noSepSuplesi" => "",
+                                                        "lokasiLaka" => [
+                                                            "kdPropinsi" => "",
+                                                            "kdKabupaten" => "",
+                                                            "kdKecamatan" => ""
+                                                        ]
+                                                    ]
+                                                ]
+                                            ],
+                                            "tujuanKunj" => "2",
+                                            "flagProcedure" => "",
+                                            "kdPenunjang" => "",
+                                            "assesmentPel" => "5",
+                                            "skdp" => [
+                                                "noSurat" => $noSurat ?? '',
+                                                "kodeDPJP" => $kodeDokter ?? ''
+                                            ],
+                                            "dpjpLayan" => $kodeDokter,
+                                            "noTelp" => $dataRujukan['peserta']['mr']['noTelepon'] ?? '',
+                                            "user" => auth()->user()->name ?? 'admin'
+                                        ]
+                                    ]
+                                ];
+
+
+
+                                $insertSep = json_encode($requestData, true);
+                                $response =   $this->sepRepository->insert($insertSep);
+                                dd($response);
+                                return redirect()->back()->with('success', 'sep sukses');
+                            } else {
+                                return redirect()->back()->with('error', 'Rujukan failed');
+                            }
+                        }
+                    } else {
+                        return redirect()->back()->with('error', 'surat kontrol failed');
+                    }
+                    dd($suratKontrol);
                 } else {
                     return redirect()->back()->with('error', $insertRencanKontrol['metaData']['message']);
                 }
