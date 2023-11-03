@@ -35,10 +35,24 @@ class RencanaKontrolRepository
         return json_decode($result, true);
     }
 
+    public function findByNomorSurat($noSurat)
+    {
+        $endpoint = 'RencanaKontrol/noSuratKontrol/' . $noSurat;
+        $result = $this->bridging->getRequest($endpoint);
+        return json_decode($result, true);
+    }
+
     public function insert($data)
     {
         $endpoint = 'RencanaKontrol/insert';
         $data = $this->bridging->postRequest($endpoint, $data);
+        return json_decode($data, true);
+    }
+
+    public function delete($data)
+    {
+        $endpoint = 'RencanaKontrol/Delete';
+        $data = $this->bridging->deleteRequest($endpoint, $data);
         return json_decode($data, true);
     }
 }
