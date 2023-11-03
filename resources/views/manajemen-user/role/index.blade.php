@@ -23,6 +23,7 @@
                                         <th>No</th>
                                         <th>Role name</th>
                                         <th>Guard Name</th>
+                                        <th>Permission</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -32,10 +33,27 @@
                                         <td style="width: 5%">{{ $loop->iteration }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->guard_name }}</td>
+                                        <td>
+                                        <button type="button" class="badge border-0
+                                             @if($role->permissions->count() > 1)
+                                                    badge-primary
+                                                @elseif($role->permissions->count() == 1)
+                                                    badge-success
+                                                @else
+                                                    badge-danger
+                                                @endif" data-toggle="modal" data-target="#changePermission{{ $role->permissions->count() > 1 ? $role->id : ''}}">
+                                            @if($role->permissions->count() > 1)
+                                            {{$role->permissions->count()}} Permission
+                                            @elseif($role->permissions->count() == 1)
+                                            {{ $role->permissions[0]->name }}
+                                            @else
+                                            Not Permissions
+                                            @endif
+                                        </button>
+                                        </td>
                                         
                                         <td>
-                                        <x-a-link-edit-modal param="{{ $role->id }}">
-                                                    </x-a-link-edit-modal>
+                                        <x-button-edit href="{{ route('admin.role.edit', $role->id) }}" />
                                             <x-button-delete action="{{ route('admin.role.destroy', $role->id) }}" />
                                         </td>
                                     </tr>
@@ -50,6 +68,50 @@
         </div>
     </section>
 
+
+        <!-- Modal Role -->
+        @foreach($roles as $role)
+    <div class="modal fade" id="changePermission{{$role->id}}" tabindex="-1" aria-labelledby="changePermissionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePermissionLabel">Permission By Role {{ $role->name}} </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                    <input type="hidden" value="{{ $role->id }}" name="roleId">
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Role Name</th>
+                                    <th scope="col">Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($role->permissions as $permission)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $permission->name}}</td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="permission{{ $permission->id}}" name="permissions[]" value="{{ $permission->id}}" {{ $permission->hasPermissionTo($permission->name) ? 'checked' : ''}} disabled>
+                                            <label class="custom-control-label" for="permission{{ $permission->id}}"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+              
+            </div>
+        </div>
+    </div>
+    @endforeach
         <!-- Modal Add -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -78,6 +140,21 @@
                             <label>Guard Name <i><small class="required-label"></small></i>
                             </label>
                             <input type="text" name="guard_name" class="form-control" required="">
+                            <div class="valid-feedback">
+
+                            </div>
+                            <div class="invalid-feedback">
+                                <i>Input guard name wajib diisi.</i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Permission <i><small class="required-label"></small></i>
+                            </label>
+                            <select name="permissions[]" id="permission" class="form-control select2" multiple="multiple" data-placeholder="Select a permission" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                @foreach ($permissions as $permission)
+                                <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+                                @endforeach
+                            </select>
                             <div class="valid-feedback">
 
                             </div>
@@ -131,6 +208,7 @@
                                 <i>Input guard name wajib diisi.</i>
                             </div>
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Tutup</button>
