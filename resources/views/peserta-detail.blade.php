@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <h2 class="section-title">Tabs</h2>
+        <h2 class="section-title">Identitas Peserta</h2>
         <p class="section-lead">The tab component for dividing parts of content.</p>
         <p class="section-lead">The tab component for dividing parts of content.</p>
         <p class="section-lead">The tab component for dividing parts of content.</p>
@@ -18,7 +18,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Bordered Tab</h4>
+                        <h4 id="tabTitle">Data Aktif Saat Ini</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab2" role="tablist">
@@ -184,5 +184,6 @@
     <script src="{{ asset('stisla/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
+
     @endpush
     </x-main-layout>

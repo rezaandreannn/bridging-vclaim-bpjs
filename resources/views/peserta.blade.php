@@ -9,7 +9,7 @@
         </div>
 
         <h2 class="section-title">Table</h2>
-        <p class="section-lead">Data Peserta <span class="text-success text-bold">BPJS</span> pada tanggal {{ date('d M, Y')}} </p>
+        <p class="section-lead">Data Peserta <span class="text-success text-bold">Rumah Sakit</span> pada tanggal {{ date('d M, Y')}} </p>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
