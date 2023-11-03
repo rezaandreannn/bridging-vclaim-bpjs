@@ -32,6 +32,8 @@ class InsertSepController extends Controller
         if ($request->session()->has('pasien')) {
             $nomorKartu = $request->session()->get('pasien')['no_identitas'];
             $kodeDokterRs = $request->session()->get('pasien')['kode_dokter_rs'];
+            $noMr = $request->session()->get('pasien')['no_mr'];
+            $noHp = $request->session()->get('pasien')['no_telepon'];
         } else {
             return redirect()->back()->with('error', 'Sesi telah habis');
         }
@@ -80,6 +82,7 @@ class InsertSepController extends Controller
                     }
                     // JIKA SEP BELUM ADA MAKA INSERT DATA SEP
                     $dataRujukan = $rujukans[0];
+
                     $requestData = [
                         'request' => [
                             't_sep' => [
@@ -93,7 +96,7 @@ class InsertSepController extends Controller
                                     "pembiayaan" => "",
                                     "penanggungJawab" => ""
                                 ],
-                                "noMR" => $dataRujukan['peserta']['mr']['noMR'],
+                                "noMR" => $dataRujukan['peserta']['mr']['noMR'] ?? $noMr,
                                 "rujukan" => [
                                     "asalRujukan" => "1", //faskes 1
                                     "tglRujukan" => $dataRujukan['tglKunjungan'],
@@ -138,7 +141,7 @@ class InsertSepController extends Controller
                                     "kodeDPJP" => ""
                                 ],
                                 "dpjpLayan" => $bridge['kode_dokter_bpjs'], //diambil dari relasi table dokter bridge
-                                "noTelp" => '082374958627',
+                                "noTelp" => $dataRujukan['peserta']['mr']['noTelepon'] ?? $noHp,
                                 "user" => auth()->user()->name ?? 'admin'
                             ]
                         ]

@@ -59,8 +59,8 @@
                                                         </td>
                                                         <td>{{ $history['noRujukan']}}</td>
                                                         <td>
-                                                            <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-print"></i></a>
-                                                            <a class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')"><i class="fas fa-trash"></i></a>
+                                                            <a href="{{ route('sep.print', $history['noSep'] )}}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Print" id="printButton"><i class="fas fa-print"></i></a>
+                                                            <a href="#" class="btn btn-danger btn-action" data-toggle="modal" data-target="#deleteConfirmationHistory" data-href="{{ route('sep.delete', $history['noSep']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                     </tr>
 
@@ -137,7 +137,7 @@
                                                             {{ $suratKontrol['terbitSEP']}}
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-print"></i></a>
+                                                            <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <a href="#" class="btn btn-danger btn-action" data-toggle="modal" data-target="#deleteConfirmation" data-href="{{ route('rencana_kontrol.delete', $suratKontrol['noSuratKontrol']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                     </tr>
@@ -172,6 +172,26 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <a id="deleteButton" class="btn btn-danger" href="#">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteConfirmationHistory" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin menghapus data ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <a id="deleteButtonHistory" class="btn btn-danger" href="#">Hapus</a>
                 </div>
             </div>
         </div>
@@ -218,7 +238,17 @@
             $('#deleteButton').attr('href', deleteURL);
         });
 
+        $('#deleteConfirmationHistory').on('show.bs.modal', function(e) {
+            var button = $(e.relatedTarget);
+            var deleteURL = button.data('href');
+            $('#deleteButtonHistory').attr('href', deleteURL);
+        });
+
     </script>
+
+
+
+
     @include('sweetalert::alert')
     @endpush
     </x-main-layout>

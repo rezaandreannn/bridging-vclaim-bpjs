@@ -24,6 +24,8 @@ use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
+use App\Http\Controllers\Back\SEP\CetakSepController;
+use App\Http\Controllers\Back\SEP\DeleteSepController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
@@ -95,6 +97,8 @@ Route::prefix('rujukan')->name('rujukan.')->group(function () {
 // ROUTE SEP
 Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
+    Route::get('delete/{noSep}', DeleteSepController::class)->middleware(['auth'])->name('delete');
+    Route::get('print/{noSep}', CetakSepController::class)->middleware(['auth'])->name('print');
 });
 
 
@@ -109,12 +113,12 @@ Route::prefix('monitoring')->name('monitoring.')->group(function () {
     Route::get('kunjungan', [KunjunganController::class, 'index'])->middleware(['auth'])->name('kunjungan');
 });
 
-// SEP
-Route::prefix('SEP')->name('sep.')->group(function () {
-    // Route::get('cari', [FindByNomorController::class, 'index'])->middleware(['auth'])->name('cari');
-    Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
-    Route::get('delete/{noSep}', [FindByNomorController::class, 'deleteSep'])->middleware(['auth'])->name('delete');
-});
+// // 
+// Route::prefix('SEP')->name('sep.')->group(function () {
+//     // Route::get('cari', [FindByNomorController::class, 'index'])->middleware(['auth'])->name('cari');
+//     Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
+//     Route::get('delete/{noSep}', [FindByNomorController::class, 'deleteSep'])->middleware(['auth'])->name('delete');
+// });
 
 
 Route::get('/select', [VerifikasiIdentitasController::class, 'index']);
