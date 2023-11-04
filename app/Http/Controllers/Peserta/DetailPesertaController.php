@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
+use App\Repositories\PesertaRepository;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
 use App\Repositories\RencanaKontrolRepository;
@@ -17,13 +18,15 @@ class DetailPesertaController extends Controller
     protected $sepRepository;
     protected $fingerPrintRepository;
     protected $rencanaKontrolRepository;
+    protected $pesertaRepository;
 
-    public function __construct(RujukanRepository $rujukanRepository, SepRepository $sepRepository, FingerPrintRepository $fingerPrintRepository, RencanaKontrolRepository $rencanaKontrolRepository)
+    public function __construct(RujukanRepository $rujukanRepository, SepRepository $sepRepository, FingerPrintRepository $fingerPrintRepository, RencanaKontrolRepository $rencanaKontrolRepository, PesertaRepository $pesertaRepository)
     {
         $this->rujukanRepository = $rujukanRepository;
         $this->sepRepository = $sepRepository;
         $this->fingerPrintRepository = $fingerPrintRepository;
         $this->rencanaKontrolRepository = $rencanaKontrolRepository;
+        $this->pesertaRepository = $pesertaRepository;
     }
 
     /**
@@ -76,9 +79,18 @@ class DetailPesertaController extends Controller
             $suratKontrols = [];
         }
 
-        // dd($suratKontrols);
+      
+
+        $dataPeserta = $this->pesertaRepository->byNomor($noKartu);
+        if ($dataPeserta['metaData']['code'] == 200) {
+            $peserta = $dataPeserta['response']['peserta'];
+        }else{
+            $peserta = [];
+        }
+
+        // dd($peserta);
 
 
-        return view('peserta-detail', compact('histories', 'rujukans', 'suratKontrols'));
+        return view('peserta-detail', compact('histories', 'rujukans', 'suratKontrols', 'peserta'));
     }
 }

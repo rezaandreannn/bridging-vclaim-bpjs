@@ -47,17 +47,17 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
 
-Route::get('/fds', [AuthenticatedPesertaController::class, 'create'])
-    ->middleware('guest')
-    ->name('login.peserta.index');
+// Route::get('/fds', [AuthenticatedPesertaController::class, 'create'])
+//     ->middleware('guest')
+//     ->name('login.peserta.index');
 
-Route::post('/login/peserta', [AuthenticatedPesertaController::class, 'store'])
-    ->middleware('guest')
-    ->name('login.peserta');
+// Route::post('/login/peserta', [AuthenticatedPesertaController::class, 'store'])
+//     ->middleware('guest')
+//     ->name('login.peserta');
 
-Route::post('/logout/peserta', [AuthenticatedPesertaController::class, 'destroy'])
-    ->middleware('auth')
-    ->name('logout.peserta');
+// Route::post('/logout/peserta', [AuthenticatedPesertaController::class, 'destroy'])
+//     ->middleware('auth')
+//     ->name('logout.peserta');
 
 Route::get('/app', function () {
     return view('peserta');
@@ -65,18 +65,18 @@ Route::get('/app', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware('auth');
 
 // ROUTE VERIFIED IDENTITAS
-Route::get('/verify', [VerifiedNomorController::class, 'index'])
-    ->middleware('auth')
-    ->name('login.peserta.index');
-Route::post('/verify', [VerifiedNomorController::class, 'verified'])
-    ->middleware('auth')
-    ->name('verify');
-Route::get('/delete-session-verify', [VerifiedNomorController::class, 'forgetSessionIdentitas'])
-    ->middleware('auth')
-    ->name('back.verify');
+// Route::get('/verify', [VerifiedNomorController::class, 'index'])
+//     ->middleware('auth')
+//     ->name('login.peserta.index');
+// Route::post('/verify', [VerifiedNomorController::class, 'verified'])
+//     ->middleware('auth')
+//     ->name('verify');
+// Route::get('/delete-session-verify', [VerifiedNomorController::class, 'forgetSessionIdentitas'])
+//     ->middleware('auth')
+//     ->name('back.verify');
 
 // ROUTE RENCANA KONTROL
 Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {

@@ -9,7 +9,8 @@
         </div>
 
         <h2 class="section-title">Table</h2>
-        <p class="section-lead">Data Peserta <span class="text-success text-bold">Rumah Sakit</span> pada tanggal {{ date('d M, Y')}} </p>
+        <p class="section-lead">Data Peserta <span class="text-success text-bold">Rumah Sakit</span> pada tanggal
+            {{ date('d M, Y')}} </p>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
@@ -36,7 +37,8 @@
                                 <td width="12%">{{ $pasien['Nama_Pasien']}}</td>
                                 <td width="20%">{{ $pasien['Nama_Dokter']}}</td>
                                 <td>
-                                    <a href="{{ route('peserta.detail', $pasien['No_Identitas'])}}" class="btn btn-primary btn-sm"><i class="fas fa-info p-1"></i> Detail</a>
+                                    <a href="{{ route('peserta.detail', $pasien['No_Identitas'])}}"
+                                        class="btn btn-primary btn-action">Detail</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -62,9 +64,11 @@
         }
 
     </style>
-    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet"
+        href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet"
+        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
