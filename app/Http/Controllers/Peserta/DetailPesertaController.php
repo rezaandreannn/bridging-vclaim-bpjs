@@ -53,18 +53,21 @@ class DetailPesertaController extends Controller
 
         // RUJUKAN PESERTA
         $response = $this->rujukanRepository->getByNomorKartu($noKartu);
-        $dataRujukan = $response['response']['rujukan'];
-
         $rujukans = [];
-        foreach ($dataRujukan as $rujukan) {
-            $tglKunjungan = Carbon::parse($rujukan['tglKunjungan']);
-            $currentDate = Carbon::now();
-            $threeMonthsAgo = $currentDate->subMonths(3);
-
-            if ($tglKunjungan->gt($threeMonthsAgo)) {
-                $rujukans[] = $rujukan;
+        
+        if($response['metaData']['code'] == 200){
+            $dataRujukan = $response['response']['rujukan'];
+            foreach ($dataRujukan as $rujukan) {
+                $tglKunjungan = Carbon::parse($rujukan['tglKunjungan']);
+                $currentDate = Carbon::now();
+                $threeMonthsAgo = $currentDate->subMonths(3);
+    
+                if ($tglKunjungan->gt($threeMonthsAgo)) {
+                    $rujukans[] = $rujukan;
+                }
             }
         }
+
 
         // RENCANA KONTROL
 
