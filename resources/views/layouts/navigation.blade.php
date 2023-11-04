@@ -11,8 +11,8 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Starter</li>
-            <li class="{{ request()->is('dashboard*') ? 'active' : '' }}"><a class="nav-link" href=""><i
-                        class="fas fa-fire"></i> <span>
+            <li class="{{ request()->is('dashboard*') ? 'active' : '' }}"><a class="nav-link"
+                    href="{{ route('dashboard')}}"><i class="fas fa-fire"></i> <span>
                         Dashboard</span></a></li>
             <li class="menu-header">Menu</li>
             <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i

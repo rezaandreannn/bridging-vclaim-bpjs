@@ -3,6 +3,7 @@
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SEP\CariController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Frond\SepController;
 use App\Http\Controllers\SEP\DetailController;
 use App\Http\Controllers\SEP\HistoyController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\Referensi\DpjpController;
 use App\Http\Controllers\Rujukan\RujukanController;
 use App\Http\Controllers\SEP\FingerPrintController;
 use App\Http\Controllers\Frond\NewRujukanController;
+use App\Http\Controllers\Back\SEP\CetakSepController;
+use App\Http\Controllers\Back\SEP\DeleteSepController;
 use App\Http\Controllers\Frond\SuratKontrolController;
 use App\Http\Controllers\SEP\HistoryPesertaController;
 use App\Http\Controllers\RencanaKontrol\SkdpController;
@@ -24,13 +27,11 @@ use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
-use App\Http\Controllers\Back\SEP\CetakSepController;
-use App\Http\Controllers\Back\SEP\DeleteSepController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
-use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
+use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,9 +64,13 @@ Route::get('/app', function () {
     return view('peserta');
 })->name('app');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
+
+// COUNT KLAIM
+Route::get('/status-klaim-rajal', [DashboardController::class, 'countKlaimRajal'])
+    ->middleware('auth');
 
 // ROUTE VERIFIED IDENTITAS
 // Route::get('/verify', [VerifiedNomorController::class, 'index'])
