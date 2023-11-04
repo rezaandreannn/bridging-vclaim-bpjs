@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {{-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -16,6 +16,7 @@
             }
 
             body {
+
                 margin: 0;
                 margin-top: 50px;
                 padding: 0;
@@ -23,7 +24,7 @@
 
             /* Tambahkan gaya khusus untuk elemen yang ingin Anda cetak */
             .print-this {
-                font-size: 16px;
+                font-size: 12px;
                 /* Atur ukuran font sesuai kebutuhan */
             }
         }
@@ -146,34 +147,34 @@
                 </div>
                 <div class="justify-content-center" style="width: 30%;">
                     <div>
-                        <small>000000001</small>
+                        <small>{{ $sep['noSep']}}</small>
                     </div>
                     <div>
-                        <small>22/10/2023</small>
+                        <small>{{$sep['tglSep']}}</small>
                     </div>
                     <div>
-                        <small>0000012345678</small>
+                        <small id="noKartu">{{$sep['peserta']['noKartu']}}</small>
                     </div>
                     <div>
-                        <small>NAMA KAMU</small>
+                        <small>{{$sep['peserta']['nama']}}</small>
                     </div>
                     <div>
-                        <small>22/10/2023</small>
+                        <small>{{$sep['peserta']['tglLahir']}}</small>
                     </div>
                     <div>
-                        <small>LAKI-LAKI</small>
+                        <small>{{$sep['peserta']['kelamin'] == 'L' ? 'Laki-Laki' : 'Perempuan'}}</small>
                     </div>
                     <div>
-                        <small>POLI UMUM</small>
+                        <small>{{$sep['poli']}}</small>
                     </div>
                     <div>
-                        <small>KLINIK MU</small>
+                        <small>{{$sepRen['provPerujuk']['nmProviderPerujuk']}}</small>
                     </div>
                     <div>
-                        <small>KESELEO</small>
+                        <small> {{ $diagnosa }}</small>
                     </div>
                     <div>
-                        <small>BASENGMU</small>
+                        <small>{{ $sep['catatan']}}</small>
                     </div>
                 </div>
 
@@ -221,16 +222,16 @@
                 </div>
                 <div class="justify-content-center mt-5" style="width: 30%;">
                     <div>
-                        <small>KARYAWAN SWASTA</small>
+                        <small>{{ $sep['peserta']['jnsPeserta']}}</small>
                     </div>
                     <div class="mt-4">
-                        <small>-</small>
+                        <small>{{$sep['cob'] == '0' ? '-' : $sep['con']}}</small>
                     </div>
                     <div>
-                        <small>RAWAT JALAN</small>
+                        <small>{{ $sep['jnsPelayanan']}}</small>
                     </div>
                     <div>
-                        <small>-</small>
+                        <small>{{ $sep['kelasRawat']}}</small>
                     </div>
 
                     <!-- TTD -->
@@ -250,7 +251,7 @@
 
             <!-- Note -->
             <div style="width: 70%;">
-                <p><small><em>*Saya menyetujui BPJS Kesehatan menggunakan informasi medis pasien jika diperlukan *SEP bukan sebagai bukti perjanjian peserta </em>| <em>Dicetak pada : 10/22/2023 08.30 PM</em></small></p>
+                <p><small><em>*Saya menyetujui BPJS Kesehatan menggunakan informasi medis pasien jika diperlukan *SEP bukan sebagai bukti perjanjian peserta </em>| <em>Dicetak pada : {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('m/d/Y h:i A') }}</em></small></p>
             </div>
         </div>
     </div>
@@ -258,10 +259,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script>
-        window.print();
+        window.onload = function() {
+            window.print();
+        }
+
+        window.addEventListener('afterprint', function() {
+            window.history.back();
+
+        });
 
     </script>
 </body>
-
-
 </html>

@@ -41,6 +41,11 @@ class BridgePoliSeeder extends Seeder
                 'kode_poli' => 'MAT',
                 'kode_dokter_bpjs' => '540568'
             ],
+            [
+                'kode_dokter_rs' => '125', //dr. Muhammad Arfan, Sp.M
+                'kode_poli' => 'ORT',
+                'kode_dokter_bpjs' => '18381'
+            ],
             // Tambahkan data lainnya sesuai kebutuhan
         ];
 

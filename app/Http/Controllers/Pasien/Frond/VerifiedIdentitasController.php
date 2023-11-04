@@ -34,7 +34,9 @@ class VerifiedIdentitasController extends Controller
             }
             $sessionPasien = [
                 'no_identitas' => $data['No_Identitas'],
-                'kode_dokter_rs' => $data['Kode_Dokter']
+                'kode_dokter_rs' => $data['Kode_Dokter'],
+                'no_mr' => $data['No_MR'],
+                'no_telepon' => $data['HP1']
             ];
             $request->session()->put('pasien', $sessionPasien);
         } else {
