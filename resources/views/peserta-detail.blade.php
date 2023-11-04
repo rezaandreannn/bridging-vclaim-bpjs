@@ -9,10 +9,46 @@
             </div>
         </div>
 
-        <h2 class="section-title">Identitas Peserta</h2>
-        <p class="section-lead">The tab component for dividing parts of content.</p>
-        <p class="section-lead">The tab component for dividing parts of content.</p>
-        <p class="section-lead">The tab component for dividing parts of content.</p>
+        <div class="row mx-4 my-5">
+            <div class="col-12 col-sm-4 col-lg-2 mb-sm-3 mr-4 bg-white shadow">
+            <div class="p-3">
+                <div class="card-body">                
+                    <center><img src="{{ asset('img/avatar.png') }}" class="pb-4 rounded-circle justify-items-center container" style="width:80%" alt=""></center>
+                <p class="text-center"><b>Joko Andrian Saputra</b> <br>18070000000001</p>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm mb-sm-3 shadow bg-white">
+            <div class="p-3">
+                <div>
+                <div>
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <td scope="col-sm"><b>NO BPJS</b><br>00003453768</td>
+                            <td scope="col-sm"><b>NO MR (RSUMM)</b><br>123456</td>                      
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td scope="col-sm"><b>ALAMAT</b><br>Desa Kayangan Mboh ra Roh</td>
+                            <td scope="col-sm"><b>JENIS KELAMIN</b><br>LAKI - LAKI</td>              
+                        </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                            <td scope="col-sm"><b>TANGGAL LAHIR</b><br>12-12-1980</td>
+                            <td scope="col-sm"><b>NO HP</b><br>081547895412</td>              
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+ 
+        
 
         <div class="row">
             <div class="col-12">
