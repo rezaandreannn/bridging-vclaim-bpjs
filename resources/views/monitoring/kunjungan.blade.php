@@ -44,7 +44,7 @@
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
                                 <td width="20%">
-                                    <a href="{{ route('sep.detail', $kunjungan['noSep'])}}">{{ $kunjungan['noSep'] }}</a>
+                                    <a href="">{{ $kunjungan['noSep'] }}</a>
                                 </td>
                                 <td width="15%">{{ $kunjungan['noKartu']}}</td>
                                 <td width="15%">{{ $kunjungan['tglSep']}}</td>
