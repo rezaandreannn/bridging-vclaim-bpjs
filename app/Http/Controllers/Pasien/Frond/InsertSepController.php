@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
 use App\Repositories\RencanaKontrolRepository;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 class InsertSepController extends Controller
 {
