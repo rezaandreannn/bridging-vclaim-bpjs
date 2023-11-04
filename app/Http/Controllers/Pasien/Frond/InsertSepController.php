@@ -384,4 +384,66 @@ class InsertSepController extends Controller
         $result = $data['response'];
         return $result;
     }
+
+    public function cetak($printData)
+    {
+
+
+        $connector = new FilePrintConnector(config('app.printer_url'));
+        $printer = new Printer($connector);
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+
+        $printer->setEmphasis();
+        $printer->text("RSU MUHAMMADIYAH METRO\n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Jl. Soekarno Hatta No.42 Mulyojati 16B \n Metro Barat Kota Metro\n\n");
+
+
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $printer->setTextSize(1, 1);
+        $printer->text("No SEP : " . $printData['noSep'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("No MR : " . $printData['noMr'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Nama : " . $printData['nama'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Poli Tujuan : " . $printData['poli'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Jenis Pelayanan : " . $printData['jnsPelayanan'] . " \n\n");
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->setTextSize(1, 1);
+        $printer->setEmphasis();
+        $printer->text("Telah Melakukan Finger dan Cetak SEP \n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Pada " . date('d-m-Y h:i:s') . "\n\n");
+        $printer->setTextSize(1, 1);
+        $printer->text("-------------------------------- \n\n\n");
+
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Penunjang : \n\n\n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Poli : \n\n\n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Farmasi : \n\n\n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Pelayanan Kasir : \n\n\n");
+
+        $printer->feed(3);
+
+        $printer->cut();
+        $printer->close();
+        return redirect()->back();
+    }
 }
