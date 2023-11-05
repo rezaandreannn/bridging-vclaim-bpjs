@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\RencanaKontrolKronis;
 use App\Repositories\MonitoringRepository;
 
 class DashboardController extends Controller
@@ -17,22 +19,39 @@ class DashboardController extends Controller
     public function index()
     {
         $tanggal = date('Y-m-d');
-        $result = $this->calculateKlaim($tanggal);
-        return view('dashboard', compact('result'));
+        try {
+            $rajal = $this->calculateKlaim($tanggal, 2);
+            $ranap = $this->calculateKlaim($tanggal, 1);
+
+            
+        
+             $chart_data = $this->countPesertaKronis();
+           
+        } catch (\Throwable $th) {
+         dd($th);
+        }
+        return view('dashboard', compact('rajal', 'ranap', 'chart_data'));
     }
     
     public function countKlaimRajal(Request $request)
     {
         $tanggal = $request->tanggal_klaim;
-        $result = $this->calculateKlaim($tanggal);
+        $result = $this->calculateKlaim($tanggal, 2);
+        return response()->json($result);
+    }
+
+    public function countKlaimRanap(Request $request)
+    {
+        $tanggal = $request->tanggal_klaim;
+        $result = $this->calculateKlaim($tanggal, 1);
         return response()->json($result);
     }
     
-    private function calculateKlaim($tanggal)
+    private function calculateKlaim($tanggal, $pelayanan)
     {
-        $Proses =  $this->monitoringRepository->klaim($tanggal, 2, 1);
-        $Pending =  $this->monitoringRepository->klaim($tanggal, 2, 2);
-        $Klaim =  $this->monitoringRepository->klaim($tanggal, 2, 3);
+        $Proses =  $this->monitoringRepository->klaim($tanggal, $pelayanan, 1);
+        $Pending =  $this->monitoringRepository->klaim($tanggal, $pelayanan, 2);
+        $Klaim =  $this->monitoringRepository->klaim($tanggal, $pelayanan, 3);
     
         $totalProses = ($Proses['metaData']['code'] == 200) ? count($Proses['response']['klaim']) : 0;
         $totalPending = ($Pending['metaData']['code'] == 200) ? count($Pending['response']['klaim']) : 0;
@@ -42,8 +61,31 @@ class DashboardController extends Controller
             'totalProses' => $totalProses,
             'totalPending' => $totalPending,
             'totalKlaim' => $totalKlaim,
-            'totalRajal' => $totalKlaim + $totalPending + $totalProses
+            'total' => $totalKlaim + $totalPending + $totalProses
         ];
     }
+
+    public function countPesertaKronis()
+    {
+        $record = RencanaKontrolKronis::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+        ->where('created_at', '>', Carbon::today()->subDay(6))
+        ->groupBy('day_name','day')
+        ->orderBy('day')
+        ->get();
+
+        
+     
+         $data = [];
+    
+         foreach($record as $row) {
+            $data['label'][] = $row->day_name;
+            $data['data'][] = (int) $row->count;
+          }
+    
+         $chart_data = json_encode($data);
+    
+        return $chart_data;
+    
+        }
 
 }

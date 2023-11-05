@@ -70,12 +70,15 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
 
+
 Route::get('/dokumentasi', DocumentationController::class)
     ->middleware('auth')
     ->name('dokumentasi');
 
 // COUNT KLAIM
 Route::get('/status-klaim-rajal', [DashboardController::class, 'countKlaimRajal'])
+    ->middleware('auth');
+Route::get('/status-klaim-ranap', [DashboardController::class, 'countKlaimRanap'])
     ->middleware('auth');
 
 // ROUTE VERIFIED IDENTITAS
