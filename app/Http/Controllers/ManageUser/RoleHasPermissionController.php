@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 
-class RoleController extends Controller
+class RoleHasPermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +17,45 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $title = 'Role';
+        $roles = Role::all();
+        $title = 'Role Has Permission';
+        return view('manajemen-user.role-permission.index', compact('roles', 'title'));
+    }
 
-        $roles = Role::with('permissions')->get();
+    public function getPermission($id = null)
+    {
+        $role = Role::find($id);
+        $permissions = Permission::all();
+        $rolePermissions = $role->permissions;
+        $title = 'All Permission By Role ' .  ucwords($role->name);
+        return view('manajemen-user.role-permission.get-permission', compact('permissions', 'title', 'role', 'rolePermissions'));
+    }
 
-        return view('manajemen-user.role.index', \compact('roles', 'title'));
+    public function hasPermission(Request $request)
+    {
+        $roleId = $request->input('roleId');
+        $permissionId = $request->input('permissionId');
+        $action = $request->input('action');
+
+        $role = Role::find($roleId);
+        $permission = Permission::find($permissionId);
+
+        $role->givePermissionTo($permission);
+
+        if ($action == 'insert') {
+            $role->givePermissionTo($permission);
+            $message = [
+                'message' => 'Created permission succesfully',
+                'alert' => 'success'
+            ];
+        } else {
+            $role->revokePermissionTo($permission);
+            $message = [
+                'message' => 'Remove permission succesfully',
+                'alert' => 'error'
+            ];
+        }
+        return response()->json(['success' => $message]);
     }
 
     /**
@@ -43,13 +77,6 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
-        $role = Role::create([
-            'name' => $request->name,
-            'guard_name' => $request->guard_name
-        ]);
-
-        $message = 'Created has role successfully!';
-        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -72,10 +99,6 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
-        $title = 'Form Edit User';
-        $permissions = Permission::all();
-        $role = Role::find($id);
-        return view('manajemen-user.role.edit', \compact('title', 'permissions', 'role'));
     }
 
     /**
@@ -88,14 +111,6 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $role = Role::find($id);
-        $role->update([
-            'name' => $request->name,
-            'guard_name' => $request->guard_name,
-        ]);
-
-        $message = 'Updated has role successfully!';
-        return redirect()->route('admin.role.index')->with('success', $message);
     }
 
     /**
@@ -107,9 +122,5 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
-        $role = Role::findOrFail($id);
-        $role->delete();
-        $message = 'Removed has role succesfully!';
-        return redirect()->back()->with('success', $message);
     }
 }

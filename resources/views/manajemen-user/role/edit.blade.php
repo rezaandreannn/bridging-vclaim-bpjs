@@ -28,26 +28,6 @@
                                         <input type="guard_name" class="form-control" value="{{ old('guard_name', $role->guard_name)}}" id="guard_name" name="guard_name" placeholder="Masukan nama lengkap">
                                     </div>
                                 </div>
-                                {{-- indentifikasi jika role sama --}}
-
-                                {{-- indentifikasi jika role sama --}}
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                        <select name="permissions[]" id="permission" class="form-control select2" multiple="multiple" data-placeholder="Select a role" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                        @foreach ($permissions as $permission)
-                                            @php $Selected = false; @endphp
-                                            @foreach ($role->permissions as $rolePermission)
-                                            @if ($rolePermission->name == $permission->name)
-                                            @php $Selected = true; @endphp
-                                            @break
-                                            @endif
-                                            @endforeach
-                                            <option value="{{ $permission->name }}" {{ $Selected ? 'selected' : ''}}>{{ $permission->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
 
 
                             </div>

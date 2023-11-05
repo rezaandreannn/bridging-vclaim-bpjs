@@ -17,13 +17,13 @@
                                 <i class="ion ion-plus"> </i> Add user
                             </button>
                         </div>
-                        <table id="example2" class="table table-bordered table-hover">
+                        <table id="table-1" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Role & Permission</th>
+                                    <th>Role</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -51,7 +51,7 @@
                                             Not Role
                                             @endif
                                         </button>
-                                        <a href="#" class="badge badge-warning border-0"><i class="fas fa-user-lock"></i> permission </a>
+
                                     </td>
 
 
@@ -88,7 +88,7 @@
                     @csrf
                     <input type="hidden" value="{{ $user->id }}" name="userId">
                     <div class="modal-body">
-                        <table class="table">
+                        <table class="table" id="table-1">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
@@ -265,31 +265,22 @@
 
     {{-- css library --}}
     @push('css-libraries')
-    {{-- <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
-    --}}
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
     @push('js-libraries')
-    {{-- <script src="{{ asset('stisla/node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('stisla/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script> --}}
+    <script src="{{ asset('stisla/node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('stisla/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
+
     @include('sweetalert::alert')
 
-    <script src="{{ asset('adminLTE/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script>
-        $(function() {
-            //Initialize Select2 Elements
-            $('.select2').select2()
 
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-        });
-    </script>
 
     <script>
         $(function() {
@@ -298,5 +289,6 @@
             });
         });
     </script>
+
     @endpush
 </x-app-layout>

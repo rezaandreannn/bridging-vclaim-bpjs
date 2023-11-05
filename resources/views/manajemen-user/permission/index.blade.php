@@ -7,51 +7,51 @@
     </section>
 
     <section class="content">
-      
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
                         <div class="pb-2">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                             <i class="ion ion-plus"> </i> Add permission
-                        </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <i class="ion ion-plus"> </i> Add permission
+                            </button>
                         </div>
-                            <table id="example2" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>permission name</th>
-                                        <th>Guard Name</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($permissions as $permission)
-                                    <tr>
-                                        <td style="width: 5%">{{ $loop->iteration }}</td>
-                                        <td>{{ $permission->name }}</td>
-                                        <td>{{ $permission->guard_name }}</td>
-                                        
-                                        <td>
+                        <table id="table-1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>permission name</th>
+                                    <th>Guard Name</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($permissions as $permission)
+                                <tr>
+                                    <td style="width: 5%">{{ $loop->iteration }}</td>
+                                    <td>{{ $permission->name }}</td>
+                                    <td>{{ $permission->guard_name }}</td>
+
+                                    <td>
                                         <x-a-link-edit-modal param="{{ $permission->id }}">
-                                                    </x-a-link-edit-modal>
-                                            <x-button-delete action="{{ route('admin.permission.destroy', $permission->id) }}" />
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-               
-                            </table>
-                        </div>
+                                        </x-a-link-edit-modal>
+                                        <x-button-delete action="{{ route('admin.permission.destroy', $permission->id) }}" />
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table>
                     </div>
                 </div>
-           
+            </div>
+
         </div>
     </section>
 
-        <!-- Modal Add -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal Add -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -144,17 +144,19 @@
 
     {{-- css library --}}
     @push('css-libraries')
-    {{-- <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
-    --}}
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
     @push('js-libraries')
-    {{-- <script src="{{ asset('stisla/node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('stisla/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script> --}}
+    <script src="{{ asset('stisla/node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('stisla/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
     @include('sweetalert::alert')
+
     @endpush
 </x-app-layout>

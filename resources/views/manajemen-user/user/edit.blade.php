@@ -76,19 +76,6 @@
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
     @include('sweetalert::alert')
 
-    <script src="{{ asset('adminLTE/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script>
-        $(function() {
-            //Initialize Select2 Elements
-            $('.select2').select2()
-
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-        });
-    </script>
-
     <script>
         $(function() {
             $('#select2insidemodal').select2({
