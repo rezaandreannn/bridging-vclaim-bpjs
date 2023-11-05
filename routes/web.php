@@ -8,6 +8,7 @@ use App\Http\Controllers\Frond\SepController;
 use App\Http\Controllers\SEP\DetailController;
 use App\Http\Controllers\SEP\HistoyController;
 use App\Http\Controllers\Back\PesertaController;
+use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\VerifiedNomorController;
 use App\Http\Controllers\Referensi\DpjpController;
 use App\Http\Controllers\Rujukan\RujukanController;
@@ -66,6 +67,10 @@ Route::get('/app', function () {
 })->name('app');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
+
+Route::get('/dokumentasi', DocumentationController::class)
     ->middleware('auth')
     ->name('dashboard');
 
