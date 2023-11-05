@@ -72,7 +72,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::get('/dokumentasi', DocumentationController::class)
     ->middleware('auth')
-    ->name('dashboard');
+    ->name('dokumentasi');
 
 // COUNT KLAIM
 Route::get('/status-klaim-rajal', [DashboardController::class, 'countKlaimRajal'])

@@ -13,6 +13,9 @@
             {{ date('d M, Y')}} </p> --}}
         {{-- <a href="{{ route('rencana_kontrol.kronis.create')}}" class="btn btn-primary mb-1">Tambah Data</a> --}}
         <div class="card">
+            <div class="card-header">
+                <h4>Routing List</h4>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="table-1">
