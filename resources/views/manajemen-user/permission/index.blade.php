@@ -77,7 +77,10 @@
                         <div class="form-group">
                             <label>Guard Name <i><small class="required-label"></small></i>
                             </label>
-                            <input type="text" name="guard_name" class="form-control" required="">
+                            <select class="form-control select2" name="guard_name">
+                                <option value="web" selected>web</option>
+                                <option value="api">api</option>   
+                            </select>
                             <div class="valid-feedback">
 
                             </div>
@@ -123,7 +126,10 @@
                         <div class="form-group">
                             <label>Guard Name <i><small class="required-label"></small></i>
                             </label>
-                            <input type="text" name="guard_name" class="form-control" value="{{ $permission->guard_name }}" required="">
+                            <select class="form-control select2" name="guard_name">
+                                <option value="web" {{ $permission->guard_name=='web' ? 'selected' : ''}}>web</option>
+                                <option value="api" {{ $permission->guard_name=='api' ? 'selected' : ''}}>api</option>   
+                            </select>
                             <div class="valid-feedback">
 
                             </div>

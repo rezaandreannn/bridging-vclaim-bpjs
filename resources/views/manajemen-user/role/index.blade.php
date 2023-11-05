@@ -96,7 +96,11 @@
                         <div class="form-group">
                             <label>Guard Name <i><small class="required-label"></small></i>
                             </label>
-                            <input type="text" name="guard_name" class="form-control" required="">
+                            <select class="form-control select2" name="guard_name">
+                                    <option value="web" selected>web</option>
+                                    <option value="api">api</option>   
+                            </select>
+                            
                             <div class="valid-feedback">
 
                             </div>

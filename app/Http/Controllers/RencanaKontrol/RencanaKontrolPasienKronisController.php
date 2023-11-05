@@ -94,6 +94,10 @@ class RencanaKontrolPasienKronisController extends Controller
     public function edit($id)
     {
         //
+   
+
+        $pasienKronis = RencanaKontrolKronis::find($id);
+        return view('rencana-kontrol.pasien-kronis.edit', \compact('pasienKronis'));
     }
 
     /**
@@ -106,6 +110,16 @@ class RencanaKontrolPasienKronisController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $pasienKronis = RencanaKontrolKronis::find($id);
+        $pasienKronis->update([
+            'no_sep' => $request->no_sep,
+            'nama_poli' => $request->nama_poli,
+            'tgl_rencana_kontrol' => $request->tgl_rencana_kontrol,
+            'nama_dokter' => $request->nama_dokter,
+        ]);
+
+        $message = 'Edit data pasien kronis berhasil!';
+        return redirect()->route('rencana_kontrol.kronis.index')->with('success', $message);
     }
 
     /**
@@ -117,6 +131,10 @@ class RencanaKontrolPasienKronisController extends Controller
     public function destroy($id)
     {
         //
+        $pasienKronis = RencanaKontrolKronis::findOrFail($id);
+        $pasienKronis->delete();
+        $message = 'Berhasil menghapus data pasien kronis!';
+        return redirect()->route('rencana_kontrol.kronis.index')->with('success', $message);
     }
 
     public function fetchNoSep(Request $request)

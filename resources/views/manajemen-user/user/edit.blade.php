@@ -13,28 +13,22 @@
                         @method('put')
                         @csrf
                         <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Nama User</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Masukan kredensial" value="{{ old('name', $user->name)}}">
-                                    </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama User</label>
+                                <div class="col-sm-12 col-md-7">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Masukan kredensial" value="{{ old('name', $user->name)}}">
                                 </div>
-
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" value="{{ old('email', $user->email)}}" id="email" name="email" placeholder="Masukan nama lengkap">
-                                    </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Email</label>
+                                <div class="col-sm-12 col-md-7">
+                                <input type="email" class="form-control" value="{{ old('email', $user->email)}}" id="email" name="email" placeholder="Masukan email lengkap">
                                 </div>
-                                {{-- indentifikasi jika role sama --}}
-
-                                {{-- indentifikasi jika role sama --}}
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                        <select name="roles[]" id="role" class="form-control select2" multiple="multiple" data-placeholder="Select a role" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Role</label>
+                                <div class="col-sm-12 col-md-7">
+                                <select name="roles[]" id="role" class="form-control select2" multiple="multiple" data-placeholder="Select a role" data-dropdown-css-class="select2-purple" style="width: 100%;">
                                             @foreach ($roles as $role)
                                             @php $Selected = false; @endphp
                                             @foreach ($user->roles as $userRole)
@@ -46,14 +40,16 @@
                                             <option value="{{ $role->name }}" {{ $Selected ? 'selected' : ''}}>{{ $role->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
                                 </div>
-
-
                             </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                           
+                            
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                <div class="col-sm-12 col-md-7">
+                                    <button class="btn btn-primary">Simpan</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

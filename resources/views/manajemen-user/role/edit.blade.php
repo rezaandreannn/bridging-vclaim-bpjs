@@ -13,27 +13,28 @@
                         @method('put')
                         @csrf
                         <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Nama role</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Masukan kredensial" value="{{ old('name', $role->name)}}">
-                                    </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Role</label>
+                                <div class="col-sm-12 col-md-7">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Masukan kredensial" value="{{ old('name', $role->name)}}">
                                 </div>
-
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="guard_name">Guard_name</label>
-                                        <input type="guard_name" class="form-control" value="{{ old('guard_name', $role->guard_name)}}" id="guard_name" name="guard_name" placeholder="Masukan nama lengkap">
-                                    </div>
-                                </div>
-
-
                             </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Guard Name</label>
+                                <div class="col-sm-12 col-md-7">
+                                <select class="form-control select2" name="guard_name">
+                                            <option value="web" {{ $role->guard_name=='web' ? 'selected' : ''}}>web</option>
+                                            <option value="api" {{ $role->guard_name=='api' ? 'selected' : ''}}>api</option>   
+                                        </select>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                <div class="col-sm-12 col-md-7">
+                                    <button class="btn btn-primary">Simpan</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

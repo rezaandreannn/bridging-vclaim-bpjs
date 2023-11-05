@@ -38,8 +38,8 @@
                                 <td width="12%">{{ $kronis['nama_poli']}}</td>
                                 <td width="20%">{{ $kronis['nama_dokter']}}</td>
                                 <td>
-                                    <a href="" class="btn btn-warning btn-action"><i class="fas fa-pencil-alt"></i></a>
-                                    <a href="" class="btn btn-danger btn-action"><i class="fas fa-trash"></i></a>
+                                <x-button-edit href="{{ route('rencana_kontrol.kronis.edit', $kronis->id) }}" />
+                                    <x-button-delete action="{{ route('rencana_kontrol.kronis.destroy', $kronis->id) }}" />
                                 </td>
                             </tr>
                             @endforeach
