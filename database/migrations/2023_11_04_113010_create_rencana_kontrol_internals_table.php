@@ -13,8 +13,14 @@ class CreateRencanaKontrolInternalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rencana_kontrol_internals', function (Blueprint $table) {
+        Schema::create('rencana_kontrol_kronis', function (Blueprint $table) {
             $table->id();
+            $table->string('no_sep')->unique();
+            $table->date('tgl_rencana_kontrol');
+            $table->string('nama_peserta');
+            $table->string('nama_poli');
+            $table->string('kode_dokter');
+            $table->string('nama_dokter');
             $table->timestamps();
         });
     }
@@ -26,6 +32,6 @@ class CreateRencanaKontrolInternalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rencana_kontrol_internals');
+        Schema::dropIfExists('rencana_kontrol_kronis');
     }
 }

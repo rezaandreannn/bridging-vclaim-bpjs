@@ -32,6 +32,7 @@ use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
+use App\Http\Controllers\RencanaKontrol\RencanaKontrolPasienKronisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,10 +86,13 @@ Route::get('/status-klaim-rajal', [DashboardController::class, 'countKlaimRajal'
 
 // ROUTE RENCANA KONTROL
 Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
+    Route::resource('kronis', RencanaKontrolPasienKronisController::class);
+    Route::post('fetch/noSep', [RencanaKontrolPasienKronisController::class, 'fetchNoSep'])->name('fetchSep');
     Route::get('sep', FindSepController::class)->middleware(['auth'])->name('sep');
     Route::get('/skdp/create', [SkdpController::class, 'index'])->name('skdp.create');
     Route::get('/list', [ListSuratKontrolController::class, 'list'])->name('list');
     Route::get('/delete/{noSurat}', DeleteRencanaKontrolController::class)->name('delete');
+
 });
 
 Route::get('print', [NewRujukanController::class, 'cetak']);

@@ -17,72 +17,33 @@ class DashboardController extends Controller
     public function index()
     {
         $tanggal = date('Y-m-d');
-        $Proses =  $this->monitoringRepository->klaim($tanggal, 2, 1);
-        $Pending =  $this->monitoringRepository->klaim($tanggal, 2, 2);
-        $Klaim =  $this->monitoringRepository->klaim($tanggal, 2, 3);
-
-        if ($Proses['metaData']['code'] == 200) {
-            $totalProses = count($Proses['response']['klaim']);
-        }else{
-            $totalProses = 0;
-        } 
-
-        if ($Pending['metaData']['code'] == 200) {
-            $totalPending = count($Pending['response']['klaim']);
-        }else{
-            $totalPending = 0;
-        }
-
-        if ($Klaim['metaData']['code'] == 200) {
-            $totalKlaim = count($Klaim['response']['klaim']);
-        }else{
-            $totalKlaim = 0;
-        }
-
-        $result = [
-            'totalProses' => $totalProses,
-            'totalPending' => $totalPending,
-            'totalKlaim' => $totalKlaim,
-            'totalRajal' => $totalKlaim + $totalPending + $totalProses
-        ];  
-        // dd($result);
+        $result = $this->calculateKlaim($tanggal);
         return view('dashboard', compact('result'));
     }
-
+    
     public function countKlaimRajal(Request $request)
     {
         $tanggal = $request->tanggal_klaim;
+        $result = $this->calculateKlaim($tanggal);
+        return response()->json($result);
+    }
+    
+    private function calculateKlaim($tanggal)
+    {
         $Proses =  $this->monitoringRepository->klaim($tanggal, 2, 1);
         $Pending =  $this->monitoringRepository->klaim($tanggal, 2, 2);
         $Klaim =  $this->monitoringRepository->klaim($tanggal, 2, 3);
-
-        if ($Proses['metaData']['code'] == 200) {
-            $totalProses = count($Proses['response']['klaim']);
-        }else{
-            $totalProses = 0;
-        } 
-
-        if ($Pending['metaData']['code'] == 200) {
-            $totalPending = count($Pending['response']['klaim']);
-        }else{
-            $totalPending = 0;
-        }
-
-        if ($Klaim['metaData']['code'] == 200) {
-            $totalKlaim = count($Klaim['response']['klaim']);
-        }else{
-            $totalKlaim = 0;
-        }
-
-        $result = [
+    
+        $totalProses = ($Proses['metaData']['code'] == 200) ? count($Proses['response']['klaim']) : 0;
+        $totalPending = ($Pending['metaData']['code'] == 200) ? count($Pending['response']['klaim']) : 0;
+        $totalKlaim = ($Klaim['metaData']['code'] == 200) ? count($Klaim['response']['klaim']) : 0;
+    
+        return [
             'totalProses' => $totalProses,
             'totalPending' => $totalPending,
             'totalKlaim' => $totalKlaim,
             'totalRajal' => $totalKlaim + $totalPending + $totalProses
         ];
-
-        return response()->json($result);
-       
     }
 
 }
