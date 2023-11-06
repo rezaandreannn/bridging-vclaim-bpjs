@@ -42,11 +42,16 @@ class RencanaKontrolPasienKronisController extends Controller
      */
     public function create()
     {
-        $historyKunjungan = $this->monitoringRepository->kunjungan(date('Y-m-d'), 2);
-        if ($historyKunjungan['metaData']['code'] == 200) {
-            $kunjungans = $historyKunjungan['response']['sep'];
-        } else {
-            $kunjungans = [];
+        try {
+            $historyKunjungan = $this->monitoringRepository->kunjungan(date('Y-m-d'), 2);
+            if ($historyKunjungan['metaData']['code'] == 200) {
+                $kunjungans = $historyKunjungan['response']['sep'];
+            } else {
+                $kunjungans = [];
+            }
+            //code...
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
         }
 
         return view('rencana-kontrol.pasien-kronis.create', compact('kunjungans'));
@@ -94,9 +99,7 @@ class RencanaKontrolPasienKronisController extends Controller
      */
     public function edit($id)
     {
-        //
-
-
+    
         $pasienKronis = RencanaKontrolKronis::find($id);
         return view('rencana-kontrol.pasien-kronis.edit', \compact('pasienKronis'));
     }
@@ -142,8 +145,6 @@ class RencanaKontrolPasienKronisController extends Controller
     {
         $nomorSep = $request->no_sep;
         $sep = $this->sepRepository->findByNomor($nomorSep);
-
-
 
         $namaPoli = $sep['response']['poli'];
         $namaDokter = $sep['response']['dpjp']['nmDPJP'];

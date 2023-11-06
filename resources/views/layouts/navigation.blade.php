@@ -42,11 +42,12 @@
             @endcan
             @can('monitoring')
             <li class="menu-header">Monitoring</li>
-            <li class="dropdown">
+            <li class="dropdown {{Request::is('monitoring*') ? 'active' : ''}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-desktop"></i>
                     <span>Monitoring</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('monitoring.kunjungan')}}">Kunjungan</a></li>
+                    <li class="{{Request::is('monitoring/kunjungan*') ? 'active' : ''}}"><a class="nav-link"
+                            href="{{ route('monitoring.kunjungan')}}">Kunjungan</a></li>
                     @can('farmasi')
                     <li><a class="nav-link" href="{{ route('rencana_kontrol.list')}}">Klaim</a></li>
                     <li><a class="nav-link" href="layout-default.html">Histori Peserta</a></li>
