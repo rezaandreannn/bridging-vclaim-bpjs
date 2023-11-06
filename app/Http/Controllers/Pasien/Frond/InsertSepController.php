@@ -219,10 +219,13 @@ class InsertSepController extends Controller
                 $tglRencanaKontrolKronis = $this->findPesertaKronis($noSep);
                 $validateRencanKontrol = date('Y-m-d');
 
-                if ($validateRencanKontrol < $tglRencanaKontrolKronis) {
-                    $message = 'Tanggal Kontrol Harus Sesuai ' . $tglRencanaKontrolKronis . ' Harap Ke Pendaftaran';
-                    return redirect()->back()->with('error', $message);
+                if ($tglRencanaKontrolKronis) {
+                    if ($validateRencanKontrol < $tglRencanaKontrolKronis) {
+                        $message = 'Tanggal Kontrol Harus Sesuai ' . $tglRencanaKontrolKronis . ' Harap Ke Pendaftaran';
+                        return redirect()->back()->with('error', $message);
+                    }
                 }
+
                 // INSERT RENCANA KONTROL BY NO SEP
                 $requestData = [
                     'request' => [

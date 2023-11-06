@@ -24,6 +24,7 @@
                                 <th scope="col">Nama Peserta</th>
                                 <th scope="col">Poli</th>
                                 <th scope="col">Nama Dokter</th>
+                                <th scope="col">Tgl Terbit</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -37,8 +38,10 @@
                                 </td>
                                 <td width="12%">{{ $kronis['nama_poli']}}</td>
                                 <td width="20%">{{ $kronis['nama_dokter']}}</td>
-                                <td>
-                                <x-button-edit href="{{ route('rencana_kontrol.kronis.edit', $kronis->id) }}" />
+                                <td width="10%">{{ date('Y-m-d', strtotime($kronis['created_at'])) }}</td>
+
+                                <td width="15%">
+                                    <x-button-edit href="{{ route('rencana_kontrol.kronis.edit', $kronis->id) }}" />
                                     <x-button-delete action="{{ route('rencana_kontrol.kronis.destroy', $kronis->id) }}" />
                                 </td>
                             </tr>
@@ -65,11 +68,9 @@
         }
 
     </style>
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
