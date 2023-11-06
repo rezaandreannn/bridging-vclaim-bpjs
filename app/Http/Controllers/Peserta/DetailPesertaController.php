@@ -54,14 +54,14 @@ class DetailPesertaController extends Controller
         // RUJUKAN PESERTA
         $response = $this->rujukanRepository->getByNomorKartu($noKartu);
         $rujukans = [];
-        
-        if($response['metaData']['code'] == 200){
+
+        if ($response['metaData']['code'] == 200) {
             $dataRujukan = $response['response']['rujukan'];
             foreach ($dataRujukan as $rujukan) {
                 $tglKunjungan = Carbon::parse($rujukan['tglKunjungan']);
                 $currentDate = Carbon::now();
                 $threeMonthsAgo = $currentDate->subMonths(3);
-    
+
                 if ($tglKunjungan->gt($threeMonthsAgo)) {
                     $rujukans[] = $rujukan;
                 }
@@ -82,12 +82,12 @@ class DetailPesertaController extends Controller
             $suratKontrols = [];
         }
 
-      
+
 
         $dataPeserta = $this->pesertaRepository->byNomor($noKartu);
         if ($dataPeserta['metaData']['code'] == 200) {
             $peserta = $dataPeserta['response']['peserta'];
-        }else{
+        } else {
             $peserta = [];
         }
 

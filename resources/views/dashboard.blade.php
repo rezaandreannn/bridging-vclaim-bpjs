@@ -95,7 +95,10 @@
                             {{ $totalPeserta}}
                         </div>
                         <div class="card-footer">
-                            <a href="" class="text-secondary"><span>Selengkapnya --></span> </a>
+                            <a href="{{ route('peserta')}}" class="text-secondary">
+                                <span>Selengkapnya </span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
