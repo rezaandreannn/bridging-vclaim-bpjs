@@ -22,9 +22,8 @@ class DetailController extends Controller
      */
     public function __invoke($noSep)
     {
-        $sep = [];
         if ($noSep) {
-
+            $sep = [];
             $data =  $this->sepRepository->findByNomor($noSep);
             if ($data['metaData']['code'] == 200) {
                 $sep = $data['response'];
