@@ -100,7 +100,6 @@ Route::prefix('rencana-kontrol')->name('rencana_kontrol.')->group(function () {
     Route::get('/skdp/create', [SkdpController::class, 'index'])->name('skdp.create');
     Route::get('/list', [ListSuratKontrolController::class, 'list'])->name('list');
     Route::get('/delete/{noSurat}', DeleteRencanaKontrolController::class)->name('delete');
-
 });
 
 Route::get('print', [NewRujukanController::class, 'cetak']);
@@ -116,6 +115,7 @@ Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
     Route::get('delete/{noSep}', DeleteSepController::class)->middleware(['auth'])->name('delete');
     Route::get('print/{noSep}', CetakSepController::class)->middleware(['auth'])->name('print');
+    Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
 });
 
 
