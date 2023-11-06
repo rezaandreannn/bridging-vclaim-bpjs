@@ -17,7 +17,7 @@
                 <h6 class="card-header justify-content-center">Rujukan Baru</h6>
 
                 <div class="card-body">
-                    <p class="card-text"><small>Rujukan baru yaitu pasien dengan </small></p>
+                    <p class="card-text"><small>Menu rujukan baru dipilih ketika <br> pasien dengan status <br> rujukan baru dari FASKES 1 </small></p>
                     <center>
                         <div class="pt-2 pr-2">
                             <a href="{{ route('pasien.rujukan.sep')}}" class="btn btn-info btn-lg">Rujukan baru</a>
@@ -30,7 +30,7 @@
                 <h6 class="card-header justify-content-center">Pasien Kontrol</h6>
 
                 <div class="card-body">
-                    <p class="card-text"><small>Pasien Kontrol yaitu pasien dengan</small></p>
+                    <p class="card-text"><small>Menu Pasien Kontrol dipilih ketika <br> pasien dengan status kontrol dengan <br> surat rujukan berlaku 3 bulan </small></p>
                     <center>
                         <div class="pt-2 pr-2">
                             <a href="{{ route('pasien.rencankontrol.sep')}}" class="btn btn-danger btn-lg">Pasien Kontrol</a>
