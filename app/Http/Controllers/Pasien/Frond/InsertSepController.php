@@ -7,6 +7,7 @@ use App\Models\BridgePoli;
 use Illuminate\Http\Request;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
+use App\Models\RencanaKontrolKronis;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
 use App\Repositories\RencanaKontrolRepository;
@@ -213,6 +214,15 @@ class InsertSepController extends Controller
                 }
                 // AMBIL NO SEP
                 $noSep = $oldSep['noSep'];
+
+                // CEK APAKAH RENCANA KONTROL LEBIH BESAR DARI TANGGAL KONTROL
+                $tglRencanaKontrolKronis = $this->findPesertaKronis($noSep);
+                $validateRencanKontrol = date('Y-m-d');
+
+                if ($validateRencanKontrol < $tglRencanaKontrolKronis) {
+                    $message = 'Tanggal Kontrol Harus Sesuai ' . $tglRencanaKontrolKronis . ' Harap Ke Pendaftaran';
+                    return redirect()->back()->with('error', $message);
+                }
                 // INSERT RENCANA KONTROL BY NO SEP
                 $requestData = [
                     'request' => [
@@ -220,7 +230,7 @@ class InsertSepController extends Controller
                         'kodeDokter' => $bridge['kode_dokter_bpjs'],
                         'poliKontrol' => $bridge['kode_poli'],
                         'tglRencanaKontrol' => date('Y-m-d'),
-                        'user' => 'admin' ?? 'admin'
+                        'user' => auth()->user()->name ?? 'admin'
                     ]
                 ];
 
@@ -261,9 +271,6 @@ class InsertSepController extends Controller
                                 } else {
                                     $diagnosa = 'Z09.8';
                                 }
-
-                                // dd($dataRujukan);
-
 
                                 $requestData = [
                                     'request' => [
@@ -329,12 +336,26 @@ class InsertSepController extends Controller
                                     ]
                                 ];
 
-
-
                                 $insertSep = json_encode($requestData, true);
                                 $response =   $this->sepRepository->insert($insertSep);
-                                dd($response);
-                                return redirect()->back()->with('success', 'sep sukses');
+
+                                if ($response['metaData']['code'] == 200) {
+                                    $data = $response['response']['sep'];
+                                    $printData = [
+                                        'noSep' => $data['noSep'],
+                                        'tglSep' => $data['tglSep'],
+                                        'noKartu' => $data['peserta']['noKartu'],
+                                        'noMr' => $data['peserta']['noMr'],
+                                        'nama' => $data['peserta']['nama'],
+                                        'poli' => $data['poli'],
+                                        'jnsPelayanan' => $data['jnsPelayanan']
+                                    ];
+                                    $this->cetak($printData);
+                                    return redirect()->route('pasien.verify')->with('success', 'SEP sukses');
+                                } else {
+                                    $message = $response['metaData']['message'];
+                                    return redirect()->back()->with('error', $message);
+                                }
                             } else {
                                 return redirect()->back()->with('error', 'Rujukan failed');
                             }
@@ -445,7 +466,13 @@ class InsertSepController extends Controller
         $printer->feed(3);
 
         $printer->cut();
-        $printer->close();
-        return redirect()->back();
+        return $printer->close();
+        // return redirect()->back();
+    }
+
+    public function findPesertaKronis($noSep)
+    {
+        $pesertaKronis = RencanaKontrolKronis::where('no_sep', $noSep)->first();
+        return $pesertaKronis->tgl_rencana_kontrol;
     }
 }
