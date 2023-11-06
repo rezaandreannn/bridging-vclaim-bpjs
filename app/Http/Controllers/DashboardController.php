@@ -66,16 +66,16 @@ class DashboardController extends Controller
 
     public function countPesertaKronis()
     {
-        $record = RencanaKontrolKronis::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAYNAME(created_at) as day_name"), \DB::raw("DAY(created_at) as day"))
+        $record = RencanaKontrolKronis::select(\DB::raw("COUNT(*) as count"), \DB::raw("DATE(created_at) as date"), \DB::raw("DAY(created_at) as day"))
             ->where('created_at', '>', Carbon::today()->subDay(6))
-            ->groupBy('day_name', 'day')
+            ->groupBy('date', 'day')
             ->orderBy('day')
             ->get();
 
         $data = [];
 
         foreach ($record as $row) {
-            $data['label'][] = $row->day_name;
+            $data['label'][] = $row->date;
             $data['data'][] = (int) $row->count;
         }
 
