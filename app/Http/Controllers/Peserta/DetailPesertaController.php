@@ -37,7 +37,8 @@ class DetailPesertaController extends Controller
      */
     public function __invoke(Request $request, $noKartu)
     {
-        // HISTORIES SEP PESERTA
+       try {
+           // HISTORIES SEP PESERTA
         $currentDate = Carbon::now();
         // ubah menjadi tanggal format (YYYY-mm-dd)
         $endDate = $currentDate->toDateString();
@@ -90,8 +91,9 @@ class DetailPesertaController extends Controller
         } else {
             $peserta = [];
         }
-
-        // dd($peserta);
+       } catch (\Throwable $th) {
+           return \redirect()->back()->with('warning', $th->getMessage());
+       }
 
 
         return view('peserta-detail', compact('histories', 'rujukans', 'suratKontrols', 'peserta'));

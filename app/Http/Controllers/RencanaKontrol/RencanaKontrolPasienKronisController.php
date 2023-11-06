@@ -51,7 +51,7 @@ class RencanaKontrolPasienKronisController extends Controller
             }
             //code...
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', $th->getMessage());
+            return redirect()->back()->with('warning', $th->getMessage());
         }
 
         return view('rencana-kontrol.pasien-kronis.create', compact('kunjungans'));

@@ -22,14 +22,19 @@ class DetailController extends Controller
      */
     public function __invoke($noSep)
     {
-        if ($noSep) {
-            $sep = [];
-            $data =  $this->sepRepository->findByNomor($noSep);
-            if ($data['metaData']['code'] == 200) {
-                $sep = $data['response'];
-            } else {
+        try {
+            if ($noSep) {
                 $sep = [];
+                $data =  $this->sepRepository->findByNomor($noSep);
+                if ($data['metaData']['code'] == 200) {
+                    $sep = $data['response'];
+                } else {
+                    $sep = [];
+                }
             }
+          
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('warning', $th->getMessage());
         }
 
         return view('SEP.detail', compact('sep'));

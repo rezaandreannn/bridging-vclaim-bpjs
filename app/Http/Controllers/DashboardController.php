@@ -27,7 +27,7 @@ class DashboardController extends Controller
             $chart_data = $this->countPesertaKronis();
             $totalPeserta = $this->countPeserta();
         } catch (\Throwable $th) {
-          return redirect()->back()->with('errror', $th->getMessage());
+          return redirect()->back()->with('warning', $th->getMessage());
         }
         return view('dashboard', compact('rajal', 'ranap', 'chart_data', 'duaBulanYangLalu', 'totalPeserta'));
     }
