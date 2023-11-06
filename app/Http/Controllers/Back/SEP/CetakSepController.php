@@ -35,7 +35,6 @@ class CetakSepController extends Controller
         if ($data['metaData']['code']) {
             $sep = $data['response'];
             $sepRen = $sepRencanaKontrol['response'];
-            dd($sepRen);
             $diagnosa = Str::limit($sepRen['diagnosa'], 30, '');
         }
 
