@@ -15,6 +15,7 @@
                     href="{{ route('dashboard')}}"><i class="fas fa-fire"></i> <span>
                         Dashboard</span></a></li>
             <li class="menu-header">Menu</li>
+            @can('monitoring')
             <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i
                         class="fas fa-user"></i><span>Peserta</span></a></li>
             <li class="dropdown {{Request::is('rencana-kontrol*') ? 'active' : ''}}">
@@ -25,6 +26,8 @@
                             href="{{ route('rencana_kontrol.kronis.index')}}">Pasien Kronis</a></li>
                 </ul>
             </li>
+            @endcan
+            @can('farmasi')
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-tasks"></i>
                     <span>Referensi</span></a>
@@ -36,17 +39,22 @@
                     {{-- <li><a class="nav-link" href="layout-default.html"></a></li> --}}
                 </ul>
             </li>
-
+            @endcan
+            @can('monitoring')
             <li class="menu-header">Monitoring</li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-desktop"></i>
                     <span>Monitoring</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('monitoring.kunjungan')}}">Kunjungan</a></li>
+                    @can('farmasi')
                     <li><a class="nav-link" href="{{ route('rencana_kontrol.list')}}">Klaim</a></li>
                     <li><a class="nav-link" href="layout-default.html">Histori Peserta</a></li>
+                    @endcan
                 </ul>
             </li>
+            @endcan
+            @can('farmasi')
             <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i
                         class="fab fa-wpforms"></i><span>Lembar Pengajuan Klaim</span></a>
 
@@ -67,6 +75,7 @@
                         href="{{ route('sep.history')}}">History</a></li>
             </ul>
             </li> --}}
+            @endcan
 
             <li class="menu-header">Manage User</li>
             <li class="dropdown {{ request()->is('super-admin*') ? 'active' : '' }}">

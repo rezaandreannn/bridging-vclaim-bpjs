@@ -164,7 +164,7 @@ class InsertSepController extends Controller
                             'jnsPelayanan' => $data['jnsPelayanan']
                         ];
                         $this->cetak($printData);
-                        return redirect()->route('pasien.verify');
+                        return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');;
                     } else {
                         $message = $response['metaData']['message'];
                         return redirect()->back()->with('error', $message);
@@ -355,7 +355,7 @@ class InsertSepController extends Controller
                                         'jnsPelayanan' => $data['jnsPelayanan']
                                     ];
                                     $this->cetak($printData);
-                                    return redirect()->route('pasien.verify')->with('success', 'SEP sukses');
+                                    return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');
                                 } else {
                                     $message = $response['metaData']['message'];
                                     return redirect()->back()->with('error', $message);
@@ -466,6 +466,16 @@ class InsertSepController extends Controller
         $printer->text("Pelayanan Farmasi : \n\n\n");
         $printer->setTextSize(1, 1);
         $printer->text("Pelayanan Kasir : \n\n\n");
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->setTextSize(1, 1);
+        $printer->setEmphasis();
+        $printer->text("Kertas ini jangan sampai hilang\n");
+        $printer->setEmphasis(false);
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Sebagai bukti pelayanan");
+        $printer->setTextSize(1, 1);
 
         $printer->feed(3);
 
