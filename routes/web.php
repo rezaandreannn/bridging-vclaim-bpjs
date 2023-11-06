@@ -8,6 +8,7 @@ use App\Http\Controllers\Frond\SepController;
 use App\Http\Controllers\SEP\DetailController;
 use App\Http\Controllers\SEP\HistoyController;
 use App\Http\Controllers\Back\PesertaController;
+use App\Http\Controllers\SEP\UnduhSepController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\VerifiedNomorController;
 use App\Http\Controllers\Referensi\DpjpController;
@@ -65,6 +66,9 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 Route::get('/app', function () {
     return view('peserta');
 })->name('app');
+Route::get('/test', function () {
+    return view('sep.unduh');
+})->name('test');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
@@ -116,6 +120,7 @@ Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('delete/{noSep}', DeleteSepController::class)->middleware(['auth'])->name('delete');
     Route::get('print/{noSep}', CetakSepController::class)->middleware(['auth'])->name('print');
     Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
+    Route::get('unduh/{noSep}', UnduhSepController::class)->middleware(['auth'])->name('unduh');
 });
 
 

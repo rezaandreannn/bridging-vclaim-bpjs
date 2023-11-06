@@ -61,7 +61,8 @@
                                     <a href="{{ route('sep.print', $kunjungan['noSep'] )}}"
                                         class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" title="Print"
                                         id="printButton"><i class="fas fa-print"></i></a>
-                                    <a href="" class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Unduh"><i
+                                    <a href="{{ route('sep.unduh', $kunjungan['noSep'])}}"
+                                        class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Unduh"><i
                                             class="fas fa-download"></i></a>
                                     <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
                                 </td>

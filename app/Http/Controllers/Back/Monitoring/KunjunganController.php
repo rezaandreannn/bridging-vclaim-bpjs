@@ -17,21 +17,26 @@ class KunjunganController extends Controller
 
     public function index(Request $request)
     {
-        $kunjungans = [];
-        if ($request->jenis_pelayanan) {
-            $tanggal = $request->tanggal ?? date('Y-m-d');
-            $pelayanan = $request->jenis_pelayanan;
-
-
-            $data =  $this->monitoringRepository->kunjungan($tanggal, $pelayanan);
-            if ($data['metaData']['code'] == 200) {
-                $kunjungans = $data['response']['sep'];
-                // dd($kunjungans);
-            } else {
-                $kunjungans = [];
-                // dd($kunjungans);
+        try {
+            $kunjungans = [];
+            if ($request->jenis_pelayanan) {
+                $tanggal = $request->tanggal ?? date('Y-m-d');
+                $pelayanan = $request->jenis_pelayanan;
+    
+    
+                $data =  $this->monitoringRepository->kunjungan($tanggal, $pelayanan);
+                if ($data['metaData']['code'] == 200) {
+                    $kunjungans = $data['response']['sep'];
+                    // dd($kunjungans);
+                } else {
+                    $kunjungans = [];
+                    // dd($kunjungans);
+                }
             }
+        } catch (\Throwable $th) {
+           return redirect()->back()->with('warning', $th->getMessage());
         }
+      
 
 
         return view('monitoring.kunjungan', compact('kunjungans'));

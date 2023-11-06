@@ -34,7 +34,7 @@
     </style>
 </head>
 
-<body style="width: 21cm; height: 12cm;">
+<body style="width: 21cm; height: 12cm;" id="pdf-content" class="print-this">
     <div class="justify-content-center">
         <div class="p-0 m-4 width: 12cm; height: 9cm; border-1 align-self-start d-flex justify-content-center mb-3"
             style="width: 100%;">
@@ -263,15 +263,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
+
+
     <script>
+        const element = document.getElementById('pdf-content');
+        const namaFile = '<?php echo $namaFile; ?>';
         window.onload = function () {
-            window.print();
-        }
-
-        window.addEventListener('afterprint', function () {
+            html2pdf(element, {
+                margin: 0,
+                filename: namaFile,
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'cm',
+                    format: [21, 14],
+                    orientation: 'landscape'
+                }
+            });
+        };
+        setTimeout(() => {
             window.history.back();
-
-        });
+        }, 500);
 
     </script>
 </body>
