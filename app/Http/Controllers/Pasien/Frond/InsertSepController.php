@@ -217,6 +217,7 @@ class InsertSepController extends Controller
 
                 // CEK APAKAH RENCANA KONTROL LEBIH BESAR DARI TANGGAL KONTROL
                 $tglRencanaKontrolKronis = $this->findPesertaKronis($noSep);
+
                 $validateRencanKontrol = date('Y-m-d');
 
                 if ($tglRencanaKontrolKronis) {
@@ -476,6 +477,10 @@ class InsertSepController extends Controller
     public function findPesertaKronis($noSep)
     {
         $pesertaKronis = RencanaKontrolKronis::where('no_sep', $noSep)->first();
-        return $pesertaKronis->tgl_rencana_kontrol;
+        if ($pesertaKronis) {
+            return $pesertaKronis->tgl_rencana_kontrol;
+        }
+
+        return false;
     }
 }
