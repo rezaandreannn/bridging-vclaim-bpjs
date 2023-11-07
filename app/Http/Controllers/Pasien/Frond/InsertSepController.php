@@ -375,7 +375,7 @@ class InsertSepController extends Controller
                 return redirect()->back()->with('error', 'No SEP Tidak Tersedia');
             }
         } catch (\Throwable $th) {
-            dd($th);
+            return redirect()->back()->with('warning', $th->getMessage());
         }
     }
 
