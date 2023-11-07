@@ -451,8 +451,9 @@ class InsertSepController extends Controller
         $printer->text("Telah Melakukan Finger dan Cetak SEP \n");
         $printer->setEmphasis(false);
 
+        $datetime = Carbon::now()->setTimezone('Asia/Jakarta')->format('d/m/Y h:i A');
         $printer->setTextSize(1, 1);
-        $printer->text("Pada " . date('d-m-Y h:i:s') . "\n\n");
+        $printer->text("Pada " . $datetime . "\n\n");
         $printer->setTextSize(1, 1);
         $printer->text("-------------------------------- \n\n\n");
 
