@@ -25,15 +25,20 @@ use App\Http\Controllers\Back\SEP\FindByNomorController;
 use App\Http\Controllers\Back\Monitoring\KlaimController;
 use App\Http\Controllers\Peserta\DetailPesertaController;
 use App\Http\Controllers\RencanaKontrol\FindSepController;
+use App\Http\Controllers\Pasien\Frond\SelectOpsiController;
 use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
+use App\Http\Controllers\cetakSepAdmin\InsertSepAdminController;
+use App\Http\Controllers\cetakSepAdmin\SelectOpsiAdminController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolController;
+use App\Http\Controllers\Pasien\Frond\VerifiedIdentitasController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
+use App\Http\Controllers\cetakSepAdmin\VerifiedIdentitasAdminController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolPasienKronisController;
 
 /*
@@ -118,6 +123,16 @@ Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('unduh/{noSep}', UnduhSepController::class)->middleware(['auth'])->name('unduh');
 });
 
+// ROUTE CETAK SEP PETUGAS
+Route::prefix('cetaksep')->name('cetaksep.')->group(function () {
+    Route::get('/verify', [VerifiedIdentitasAdminController::class, 'index'])->name('verify');
+    Route::post('/verify', [VerifiedIdentitasAdminController::class, 'store'])->name('verify');
+    Route::get('/forget-session', [VerifiedIdentitasAdminController::class, 'forgetSessionIdentitas'])->name('forget');
+    Route::get('/select-item', [SelectOpsiAdminController::class, 'index'])->name('dashboard');
+    // Route::get('/rujukan', [RujukanNewController::class, 'insertSEP'])->name('rujukan.sep');
+    Route::get('/sep/create/byRujukan', [InsertSepAdminController::class, 'byNewRujukan'])->name('rujukan.sep');
+    Route::get('/sep/create/kontrol', [InsertSepAdminController::class, 'byOldSepAndAddSuratKontrol'])->name('rencankontrol.sep');
+});
 
 // ROUTE PESERTA 
 Route::get('peserta', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
