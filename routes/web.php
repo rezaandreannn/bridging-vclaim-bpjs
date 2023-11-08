@@ -63,12 +63,7 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 //     ->middleware('auth')
 //     ->name('logout.peserta');
 
-Route::get('/app', function () {
-    return view('peserta');
-})->name('app');
-Route::get('/test', function () {
-    return view('sep.unduh');
-})->name('test');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')

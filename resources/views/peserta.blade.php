@@ -37,7 +37,7 @@
                                 <td width="12%">{{ $pasien['Nama_Pasien']}}</td>
                                 <td width="20%">{{ $pasien['Nama_Dokter']}}</td>
                                 <td>
-                                    <a href="{{ route('peserta.detail', $pasien['No_Identitas'])}}"
+                                    <a href="{{ route('peserta.detail', $pasien['No_Identitas'] ?? 9345239)}}"
                                         class="btn btn-primary btn-action">Detail</a>
                                 </td>
                             </tr>
