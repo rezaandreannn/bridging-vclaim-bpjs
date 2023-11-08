@@ -179,7 +179,7 @@ class InsertSepController extends Controller
                 return redirect()->back()->with('error', $message);
             }
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            return redirect()->back()->with('warning', $th->getMessage());
         }
     }
 
@@ -193,7 +193,6 @@ class InsertSepController extends Controller
             return redirect()->back()->with('error', 'Sesi telah habis');
         }
 
-        
 
         try {
             //CARI NO SEP BERDASARKAN POLI YANG SAMA DENGAN PENDAFTARAN ONLINE
