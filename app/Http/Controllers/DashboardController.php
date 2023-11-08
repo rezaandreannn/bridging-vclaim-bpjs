@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function __construct(MonitoringRepository $monitoringRepository)
     {
         $this->monitoringRepository = $monitoringRepository;
-        if (auth()->user()->hasRole('anjungan')) {
+        if (auth()->user()->hasRole() == 'anjungan') {
             return redirect()->route('pasien.verify');
         }
     }
