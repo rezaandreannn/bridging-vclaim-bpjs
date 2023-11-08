@@ -15,13 +15,14 @@ class DashboardController extends Controller
     public function __construct(MonitoringRepository $monitoringRepository)
     {
         $this->monitoringRepository = $monitoringRepository;
-        if (auth()->user()->hasRole() == 'anjungan') {
-            return redirect()->route('pasien.verify');
-        }
     }
 
     public function index()
     {
+        $user = auth()->user();
+        if ($user->hasRole('anjungan')) {
+            return redirect()->route('pasien.verify');
+        }
         $tanggal = date('Y-m-d');
         $duaBulanYangLalu = date('Y-m-d', strtotime('-2 month', strtotime($tanggal)));
         try {
