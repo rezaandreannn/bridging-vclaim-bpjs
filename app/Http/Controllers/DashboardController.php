@@ -15,6 +15,9 @@ class DashboardController extends Controller
     public function __construct(MonitoringRepository $monitoringRepository)
     {
         $this->monitoringRepository = $monitoringRepository;
+        if (auth()->user()->hasRole('anjungan')) {
+            return redirect()->route('pasien.verify');
+        }
     }
 
     public function index()
@@ -27,7 +30,7 @@ class DashboardController extends Controller
             $chart_data = $this->countPesertaKronis();
             $totalPeserta = $this->countPeserta();
         } catch (\Throwable $th) {
-          return redirect()->back()->with('warning', $th->getMessage());
+            return redirect()->back()->with('warning', $th->getMessage());
         }
         return view('dashboard', compact('rajal', 'ranap', 'chart_data', 'duaBulanYangLalu', 'totalPeserta'));
     }
