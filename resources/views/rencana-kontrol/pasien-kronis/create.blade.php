@@ -108,7 +108,7 @@
                         'no_sep': selectedNoSep
                     },
                     success: function (response) {
-                        console.log(response)
+
                         // Update the readonly fields with the data from the response
                         $('[name="nama_poli"]').val(response.nama_poli);
                         $('[name="nama_dokter"]').val(response.nama_dokter);

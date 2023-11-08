@@ -13,10 +13,11 @@ class ReferensiRepository
         $this->bridging = new BridgeVclaim();
     }
 
-    public function getDpjp($kodeSpesialis)
+    public function getDpjpByKodePoli($jenisPelayanan, $tanggal, $kodePoli)
     {
-        $dateNow = date('Y-m-d');
-        $endpoint = 'referensi/dokter/pelayanan/2/tglPelayanan/' . $dateNow . '/Spesialis/' . $kodeSpesialis;
-        return $this->bridging->getRequest($endpoint);
+        
+        $endpoint = 'referensi/dokter/pelayanan/' . $jenisPelayanan .'/tglPelayanan/' . $tanggal . '/Spesialis/' . $kodePoli;
+        $data = $this->bridging->getRequest($endpoint);
+        return json_decode($data, true);
     }
 }

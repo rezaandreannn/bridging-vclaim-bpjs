@@ -18,7 +18,7 @@
             @can('peserta')
             <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i
                         class="fas fa-user"></i><span>Peserta</span></a></li>
-                        @endcan
+            @endcan
             @can('rencana kontrol')
             <li class="dropdown {{Request::is('rencana-kontrol*') ? 'active' : ''}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-calendar-plus"></i>
@@ -42,6 +42,15 @@
                 </ul>
             </li>
             @endcan
+            @can('bridging')
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
+                    <span>Bridging</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('bridging.dokter.index')}}">Dokter</a></li>
+                </ul>
+            </li>
+            @endcan
             @can('monitoring')
             <li class="menu-header">Monitoring</li>
             <li class="dropdown {{Request::is('monitoring*') ? 'active' : ''}}">
@@ -50,10 +59,10 @@
                 <ul class="dropdown-menu">
                     <li class="{{Request::is('monitoring/kunjungan*') ? 'active' : ''}}"><a class="nav-link"
                             href="{{ route('monitoring.kunjungan')}}">Kunjungan</a></li>
-                  
+
                     <li><a class="nav-link" href="{{ route('rencana_kontrol.list')}}">Klaim</a></li>
                     <li><a class="nav-link" href="layout-default.html">Histori Peserta</a></li>
-                    
+
                 </ul>
             </li>
             @endcan

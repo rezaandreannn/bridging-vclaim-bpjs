@@ -19,6 +19,7 @@ use App\Http\Controllers\Back\SEP\CetakSepController;
 use App\Http\Controllers\Back\SEP\DeleteSepController;
 use App\Http\Controllers\Frond\SuratKontrolController;
 use App\Http\Controllers\SEP\HistoryPesertaController;
+use App\Http\Controllers\Back\BridgingDokterController;
 use App\Http\Controllers\RencanaKontrol\SkdpController;
 use App\Http\Controllers\Rujukan\ListRujukanController;
 use App\Http\Controllers\Back\SEP\FindByNomorController;
@@ -128,6 +129,13 @@ Route::get('peserta/detail/{noKartu}', DetailPesertaController::class)->middlewa
 Route::prefix('monitoring')->name('monitoring.')->group(function () {
     Route::get('klaim', [KlaimController::class, 'index'])->middleware(['auth'])->name('klaim');
     Route::get('kunjungan', [KunjunganController::class, 'index'])->middleware(['auth'])->name('kunjungan');
+});
+
+// BRIDGING RS || BPJS
+Route::prefix('bridging')->name('bridging.')->group(function () {
+    Route::resource('dokter', BridgingDokterController::class)->middleware(['auth']);
+    Route::post('find-dokter', [BridgingDokterController::class, 'findDokter'])->middleware(['auth'])->name('findDokter');
+   
 });
 
 // // 
