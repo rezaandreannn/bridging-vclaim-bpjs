@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
-        Role::create([
+       $admin = Role::create([
             'name' => 'admin',
             'guard_name' => 'web'
         ]);
@@ -34,5 +34,7 @@ class RoleSeeder extends Seeder
             'name' => 'pasien',
             'guard_name' => 'web'
         ]);
+
+        $admin->givePermissionTo('manage user');
     }
 }

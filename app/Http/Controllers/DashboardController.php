@@ -19,6 +19,10 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $user = auth()->user();
+        if ($user->hasRole('anjungan')) {
+            return redirect()->route('pasien.verify');
+        }
         $tanggal = date('Y-m-d');
         $duaBulanYangLalu = date('Y-m-d', strtotime('-2 month', strtotime($tanggal)));
         try {
@@ -27,7 +31,7 @@ class DashboardController extends Controller
             $chart_data = $this->countPesertaKronis();
             $totalPeserta = $this->countPeserta();
         } catch (\Throwable $th) {
-          return redirect()->back()->with('warning', $th->getMessage());
+            return redirect()->back()->with('warning', $th->getMessage());
         }
         return view('dashboard', compact('rajal', 'ranap', 'chart_data', 'duaBulanYangLalu', 'totalPeserta'));
     }

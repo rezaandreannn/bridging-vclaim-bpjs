@@ -193,6 +193,8 @@ class InsertSepController extends Controller
             return redirect()->back()->with('error', 'Sesi telah habis');
         }
 
+        
+
         try {
             //CARI NO SEP BERDASARKAN POLI YANG SAMA DENGAN PENDAFTARAN ONLINE
             $sepHistories = $this->getHistoriSep($nomorKartu);
@@ -226,6 +228,14 @@ class InsertSepController extends Controller
                         return redirect()->back()->with('error', $message);
                     }
                 }
+                 // AMBIL DATA FINGER HARI DAN CEK APAKAH PESERTA SUDAH MELAKUKAN FINGER 
+                $findFinger = $this->cekFinger($nomorKartu);
+
+                if ($poliRs != 'ANA' && $findFinger['kode'] != 1) {
+                return redirect()->back()->with('error', $findFinger['status']);
+                }
+
+                
 
                 // INSERT RENCANA KONTROL BY NO SEP
                 $requestData = [
@@ -375,7 +385,7 @@ class InsertSepController extends Controller
                 return redirect()->back()->with('error', 'No SEP Tidak Tersedia');
             }
         } catch (\Throwable $th) {
-            dd($th);
+            return redirect()->back()->with('warning', $th->getMessage());
         }
     }
 
@@ -450,9 +460,43 @@ class InsertSepController extends Controller
         $printer->setEmphasis();
         $printer->text("Telah Melakukan Finger dan Cetak SEP \n");
         $printer->setEmphasis(false);
+        $printer->text("-------------------------------- \n\n\n");
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+
+        $printer->setEmphasis();
+        $printer->text("RSU MUHAMMADIYAH METRO\n");
+        $printer->setEmphasis(false);
 
         $printer->setTextSize(1, 1);
-        $printer->text("Pada " . date('d-m-Y h:i:s') . "\n\n");
+        $printer->text("Jl. Soekarno Hatta No.42 Mulyojati 16B \n Metro Barat Kota Metro\n\n");
+
+
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $printer->setTextSize(1, 1);
+        $printer->text("No SEP : " . $printData['noSep'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("No MR : " . $printData['noMr'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Nama : " . $printData['nama'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Poli Tujuan : " . $printData['poli'] . " \n");
+
+        $printer->setTextSize(1, 1);
+        $printer->text("Jenis Pelayanan : " . $printData['jnsPelayanan'] . " \n\n");
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->setTextSize(1, 1);
+        $printer->setEmphasis();
+        $printer->text("Telah Melakukan Finger dan Cetak SEP \n");
+        $printer->setEmphasis(false);
+
+        $datetime = Carbon::now()->setTimezone('Asia/Jakarta')->format('d/m/Y h:i A');
+        $printer->setTextSize(1, 1);
+        $printer->text("Pada " . $datetime . "\n\n");
         $printer->setTextSize(1, 1);
         $printer->text("-------------------------------- \n\n\n");
 
