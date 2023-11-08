@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Pasien\Frond;
 
 use Carbon\Carbon;
-use App\Models\BridgePoli;
+use Mike42\Escpos\Printer;
 use Illuminate\Http\Request;
+use App\Models\BridgingDokter;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
 use App\Models\RencanaKontrolKronis;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
 use App\Repositories\RencanaKontrolRepository;
-use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 
 class InsertSepController extends Controller
@@ -390,7 +390,7 @@ class InsertSepController extends Controller
 
     private function findPoli($kodeDokterRs)
     {
-        return BridgePoli::where('kode_dokter_rs', $kodeDokterRs)->first();
+        return BridgingDokter::where('kode_dokter_rs', $kodeDokterRs)->first();
     }
 
     private function getHistoriSep($noKartu)

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBridgePolisTable extends Migration
+class CreateBridgingDoktersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBridgePolisTable extends Migration
      */
     public function up()
     {
-        Schema::create('bridge_polis', function (Blueprint $table) {
+        Schema::create('bridging_dokters', function (Blueprint $table) {
             $table->id();
             $table->string('kode_dokter_rs')->unique();
             $table->string('kode_poli');
@@ -29,6 +29,6 @@ class CreateBridgePolisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bridge_polis');
+        Schema::dropIfExists('bridging_dokters');
     }
 }

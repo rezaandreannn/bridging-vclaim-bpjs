@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\BridgePoli;
+use App\Models\BridgingDokter;
 use Illuminate\Database\Seeder;
 
 class BridgePoliSeeder extends Seeder
@@ -51,10 +51,10 @@ class BridgePoliSeeder extends Seeder
 
         // Loop melalui data dan masukkan ke dalam tabel
         foreach ($data as $item) {
-            $existingKodeDokter = BridgePoli::where('kode_dokter_rs', $item['kode_dokter_rs'])->first();
+            $existingKodeDokter = BridgingDokter::where('kode_dokter_rs', $item['kode_dokter_rs'])->first();
 
             if (!$existingKodeDokter) {
-                BridgePoli::create($item);
+                BridgingDokter::create($item);
             }
         }
     }
