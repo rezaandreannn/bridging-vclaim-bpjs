@@ -79,7 +79,7 @@
             </ul>
             </li> --}}
             @endcan
-            @can('lembar pengajuan klaim')
+            @can('manage user')
             <li class="menu-header">Manage User</li>
             <li class="dropdown {{ request()->is('super-admin*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users"></i>
