@@ -136,7 +136,8 @@ Route::prefix('cetaksep')->name('cetaksep.')->group(function () {
 });
 
 // ROUTE PESERTA 
-Route::get('peserta', [PesertaController::class, 'index'])->middleware(['auth'])->name('peserta');
+Route::get('peserta/{param}', [PesertaController::class, 'index'])->middleware(['auth'])
+    ->name('peserta');
 Route::get('peserta/detail/{noKartu}', DetailPesertaController::class)->middleware(['auth'])->name('peserta.detail');
 
 
@@ -150,7 +151,6 @@ Route::prefix('monitoring')->name('monitoring.')->group(function () {
 Route::prefix('bridging')->name('bridging.')->group(function () {
     Route::resource('dokter', BridgingDokterController::class)->middleware(['auth']);
     Route::post('find-dokter', [BridgingDokterController::class, 'findDokter'])->middleware(['auth'])->name('findDokter');
-   
 });
 
 // // 

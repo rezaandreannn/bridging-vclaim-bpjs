@@ -3,7 +3,6 @@
         <div class="sidebar-brand">
             <img src="http://192.168.2.253/emr//resource/doc/images/icon/logo.png" width="35" height="35" class="d-inline-block" alt="">
             <a href="index.html" class="ml-2">Vclaim RSUMM</a>
-
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">Vclaim</a>
@@ -14,7 +13,18 @@
                         Dashboard</span></a></li>
             <li class="menu-header">Menu</li>
             @can('peserta')
-            <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i class="fas fa-user"></i><span>Peserta</span></a></li>
+            <li class="dropdown {{Request::is('peserta*') ? 'active' : ''}}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user-injured"></i>
+                    <span>Peserta</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{Request::is('peserta/2*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta', ['param' => '2']) }}">Rawat Jalan</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class="{{Request::is('peserta/1*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta', ['param' => '1']) }}">Rawat Inap</a>
+                    </li>
+                </ul>
+            </li>
+            {{-- <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i class="fas fa-user"></i><span>Peserta</span></a></li> --}}
             @endcan
             @can('cetak sep')
             <li class="{{Request::is('cetaksep') ? 'active' : ''}}"><a class="nav-link" href="{{ route('cetaksep.verify')}}"><i class="fas fa-user"></i><span>Cetak SEP Petugas</span></a>
@@ -68,7 +78,7 @@
         </li>
         @endcan
         @can('lembar pengajuan klaim')
-        <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href="{{ route('peserta')}}"><i class="fab fa-wpforms"></i><span>Lembar Pengajuan Klaim</span></a>
+        <li class="{{Request::is('peserta') ? 'active' : ''}}"><a class="nav-link" href=""><i class="fab fa-wpforms"></i><span>Lembar Pengajuan Klaim</span></a>
 
             {{-- <li class="dropdown {{ request()->is('rujukan*') ? 'active' : '' }}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-notes-medical"></i>

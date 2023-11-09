@@ -20,9 +20,10 @@
                                 <th scope="col">#</th>
                                 <th scope="col">No MR</th>
                                 <th scope="col">No Kartu</th>
-                                <th scope="col">Tanggal</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Dokter</th>
+                                <th scope="col">Finger</th>
+                                <th scope="col">No HP</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -30,15 +31,22 @@
                             @foreach($pasiens as $pasien)
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
-                                <td width="10%">{{ $pasien['No_MR']}}</td>
-                                <td width="15%">{{ $pasien['No_Identitas']}}</td>
-                                <td width="15%">{{ \Carbon\Carbon::parse($pasien['Tanggal'])->format('Y-m-d') }}
-                                </td>
-                                <td width="12%">{{ $pasien['Nama_Pasien']}}</td>
-                                <td width="20%">{{ $pasien['Nama_Dokter']}}</td>
+                                <td width="10%">{{ $pasien['no_mr']}}</td>
+                                <td width="15%">{{ $pasien['no_kartu']}}</td>
+                                <td width="12%">{{ $pasien['nama_pasien']}}</td>
+                                <td width="15%">{{ $pasien['nama_dokter'] }}
                                 <td>
-                                    <a href="{{ route('peserta.detail', $pasien['No_Identitas'] ?? '')}}"
-                                        class="btn btn-primary btn-action">Detail</a>
+                                    @if($pasien['finger'] == 1)
+                                    <div class="badge badge-success">Sukses</div>
+                                    @else
+                                    <div class="badge badge-danger">Belum</div>
+
+                                    @endif
+                                </td>
+                                <td width="15%">{{ $pasien['no_telepon'] }}
+                                <td width="15%">
+                                    <a href="" class="btn btn-primary btn-action">Buat SEP</a>
+                                    <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-action mt-1">Detail</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -64,11 +72,9 @@
         }
 
     </style>
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 

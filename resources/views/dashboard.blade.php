@@ -6,8 +6,7 @@
                     <div class="card-stats">
                         <div class="card-stats-title">Status Klaim Rawat Jalan
                             <div class="dropdown d-inline">
-                                <input type="date" class="form-control" name="tanggal_klaim"
-                                    value="{{ $duaBulanYangLalu }}">
+                                <input type="date" class="form-control" name="tanggal_klaim" value="{{ $duaBulanYangLalu }}">
                             </div>
                         </div>
                         <div class="card-stats-items">
@@ -46,8 +45,7 @@
                     <div class="card-stats">
                         <div class="card-stats-title">Status Klaim Rawat Inap
                             <div class="dropdown d-inline">
-                                <input type="date" class="form-control" name="tanggal_klaim_ranap"
-                                    value="{{ $duaBulanYangLalu}}">
+                                <input type="date" class="form-control" name="tanggal_klaim_ranap" value="{{ $duaBulanYangLalu}}">
                             </div>
                         </div>
                         <div class="card-stats-items">
@@ -97,7 +95,7 @@
                             {{ $totalPeserta}}
                         </div>
                         <div class="card-footer">
-                            <a href="{{ route('peserta')}}" class="text-secondary">
+                            <a href="" class="text-secondary">
                                 <span>Selengkapnya </span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
@@ -133,8 +131,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
     --}}
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/jqvmap/dist/jqvmap.min.css')}}">
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
@@ -150,9 +147,9 @@
     {{-- <script src="{{ asset('stisla/assets/js/page/index.js')}}"></script> --}}
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Menangani peristiwa ketika input tanggal berubah
-            $('input[name="tanggal_klaim"]').on('change', function () {
+            $('input[name="tanggal_klaim"]').on('change', function() {
                 // Mendapatkan nilai input tanggal
                 var tanggalKlaim = $(this).val();
 
@@ -160,19 +157,19 @@
                 // Melakukan permintaan AJAX ke controller
                 $.ajax({
                     type: 'GET', // Atur metode HTTP sesuai dengan yang Anda perlukan
-                    url: '/status-klaim-rajal',
-                    data: {
+                    url: '/status-klaim-rajal'
+                    , data: {
                         tanggal_klaim: tanggalKlaim
-                    },
-                    success: function (response) {
+                    }
+                    , success: function(response) {
 
                         // Memperbarui elemen count dengan hasil dari controller
                         $('#countRajalKlaim').text(response.totalKlaim);
                         $('#countRajalPending').text(response.totalPending);
                         $('#countRajalProses').text(response.totalProses);
                         $('#countRajal').text(response.total);
-                    },
-                    error: function (error) {
+                    }
+                    , error: function(error) {
                         alert('Gagal mengirim permintaan AJAX: ' + error);
                     }
                 });
@@ -181,9 +178,9 @@
 
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Menangani peristiwa ketika input tanggal berubah
-            $('input[name="tanggal_klaim_ranap"]').on('change', function () {
+            $('input[name="tanggal_klaim_ranap"]').on('change', function() {
                 // Mendapatkan nilai input tanggal
                 var tanggalKlaim = $(this).val();
 
@@ -191,19 +188,19 @@
                 // Melakukan permintaan AJAX ke controller
                 $.ajax({
                     type: 'GET', // Atur metode HTTP sesuai dengan yang Anda perlukan
-                    url: '/status-klaim-ranap',
-                    data: {
+                    url: '/status-klaim-ranap'
+                    , data: {
                         tanggal_klaim: tanggalKlaim
-                    },
-                    success: function (response) {
+                    }
+                    , success: function(response) {
 
                         // Memperbarui elemen count dengan hasil dari controller
                         $('#countRanapKlaim').text(response.totalKlaim);
                         $('#countRanapPending').text(response.totalPending);
                         $('#countRanapProses').text(response.totalProses);
                         $('#countRanap').text(response.total);
-                    },
-                    error: function (error) {
+                    }
+                    , error: function(error) {
                         alert('Gagal mengirim permintaan AJAX: ' + error);
                     }
                 });
@@ -213,51 +210,51 @@
     </script>
 
     <script>
-        $(function () {
+        $(function() {
             var ctx = document.getElementById("myChart").getContext('2d');
             var cData = JSON.parse(`<?php echo $chart_data; ?>`);
             var labels = cData.label;
             var data = cData.data;
             var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Jumlah',
-                        data: data,
-                        borderWidth: 2,
-                        backgroundColor: '#6777ef',
-                        borderColor: '#6777ef',
-                        borderWidth: 2.5,
-                        pointBackgroundColor: '#ffffff',
-                        pointRadius: 4
+                type: 'line'
+                , data: {
+                    labels: labels
+                    , datasets: [{
+                        label: 'Jumlah'
+                        , data: data
+                        , borderWidth: 2
+                        , backgroundColor: '#6777ef'
+                        , borderColor: '#6777ef'
+                        , borderWidth: 2.5
+                        , pointBackgroundColor: '#ffffff'
+                        , pointRadius: 4
                     }]
-                },
-                options: {
+                }
+                , options: {
                     legend: {
                         display: false
-                    },
-                    scales: {
+                    }
+                    , scales: {
                         yAxes: [{
                             gridLines: {
-                                drawBorder: false,
-                                color: '#f2f2f2',
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                stepSize: 150
+                                drawBorder: false
+                                , color: '#f2f2f2'
+                            , }
+                            , ticks: {
+                                beginAtZero: true
+                                , stepSize: 150
                             }
-                        }],
-                        xAxes: [{
+                        }]
+                        , xAxes: [{
                             ticks: {
                                 display: false
-                            },
-                            gridLines: {
+                            }
+                            , gridLines: {
                                 display: false
                             }
                         }]
-                    },
-                }
+                    }
+                , }
             });
         });
 
@@ -271,57 +268,57 @@
         balance_chart_bg_color.addColorStop(1, 'rgba(63,82,227,0)');
 
         var myChart = new Chart(balance_chart, {
-            type: 'line',
-            data: {
-                labels: ['16-07-2018', '17-07-2018', '18-07-2018', '19-07-2018', '20-07-2018', '21-07-2018',
-                    '22-07-2018', '23-07-2018', '24-07-2018', '25-07-2018', '26-07-2018', '27-07-2018',
-                    '28-07-2018', '29-07-2018', '30-07-2018', '31-07-2018'
-                ],
-                datasets: [{
-                    label: 'Balance',
-                    data: [50, 61, 80, 50, 72, 52, 60, 41, 30, 45, 70, 40, 93, 63, 50, 62],
-                    backgroundColor: balance_chart_bg_color,
-                    borderWidth: 3,
-                    borderColor: 'rgba(63,82,227,1)',
-                    pointBorderWidth: 0,
-                    pointBorderColor: 'transparent',
-                    pointRadius: 3,
-                    pointBackgroundColor: 'transparent',
-                    pointHoverBackgroundColor: 'rgba(63,82,227,1)',
-                }]
-            },
-            options: {
+            type: 'line'
+            , data: {
+                labels: ['16-07-2018', '17-07-2018', '18-07-2018', '19-07-2018', '20-07-2018', '21-07-2018'
+                    , '22-07-2018', '23-07-2018', '24-07-2018', '25-07-2018', '26-07-2018', '27-07-2018'
+                    , '28-07-2018', '29-07-2018', '30-07-2018', '31-07-2018'
+                ]
+                , datasets: [{
+                    label: 'Balance'
+                    , data: [50, 61, 80, 50, 72, 52, 60, 41, 30, 45, 70, 40, 93, 63, 50, 62]
+                    , backgroundColor: balance_chart_bg_color
+                    , borderWidth: 3
+                    , borderColor: 'rgba(63,82,227,1)'
+                    , pointBorderWidth: 0
+                    , pointBorderColor: 'transparent'
+                    , pointRadius: 3
+                    , pointBackgroundColor: 'transparent'
+                    , pointHoverBackgroundColor: 'rgba(63,82,227,1)'
+                , }]
+            }
+            , options: {
                 layout: {
                     padding: {
-                        bottom: -1,
-                        left: -1
+                        bottom: -1
+                        , left: -1
                     }
-                },
-                legend: {
+                }
+                , legend: {
                     display: false
-                },
-                scales: {
+                }
+                , scales: {
                     yAxes: [{
                         gridLines: {
-                            display: false,
-                            drawBorder: false,
-                        },
-                        ticks: {
-                            beginAtZero: true,
                             display: false
+                            , drawBorder: false
+                        , }
+                        , ticks: {
+                            beginAtZero: true
+                            , display: false
                         }
-                    }],
-                    xAxes: [{
+                    }]
+                    , xAxes: [{
                         gridLines: {
-                            drawBorder: false,
-                            display: false,
-                        },
-                        ticks: {
+                            drawBorder: false
+                            , display: false
+                        , }
+                        , ticks: {
                             display: false
                         }
                     }]
-                },
-            }
+                }
+            , }
         });
 
     </script>
