@@ -37,10 +37,7 @@
                                 <td width="15%">{{ $pasien['nama_dokter'] }}
                                 <td>
                                     @if($pasien['finger'] == 1)
-                                    <div class="badge badge-success">Sukses</div>
-                                    @else
-                                    <div class="badge badge-danger">Belum</div>
-
+                                    <div title="sudah verifikasi finger" class="badge badge-success"><i class="fas fa-fingerprint"></i></div>
                                     @endif
                                 </td>
                                 <td width="15%">{{ $pasien['no_telepon'] }}

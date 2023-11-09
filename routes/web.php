@@ -27,6 +27,7 @@ use App\Http\Controllers\Back\Monitoring\KlaimController;
 use App\Http\Controllers\Peserta\DetailPesertaController;
 use App\Http\Controllers\RencanaKontrol\FindSepController;
 use App\Http\Controllers\Pasien\Frond\SelectOpsiController;
+use App\Http\Controllers\Back\SEP\CetakSepThermalController;
 use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -120,6 +121,7 @@ Route::prefix('sep')->name('sep.')->group(function () {
     Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
     Route::get('delete/{noSep}', DeleteSepController::class)->middleware(['auth'])->name('delete');
     Route::get('print/{noSep}', CetakSepController::class)->middleware(['auth'])->name('print');
+    Route::get('print/thermal/{noSep}', CetakSepThermalController::class)->middleware(['auth'])->name('print.thermal');
     Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
     Route::get('unduh/{noSep}', UnduhSepController::class)->middleware(['auth'])->name('unduh');
 });

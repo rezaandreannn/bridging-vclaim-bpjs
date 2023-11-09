@@ -9,8 +9,7 @@
         </div>
         <form class="form-inline" action="" method="get">
             <label class="sr-only" for="tanggal">Tanggal</label>
-            <input type="date" name="tanggal" value="{{ request()->input('tanggal')}}" class="form-control mb-2 mr-sm-2"
-                id="tanggal">
+            <input type="date" name="tanggal" value="{{ request()->input('tanggal')}}" class="form-control mb-2 mr-sm-2" id="tanggal">
 
             <label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
             <div class="input-group mb-2 mr-sm-2">
@@ -47,8 +46,7 @@
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
                                 <td width="20%">
-                                    <a
-                                        href="{{ route('sep.detail', $kunjungan['noSep'])}}">{{ $kunjungan['noSep'] }}</a>
+                                    <a href="{{ route('sep.detail', $kunjungan['noSep'])}}">{{ $kunjungan['noSep'] }}</a>
                                 </td>
                                 <td width="15%">{{ $kunjungan['noKartu']}}</td>
                                 <td width="15%">{{ $kunjungan['tglSep']}}</td>
@@ -58,16 +56,10 @@
                                     <a href="">{{ $kunjungan['noRujukan']}}</a>
                                 </td>
                                 <td width="25%">
-                                    <a href="{{ route('sep.print', $kunjungan['noSep'] )}}"
-                                        class="btn btn-primary btn-sm mr-1" data-toggle="tooltip" title="Print"
-                                        id="printButton"><i class="fas fa-print"></i></a>
-                                    <a href="{{ route('sep.unduh', $kunjungan['noSep'])}}"
-                                        class="btn btn-info btn-sm mr-1" data-toggle="tooltip" title="Unduh"><i
-                                            class="fas fa-download"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm mr-1"
-                                            data-toggle="modal" data-target="#deleteConfirmationHistory"
-                                            data-href="{{ route('sep.delete', $kunjungan['noSep']) }}"
-                                            data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ route('sep.print.thermal', $kunjungan['noSep'] )}}" class="btn btn-primary btn-sm mb-1" data-toggle="tooltip" title="Print" id="printButton"><i class="fas fa-toilet-paper"></i></a>
+                                    <a href="{{ route('sep.print', $kunjungan['noSep'] )}}" class="btn btn-primary btn-sm mb-1" data-toggle="tooltip" title="Print" id="printButton"><i class="fas fa-print"></i></a>
+                                    <a href="{{ route('sep.unduh', $kunjungan['noSep'])}}" class="btn btn-info btn-sm mb-1" data-toggle="tooltip" title="Unduh"><i class="fas fa-download"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#deleteConfirmationHistory" data-href="{{ route('sep.delete', $kunjungan['noSep']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -77,8 +69,7 @@
             </div>
     </section>
 
-    <div class="modal fade" id="deleteConfirmationHistory" tabindex="-1" role="dialog"
-        aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmationHistory" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,16 +101,14 @@
         }
 
     </style>
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
     @push('js-libraries')
-    
+
 
     <script src="{{ asset('stisla/node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('stisla/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -133,8 +122,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
     <script>
-
-        $('#deleteConfirmationHistory').on('show.bs.modal', function (e) {
+        $('#deleteConfirmationHistory').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var deleteURL = button.data('href');
             $('#deleteButtonHistory').attr('href', deleteURL);
