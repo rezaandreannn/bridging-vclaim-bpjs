@@ -19,7 +19,7 @@ class BridgingDokterController extends Controller
     {
         $bridgingDokters = BridgingDokter::all();
         // $getPoli = DB::table('bridging_dokters')->select('kode_poli')->distinct()->get();
-    
+
         // $dataMerge = [];
         // foreach($bridgingDokters as $bridgingDokter){
         //     foreach ($getPoli as $value) {
@@ -39,7 +39,7 @@ class BridgingDokterController extends Controller
         // }
 
         // dd($dataMerge);
-    
+
         return view('bridging.dokter.index', compact('bridgingDokters'));
     }
 
@@ -51,11 +51,19 @@ class BridgingDokterController extends Controller
     public function create()
     {
         $polis = [
-            'ANA' => 'Anak', 
-            'INT' => 'Penyakit Dalam', 
+            'ANA' => 'Anak',
+            'INT' => 'Penyakit Dalam',
             'ORT' => 'Orthopedi',
-            'MAT' => 'Mata' 
-            ];
+            'MAT' => 'Mata',
+            'THT' => 'Tht-kl',
+            'OBG' => 'Obgin',
+            'SAR' => 'Saraf',
+            'KLT' => 'Kulit dan Kelamin',
+            'BED' => 'Bedah',
+            'IRM' => 'Rehabilitas Medik',
+            'PAR' => 'Paru',
+            'URO' => 'Urologi'
+        ];
         return view('bridging.dokter.create', compact('polis'));
     }
 
@@ -67,14 +75,14 @@ class BridgingDokterController extends Controller
      */
     public function store(Request $request)
     {
-      $data = $request->validate([
-          'kode_dokter_rs' => 'required',
-          'kode_poli' => 'required',
-          'kode_dokter_bpjs' => 'required',
-      ]);
+        $data = $request->validate([
+            'kode_dokter_rs' => 'required',
+            'kode_poli' => 'required',
+            'kode_dokter_bpjs' => 'required',
+        ]);
 
-      BridgingDokter::create($data);
-      return redirect()->route('bridging.dokter.index')->with('success', 'Berhasil menambahkan data');
+        BridgingDokter::create($data);
+        return redirect()->route('bridging.dokter.index')->with('success', 'Berhasil menambahkan data');
     }
 
     /**
@@ -130,6 +138,5 @@ class BridgingDokterController extends Controller
         $data = $data['response']['list'];
 
         return response()->json(['data' => $data]);
-
-    } 
+    }
 }
