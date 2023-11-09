@@ -1,10 +1,11 @@
 <x-app-layout>
     <section class="section">
         <div class="section-header">
-            <h4>Tambah Data Peserta Kronis</h4>
+            <h4>Tambah Data Dokter</h4>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="#">Rencana Kontrol</a></div>
+                <div class="breadcrumb-item active"><a href="#">Bridging</a></div>
+                <div class="breadcrumb-item active"><a href="#">Dokter</a></div>
                 <div class="breadcrumb-item active"><a href="#">Tambah</a></div>
             </div>
         </div>
@@ -19,10 +20,14 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kode Dokter RS
-                                </label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Dokter RS</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="number" class="form-control" name="kode_dokter_rs">
+                                    <select class="form-control select2" name="kode_dokter_rs" id="kode_dokter_rs">
+                                        <option value="" selected disabled>-- Pilih Dokter RS --</option>
+                                        @foreach ($dokters as $dokter)
+                                        <option value="{{ $dokter['Kode_Dokter'] }}">{{ $dokter['Nama_Dokter']}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
@@ -70,27 +75,27 @@
     <script src="{{ asset('stisla/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
 
     <script>
-        $(document).ready(function () {
-            $('#kode_poli').change(function () {
+        $(document).ready(function() {
+            $('#kode_poli').change(function() {
                 var kodePoli = $(this).val();
 
                 $.ajax({
-                    type: 'POST',
-                    url: "{{ route('bridging.findDokter') }}",
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                        'kode_poli': kodePoli
-                    },
-                    success: function (response) {
+                    type: 'POST'
+                    , url: "{{ route('bridging.findDokter') }}"
+                    , data: {
+                        '_token': '{{ csrf_token() }}'
+                        , 'kode_poli': kodePoli
+                    }
+                    , success: function(response) {
                         $('#kode_dokter_bpjs').empty();
-                        $.each(response.data, function (i, item) {
+                        $.each(response.data, function(i, item) {
                             $('#kode_dokter_bpjs').append($('<option>', {
-                                value: item.kode,
-                                text: item.nama
+                                value: item.kode
+                                , text: item.nama
                             }));
                         });
-                    },
-                    error: function (data) {
+                    }
+                    , error: function(data) {
                         console.log(data);
                     }
                 });

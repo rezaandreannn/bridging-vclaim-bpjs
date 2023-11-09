@@ -44,11 +44,11 @@
             </li>
             @endcan
             @can('bridging')
-            <li class="dropdown">
+            <li class="dropdown {{Request::is('bridging*') ? 'active' : ''}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
                     <span>Bridging</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('bridging.dokter.index')}}">Dokter</a></li>
+                    <li class="{{Request::is('bridging/dokter*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('bridging.dokter.index')}}">Dokter</a></li>
                 </ul>
             </li>
             @endcan

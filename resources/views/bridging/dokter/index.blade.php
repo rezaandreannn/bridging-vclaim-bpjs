@@ -19,23 +19,23 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">kode Dokter Rs</th>
+                                <th scope="col">Nama Dokter Rs</th>
                                 <th scope="col">Poli</th>
                                 <th scope="col">Kode Dokter BPJS</th>
-                                {{-- <th scope="col">Nama Dokter BPJS</th> --}}
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($bridgingDokters as $bridingDokter)
+                            @foreach($resultData as $bridingDokter)
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
                                 <td>{{ $bridingDokter['kode_dokter_rs']}}</td>
+                                <td>{{ $bridingDokter['nama_dokter_rs']}}</td>
                                 <td>{{ $bridingDokter['kode_poli']}}</td>
                                 <td>{{ $bridingDokter['kode_dokter_bpjs']}}</td>
                                 {{-- <td>{{ $bridingDokter['nama_dokter_bpjs']}}</td> --}}
                                 <td>
-                                    <a href="{{ route('bridging.dokter.edit', $bridingDokter['id'] ?? '')}}"
-                                        class="btn btn-primary btn-action">Edit</a>
+                                    <a href="{{ route('bridging.dokter.edit', $bridingDokter['id'] ?? '')}}" class="btn btn-primary btn-action">Edit</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -61,11 +61,9 @@
         }
 
     </style>
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 

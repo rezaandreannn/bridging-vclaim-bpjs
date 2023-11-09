@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Back;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Models\BridgingDokter;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Repositories\ReferensiRepository;
 
@@ -17,30 +17,31 @@ class BridgingDokterController extends Controller
      */
     public function index(ReferensiRepository $referensiRepository)
     {
-        $bridgingDokters = BridgingDokter::all();
-        // $getPoli = DB::table('bridging_dokters')->select('kode_poli')->distinct()->get();
+        $resultData = [];
+        try {
+            $bridgingDokters = BridgingDokter::all();
+            $client = new Client();
+            $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/dokter';
+            $response = $client->get($endpoint);
+            $result = json_decode($response->getBody()->getContents(), true);
+            foreach ($bridgingDokters as $bridgingDokter) {
+                foreach ($result['data'] as $dokter) {
+                    if ($bridgingDokter['kode_dokter_rs'] == $dokter['Kode_Dokter']) {
+                        $data = [
+                            'kode_dokter_rs' => $dokter['Kode_Dokter'],
+                            'nama_dokter_rs' => $dokter['Nama_Dokter'],
+                            'kode_poli' => $bridgingDokter['kode_poli'],
+                            'kode_dokter_bpjs' => $bridgingDokter['kode_dokter_bpjs']
+                        ];
+                        $resultData[] = $data;
+                    }
+                }
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('warning', $th->getMessage());
+        }
 
-        // $dataMerge = [];
-        // foreach($bridgingDokters as $bridgingDokter){
-        //     foreach ($getPoli as $value) {
-        //         $data =  $referensiRepository->getDpjpByKodePoli(2, date('Y-m-d'), $value->kode_poli);
-        //         $data = $data['response']['list'];
-        //        foreach ($data as $kode) {
-        //            if($bridgingDokter->kode_dokter_bpjs == $kode['kode']){
-        //               $dataMerge = [
-        //                   'kode_dokter_rs' => $bridgingDokter['kode_dokter_rs'],
-        //                   'kode_poli' => $bridgingDokter->kode_poli,
-        //                   'kode_dokter_bpjs' => $bridgingDokter->kode_dokter_bpjs,
-        //                   'nama_dokter' => $kode['nama'],
-        //               ];
-        //            }
-        //        }
-        //     }
-        // }
-
-        // dd($dataMerge);
-
-        return view('bridging.dokter.index', compact('bridgingDokters'));
+        return view('bridging.dokter.index', compact('resultData'));
     }
 
     /**
@@ -50,21 +51,31 @@ class BridgingDokterController extends Controller
      */
     public function create()
     {
-        $polis = [
-            'ANA' => 'Anak',
-            'INT' => 'Penyakit Dalam',
-            'ORT' => 'Orthopedi',
-            'MAT' => 'Mata',
-            'THT' => 'Tht-kl',
-            'OBG' => 'Obgin',
-            'SAR' => 'Saraf',
-            'KLT' => 'Kulit dan Kelamin',
-            'BED' => 'Bedah',
-            'IRM' => 'Rehabilitas Medik',
-            'PAR' => 'Paru',
-            'URO' => 'Urologi'
-        ];
-        return view('bridging.dokter.create', compact('polis'));
+        try {
+            $client = new Client();
+            $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/dokter';
+            $response = $client->get($endpoint);
+            $result = json_decode($response->getBody()->getContents(), true);
+            $dokters = $result['data'];
+            $polis = [
+                'ANA' => 'Anak',
+                'INT' => 'Penyakit Dalam',
+                'ORT' => 'Orthopedi',
+                'MAT' => 'Mata',
+                'THT' => 'Tht-kl',
+                'OBG' => 'Obgin',
+                'SAR' => 'Saraf',
+                'KLT' => 'Kulit dan Kelamin',
+                'BED' => 'Bedah',
+                'IRM' => 'Rehabilitas Medik',
+                'PAR' => 'Paru',
+                'URO' => 'Urologi'
+            ];
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('warning', $th->getMessage());
+        }
+
+        return view('bridging.dokter.create', compact('polis', 'dokters'));
     }
 
     /**
@@ -75,14 +86,18 @@ class BridgingDokterController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'kode_dokter_rs' => 'required',
-            'kode_poli' => 'required',
-            'kode_dokter_bpjs' => 'required',
-        ]);
+        try {
+            $data = $request->validate([
+                'kode_dokter_rs' => 'required',
+                'kode_poli' => 'required',
+                'kode_dokter_bpjs' => 'required',
+            ]);
 
-        BridgingDokter::create($data);
-        return redirect()->route('bridging.dokter.index')->with('success', 'Berhasil menambahkan data');
+            BridgingDokter::create($data);
+            return redirect()->route('bridging.dokter.index')->with('success', 'Berhasil menambahkan data');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('warning', $th->getMessage());
+        }
     }
 
     /**
