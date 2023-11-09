@@ -29,9 +29,14 @@ class CetakSepThermalController extends Controller
         $data = $this->sepRepository->findByNomor($noSep);
         // $sepRencanaKontrol = $this->rencanaKontrolRepository->findSep($noSep);
 
-
+        $sep = [];
         if ($data['metaData']['code'] == 200) {
             $sep = $data['response'];
         }
+
+
+        dd($sep);
+
+        return view('sep.cetak-sep-termal', compact('sep'));
     }
 }
