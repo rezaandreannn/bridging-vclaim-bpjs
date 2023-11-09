@@ -35,8 +35,6 @@ class CetakSepThermalController extends Controller
         }
 
 
-        dd($sep);
-
         return view('sep.cetak-sep-termal', compact('sep'));
     }
 }
