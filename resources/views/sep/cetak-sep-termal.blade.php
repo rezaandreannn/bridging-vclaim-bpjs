@@ -100,7 +100,7 @@
                 <div class="mt-0 text-center">
                     <p style="font-size: 12px">
                         <b>Telah Melakukan Finger dan Cetak SEP</b> <br />
-                        Pada 07/11/2023 08:59AM <br />
+                        Pada {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('m/d/Y h:i A') }} <br />
                         ------------------------------------------
                     </p>
                 </div>
@@ -234,9 +234,9 @@
                 <div class="justify-content-center ms-2">
                     <div>
                         <p style="font-size: 12px">
-                            No. SEP : 0107R0061123V002989<br />No MR : 205967<br />
-                            Nama : MUHAMMAD YUSUF <br />
-                            Poli Tujuan : MATA <br />Jenis Pelayanan : R. Jalan
+                            No. SEP : {{$sep['noSep']}}<br />No MR : {{$sep['peserta']['noMr']}}<br />
+                            Nama : {{ $sep['peserta']['nama']}} <br />
+                            Poli Tujuan : {{ $sep['poli']}} <br />Jenis Pelayanan : {{ $sep['jnsPelayanan']}}
                         </p>
                     </div>
                 </div>
@@ -254,7 +254,7 @@
                 <div class="mt-0 text-center">
                     <p style="font-size: 12px">
                         <b>Telah Melakukan Finger dan Cetak SEP</b> <br />
-                        Pada 07/11/2023 08:59AM <br />
+                        Pada {{ \Carbon\Carbon::now()->setTimezone('Asia/Jakarta')->format('m/d/Y h:i A') }} <br />
                         ------------------------------------------
                     </p>
                 </div>
