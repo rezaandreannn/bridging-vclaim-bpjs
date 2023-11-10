@@ -41,6 +41,7 @@ use App\Http\Controllers\Pasien\Frond\VerifiedIdentitasController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 use App\Http\Controllers\cetakSepAdmin\VerifiedIdentitasAdminController;
+use App\Http\Controllers\Referensi\PoliController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolPasienKronisController;
 
 /*
@@ -185,6 +186,7 @@ Route::get('/rujukan/biodata/{noIdentitas}', [VerifikasiIdentitasController::cla
 Route::get('rujukan/{nomorRujukan}', [RujukanController::class, 'byNomorRujukan'])->name('rujukan.index');
 
 Route::get('dpjp', [DpjpController::class, 'getDpjp']);
+Route::get('poli/{kodePoli}', [PoliController::class, 'getPoli']);
 // Route::get('peserta', [FindByNomorKartuController::class, 'index']);
 
 Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
