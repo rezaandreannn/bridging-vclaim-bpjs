@@ -69,7 +69,9 @@ class BridgingDokterController extends Controller
                 'BED' => 'Bedah',
                 'IRM' => 'Rehabilitas Medik',
                 'PAR' => 'Paru',
-                'URO' => 'Urologi'
+                'URO' => 'Urologi',
+                'BDM' => 'Bedah Mulut',
+                'BSY' => 'Bedah Syaraf'
             ];
         } catch (\Throwable $th) {
             return redirect()->back()->with('warning', $th->getMessage());
