@@ -32,6 +32,7 @@ use App\Http\Controllers\Peserta\FindByNomorKartuController;
 use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
+use App\Http\Controllers\Back\SEP\CreateSepController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\cetakSepAdmin\InsertSepAdminController;
@@ -59,30 +60,15 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
     ->name('login');
 
-// Route::get('/fds', [AuthenticatedPesertaController::class, 'create'])
-//     ->middleware('guest')
-//     ->name('login.peserta.index');
-
-// Route::post('/login/peserta', [AuthenticatedPesertaController::class, 'store'])
-//     ->middleware('guest')
-//     ->name('login.peserta');
-
-// Route::post('/logout/peserta', [AuthenticatedPesertaController::class, 'destroy'])
-//     ->middleware('auth')
-//     ->name('logout.peserta');
-
-
-
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
-
 
 Route::get('/dokumentasi', DocumentationController::class)
     ->middleware('auth')
     ->name('dokumentasi');
 
-// COUNT KLAIM
+// COUNT KLAIM DASHBOARD
 Route::get('/status-klaim-rajal', [DashboardController::class, 'countKlaimRajal'])
     ->middleware('auth');
 Route::get('/status-klaim-ranap', [DashboardController::class, 'countKlaimRanap'])
@@ -118,13 +104,14 @@ Route::prefix('rujukan')->name('rujukan.')->group(function () {
 });
 
 // ROUTE SEP
-Route::prefix('sep')->name('sep.')->group(function () {
-    Route::get('history', HistoryPesertaController::class)->middleware(['auth'])->name('history');
-    Route::get('delete/{noSep}', DeleteSepController::class)->middleware(['auth'])->name('delete');
-    Route::get('print/{noSep}', CetakSepController::class)->middleware(['auth'])->name('print');
-    Route::get('print/thermal/{noSep}', CetakSepThermalController::class)->middleware(['auth'])->name('print.thermal');
-    Route::get('detail/{noSep}', DetailController::class)->middleware(['auth'])->name('detail');
-    Route::get('unduh/{noSep}', UnduhSepController::class)->middleware(['auth'])->name('unduh');
+Route::prefix('sep')->name('sep.')->middleware(['auth'])->group(function () {
+    Route::get('create/{noKartu}', [CreateSepController::class, 'create'])->name('create');
+    Route::get('history', HistoryPesertaController::class)->name('history');
+    Route::get('delete/{noSep}', DeleteSepController::class)->name('delete');
+    Route::get('print/{noSep}', CetakSepController::class)->name('print');
+    Route::get('print/thermal/{noSep}', CetakSepThermalController::class)->name('print.thermal');
+    Route::get('detail/{noSep}', DetailController::class)->name('detail');
+    Route::get('unduh/{noSep}', UnduhSepController::class)->name('unduh');
 });
 
 // ROUTE CETAK SEP PETUGAS
@@ -170,12 +157,13 @@ Route::get('/rujukan/{nomorKartu}', [VerifikasiIdentitasController::class, 'sele
 Route::get('/rujukan/baru/{nomorKartu}', [NewRujukanController::class, 'index'])->name('rujukan.baru');
 Route::get('/suratkontrol/{nomorKartu}', [SuratKontrolController::class, 'index'])->name('surat.kontrol');
 
-// SEP
-Route::get('sep/{nomorKartu}', [SepController::class, 'index']);
-Route::get('sep/cari/{nomorSep}', [CariController::class, 'index']);
-Route::get('rencana', [RencanaKontrolController::class, 'index']);
-Route::get('khusus', [RujukanController::class, 'listRujukanKhusus']);
-Route::get('sep/history/{nomorKartu}', [HistoyController::class, 'index']);
+// SEP  back end
+
+// Route::get('sep/{nomorKartu}', [SepController::class, 'index']);
+// Route::get('sep/cari/{nomorSep}', [CariController::class, 'index']);
+// Route::get('rencana', [RencanaKontrolController::class, 'index']);
+// Route::get('khusus', [RujukanController::class, 'listRujukanKhusus']);
+// Route::get('sep/history/{nomorKartu}', [HistoyController::class, 'index']);
 
 
 Route::get('/rujukan/biodata/{noIdentitas}', [VerifikasiIdentitasController::class, 'identitas'])->middleware(['auth'])->name('rujukan.biodata');

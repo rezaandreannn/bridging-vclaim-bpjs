@@ -42,7 +42,7 @@
                                 </td>
                                 <td width="15%">{{ $pasien['no_telepon'] }}
                                 <td width="15%">
-                                    <a href="" class="btn btn-primary btn-action">Buat SEP</a>
+                                    <a href="{{ route('sep.create', $pasien['no_kartu'] ?? '')}}" class="btn btn-primary btn-action">Buat SEP</a>
                                     <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-action mt-1">Detail</a>
                                 </td>
                             </tr>

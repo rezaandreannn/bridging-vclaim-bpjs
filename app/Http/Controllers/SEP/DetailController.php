@@ -32,7 +32,6 @@ class DetailController extends Controller
                     $sep = [];
                 }
             }
-          
         } catch (\Throwable $th) {
             return redirect()->back()->with('warning', $th->getMessage());
         }
