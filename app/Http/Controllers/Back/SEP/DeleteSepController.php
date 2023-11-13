@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back\SEP;
 use Illuminate\Http\Request;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
+use App\Models\AnjunganSep;
 
 class DeleteSepController extends Controller
 {
@@ -33,6 +34,10 @@ class DeleteSepController extends Controller
 
         $delete = json_encode($data, true);
         $this->sepRepository->delete($delete);
+
+        // DELETE DI DATABASE
+        $sepByLocal = AnjunganSep::where('no_sep', $noSep)->first();
+        $sepByLocal->delete();
 
         return redirect()->back()->with('success', 'No SEP Berhasil Di Hapus');
     }

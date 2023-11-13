@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\BridgingDokter;
 use App\Repositories\SepRepository;
 use App\Http\Controllers\Controller;
+use App\Models\AnjunganSep;
 use App\Models\RencanaKontrolKronis;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
@@ -145,7 +146,7 @@ class InsertSepController extends Controller
                                 ],
                                 "dpjpLayan" => $bridge['kode_dokter_bpjs'], //diambil dari relasi table dokter bridge
                                 "noTelp" => $dataRujukan['peserta']['mr']['noTelepon'] ?? $noHp,
-                                "user" => auth()->user()->name ?? 'admin'
+                                "user" => auth()->user()->name ?? 'anjungan mandiri'
                             ]
                         ]
                     ];
@@ -163,6 +164,8 @@ class InsertSepController extends Controller
                             'poli' => $data['poli'],
                             'jnsPelayanan' => $data['jnsPelayanan']
                         ];
+                        // CREATE SEP BY ANJUNGAN
+                        $this->createSepByAnjungan($printData, 1);
                         $this->cetak($printData);
                         return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');;
                     } else {
@@ -207,9 +210,10 @@ class InsertSepController extends Controller
 
                 foreach ($sepHistories as $sepHistory) {
                     $getPoliTujuan = $sepHistory['poliTujSep'];
+                    $jnsPelayanan = $sepHistory['jnsPelayanan'];
 
                     // Bandingkan kode poli dengan kode yang ada di database
-                    if ($getPoliTujuan == $poliRs) {
+                    if ($getPoliTujuan == $poliRs && $jnsPelayanan == 2) {
                         $oldSep = $sepHistory;
                     }
                 }
@@ -227,14 +231,14 @@ class InsertSepController extends Controller
                         return redirect()->back()->with('error', $message);
                     }
                 }
-                 // AMBIL DATA FINGER HARI DAN CEK APAKAH PESERTA SUDAH MELAKUKAN FINGER 
+                // AMBIL DATA FINGER HARI DAN CEK APAKAH PESERTA SUDAH MELAKUKAN FINGER 
                 $findFinger = $this->cekFinger($nomorKartu);
 
                 if ($poliRs != 'ANA' && $findFinger['kode'] != 1) {
-                return redirect()->back()->with('error', $findFinger['status']);
+                    return redirect()->back()->with('error', $findFinger['status']);
                 }
 
-                
+
 
                 // INSERT RENCANA KONTROL BY NO SEP
                 $requestData = [
@@ -344,7 +348,7 @@ class InsertSepController extends Controller
                                             ],
                                             "dpjpLayan" => $kodeDokter,
                                             "noTelp" => $dataRujukan['peserta']['mr']['noTelepon'] ?? '',
-                                            "user" => auth()->user()->name ?? 'admin'
+                                            "user" => auth()->user()->name ?? 'anjungan mandiri'
                                         ]
                                     ]
                                 ];
@@ -363,6 +367,8 @@ class InsertSepController extends Controller
                                         'poli' => $data['poli'],
                                         'jnsPelayanan' => $data['jnsPelayanan']
                                     ];
+                                    // CREATE SEP BY ANJUNGAN
+                                    $this->createSepByAnjungan($printData, 2);
                                     $this->cetak($printData);
                                     return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');
                                 } else {
@@ -428,7 +434,7 @@ class InsertSepController extends Controller
         $connector = new FilePrintConnector(config('app.printer_url'));
         $printer = new Printer($connector);
 
-       
+
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
@@ -537,5 +543,19 @@ class InsertSepController extends Controller
         }
 
         return false;
+    }
+
+    public function createSepByAnjungan($printData, $status)
+    {
+        AnjunganSep::create([
+            'no_sep' => $printData['noSep'],
+            'tgl_sep' => $printData['tglSep'],
+            'no_kartu' => $printData['noKartu'],
+            'no_mr' => $printData['noMr'],
+            'nama' => $printData['nama'],
+            'poli' => $printData['poli'],
+            'status' => $status,
+            'created_by' => auth()->user()->name ?? ''
+        ]);
     }
 }
