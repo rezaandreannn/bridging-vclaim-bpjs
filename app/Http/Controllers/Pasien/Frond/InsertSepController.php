@@ -172,10 +172,9 @@ class InsertSepController extends Controller
                             'jnsPelayanan' => $data['jnsPelayanan']
                         ];
                         // CREATE SEP BY ANJUNGAN
-                        dd($printData);
                         $this->createSepByAnjungan($printData, 1);
                         $this->cetak($printData);
-                        return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');;
+                        return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');
                     } else {
                         $message = $response['metaData']['message'];
                         return redirect()->back()->with('error', $message);
@@ -371,8 +370,6 @@ class InsertSepController extends Controller
 
                                 $insertSep = json_encode($requestData, true);
                                 $response =   $this->sepRepository->insert($insertSep);
-
-
 
                                 if ($response['metaData']['code'] == 200) {
                                     $data = $response['response']['sep'];
