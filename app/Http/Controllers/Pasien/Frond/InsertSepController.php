@@ -13,7 +13,9 @@ use App\Models\RencanaKontrolKronis;
 use App\Repositories\RujukanRepository;
 use App\Repositories\FingerPrintRepository;
 use App\Repositories\RencanaKontrolRepository;
+use App\Services\RujukanService;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use PhpParser\Node\Stmt\Foreach_;
 
 class InsertSepController extends Controller
 {
@@ -21,13 +23,15 @@ class InsertSepController extends Controller
     protected $sepRepository;
     protected $fingerPrintRepository;
     protected $rencanaKontrolRepository;
+    protected $rujukanService;
 
-    public function __construct(RujukanRepository $rujukanRepository, SepRepository $sepRepository, FingerPrintRepository $fingerPrintRepository, RencanaKontrolRepository $rencanaKontrolRepository)
+    public function __construct(RujukanRepository $rujukanRepository, SepRepository $sepRepository, FingerPrintRepository $fingerPrintRepository, RencanaKontrolRepository $rencanaKontrolRepository, RujukanService $rujukanService)
     {
         $this->rujukanRepository = $rujukanRepository;
         $this->sepRepository = $sepRepository;
         $this->fingerPrintRepository = $fingerPrintRepository;
         $this->rencanaKontrolRepository = $rencanaKontrolRepository;
+        $this->rujukanService = $rujukanService;
     }
 
     public function byNewRujukan(Request $request)
@@ -211,9 +215,19 @@ class InsertSepController extends Controller
                 foreach ($sepHistories as $sepHistory) {
                     $getPoliTujuan = $sepHistory['poliTujSep'];
                     $jnsPelayanan = $sepHistory['jnsPelayanan'];
+                    $noRujukan = $sepHistory['noRujukan'];
+
+                    // $noRujukanAktif = [];
+                    // CEK RUJUKAN AKTIF DAN AMBIL RUJUKAN 1
+                    $rujukanAktif = $this->rujukanService->rujukanStatusAktif($nomorKartu);
+                    foreach ($rujukanAktif as $aktive) {
+                        if ($aktive['poliRujukan']['kode'] == $getPoliTujuan) {
+                            $noRujukanAktif = $aktive['noKunjungan'];
+                        }
+                    }
 
                     // Bandingkan kode poli dengan kode yang ada di database
-                    if ($getPoliTujuan == $poliRs && $jnsPelayanan == 2) {
+                    if ($getPoliTujuan == $poliRs && $jnsPelayanan == 2 && $noRujukan == $noRujukanAktif) {
                         $oldSep = $sepHistory;
                     }
                 }
@@ -237,8 +251,6 @@ class InsertSepController extends Controller
                 if ($poliRs != 'ANA' && $findFinger['kode'] != 1) {
                     return redirect()->back()->with('error', $findFinger['status']);
                 }
-
-
 
                 // INSERT RENCANA KONTROL BY NO SEP
                 $requestData = [
@@ -429,7 +441,6 @@ class InsertSepController extends Controller
 
     public function cetak($printData)
     {
-
 
         $connector = new FilePrintConnector(config('app.printer_url'));
         $printer = new Printer($connector);
