@@ -168,6 +168,7 @@ class InsertSepController extends Controller
                             'nama' => $data['peserta']['nama'],
                             'hakKelas' => $data['peserta']['hakKelas'],
                             'namaDokter' => $namaDokterRs,
+                            'kodeDokter' => $bridge['kode_dokter_bpjs'],
                             'poli' => $data['poli'],
                             'jnsPelayanan' => $data['jnsPelayanan']
                         ];
@@ -578,7 +579,7 @@ class InsertSepController extends Controller
             'no_mr' => $printData['noMr'],
             'nama' => $printData['nama'],
             'poli' => $printData['poli'],
-            'kode_dokter' => $printData['kodeDokter'],
+            'kode_dokter' => $printData['kodeDokter'] ?? '',
             'nama_dokter' => $printData['namaDokter'],
             'status' => $status,
             'created_by' => auth()->user()->name ?? ''
