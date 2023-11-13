@@ -19,8 +19,9 @@ class PesertaController extends Controller
     {
         try {
             $client = new Client();
-            $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran/status_pelayanan/' . $param;
-            $response = $client->get($endpoint);
+            // $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran/status_pelayanan/' . $param;
+            $endpoint = 'https://192.168.2.131/api.simrs/index.php/api/pasien/pendaftaran/status_pelayanan/' . $param;
+            $response = $client->get($endpoint, ['verify' => false]);
             $result = json_decode($response->getBody()->getContents(), true);
 
             // Ambil finger 

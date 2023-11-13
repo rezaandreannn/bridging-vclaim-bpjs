@@ -21,8 +21,9 @@ class BridgingDokterController extends Controller
         try {
             $bridgingDokters = BridgingDokter::all();
             $client = new Client();
-            $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/dokter';
-            $response = $client->get($endpoint);
+            $endpoint = 'https://192.168.2.131/api.simrs/index.php/api/dokter';
+            // $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/dokter';
+            $response = $client->get($endpoint, ['verify' => false]);
             $result = json_decode($response->getBody()->getContents(), true);
             foreach ($bridgingDokters as $bridgingDokter) {
                 foreach ($result['data'] as $dokter) {
@@ -53,8 +54,9 @@ class BridgingDokterController extends Controller
     {
         try {
             $client = new Client();
-            $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/dokter';
-            $response = $client->get($endpoint);
+            $endpoint = 'https://192.168.2.131/api.simrs/index.php/api/dokter';
+            // $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/dokter';
+            $response = $client->get($endpoint, ['verify' => false]);
             $result = json_decode($response->getBody()->getContents(), true);
             $dokters = $result['data'];
             $polis = [
