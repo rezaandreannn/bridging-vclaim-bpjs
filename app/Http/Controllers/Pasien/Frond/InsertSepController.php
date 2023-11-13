@@ -42,6 +42,7 @@ class InsertSepController extends Controller
             $kodeDokterRs = $request->session()->get('pasien')['kode_dokter_rs'];
             $noMr = $request->session()->get('pasien')['no_mr'];
             $noHp = $request->session()->get('pasien')['no_telepon'];
+            $namaDokterRs = $request->session()->get('pasien')['nama_dokter'];
         } else {
             return redirect()->back()->with('error', 'Sesi telah habis');
         }
@@ -166,10 +167,12 @@ class InsertSepController extends Controller
                             'noMr' => $data['peserta']['noMr'],
                             'nama' => $data['peserta']['nama'],
                             'hakKelas' => $data['peserta']['hakKelas'],
+                            'namaDokter' => $namaDokterRs,
                             'poli' => $data['poli'],
                             'jnsPelayanan' => $data['jnsPelayanan']
                         ];
                         // CREATE SEP BY ANJUNGAN
+                        dd($printData);
                         $this->createSepByAnjungan($printData, 1);
                         $this->cetak($printData);
                         return redirect()->route('pasien.verify')->with('success', 'SEP Berhasil dicetak');;
@@ -369,7 +372,7 @@ class InsertSepController extends Controller
                                 $insertSep = json_encode($requestData, true);
                                 $response =   $this->sepRepository->insert($insertSep);
 
-                            
+
 
                                 if ($response['metaData']['code'] == 200) {
                                     $data = $response['response']['sep'];
@@ -382,8 +385,8 @@ class InsertSepController extends Controller
                                         'hakKelas' => $data['peserta']['hakKelas'],
                                         'poli' => $data['poli'],
                                         'jnsPelayanan' => $data['jnsPelayanan'],
-                                        'kodeDokter' => $kodeDokter, 
-                                        'namaDokter' => $namaDokter 
+                                        'kodeDokter' => $kodeDokter,
+                                        'namaDokter' => $namaDokter
                                     ];
                                     // CREATE SEP BY ANJUNGAN
                                     $this->createSepByAnjungan($printData, 2);
@@ -448,16 +451,8 @@ class InsertSepController extends Controller
     public function cetak($printData)
     {
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> e5ad49166db5e0231720b7166b2c073d43b7ac04
         $connector = new FilePrintConnector(config('app.printer_url'));
         $printer = new Printer($connector);
-
-
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
