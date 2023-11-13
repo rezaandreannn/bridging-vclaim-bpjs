@@ -22,6 +22,8 @@ class CreateAnjunganSepsTable extends Migration
             $table->string('no_mr');
             $table->string('nama');
             $table->string('poli');
+            $table->string('kode_dokter');
+            $table->string('nama_dokter');
             $table->enum('status', [1, 2, 3]);
             $table->string('created_by');
             $table->string('updated_by')->nullable();

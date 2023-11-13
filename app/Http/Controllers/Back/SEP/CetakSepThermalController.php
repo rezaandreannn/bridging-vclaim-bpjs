@@ -33,8 +33,7 @@ class CetakSepThermalController extends Controller
         if ($data['metaData']['code'] == 200) {
             $sep = $data['response'];
         }
-
-
+        
         return view('sep.cetak-sep-termal', compact('sep'));
     }
 }

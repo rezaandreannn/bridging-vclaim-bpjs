@@ -80,9 +80,9 @@
                 <div class="justify-content-center ms-2">
                     <div>
                         <p style="font-size: 12px">
-                            No. SEP : {{$sep['noSep']}}<br />No MR : {{$sep['peserta']['noMr']}}<br />
+                        No. SEP : {{$sep['noSep']}}<br />No MR : {{$sep['peserta']['noMr']}}<br />
                             Nama : {{ $sep['peserta']['nama']}} <br />
-                            Poli Tujuan : {{ $sep['poli']}} <br />Jenis Pelayanan : {{ $sep['jnsPelayanan']}}
+                            Poli Tujuan : {{ $sep['poli']}} <br /> Dokter : {{ $sep['dpjp']['nmDPJP']}} <br />Jenis Pelayanan : {{ $sep['jnsPelayanan']}} <br />Kelas BPJS : {{ $sep['peserta']['hakKelas']}}
                         </p>
                     </div>
                 </div>
@@ -236,7 +236,7 @@
                         <p style="font-size: 12px">
                             No. SEP : {{$sep['noSep']}}<br />No MR : {{$sep['peserta']['noMr']}}<br />
                             Nama : {{ $sep['peserta']['nama']}} <br />
-                            Poli Tujuan : {{ $sep['poli']}} <br />Jenis Pelayanan : {{ $sep['jnsPelayanan']}}
+                            Poli Tujuan : {{ $sep['poli']}} <br /> Dokter : {{ $sep['dpjp']['nmDPJP']}} <br />Jenis Pelayanan : {{ $sep['jnsPelayanan']}} <br />Kelas BPJS : {{ $sep['peserta']['hakKelas']}}
                         </p>
                     </div>
                 </div>

@@ -103,6 +103,7 @@
                     <div>
                         <small>Poli Tujuan</small>
                     </div>
+ 
                     <div>
                         <small>Asal Faskes Tk.I</small>
                     </div>
@@ -144,6 +145,7 @@
                     <div>
                         <small>:</small>
                     </div>
+   
                 </div>
                 <div class="justify-content-center" style="width: 30%;">
                     <div>
@@ -192,6 +194,9 @@
                     <div>
                         <small>Kelas Rawat</small>
                     </div>
+                    <div>
+                        <small>DPJP</small>
+                    </div>
 
                     <!-- TTD -->
                     <div class="fw-bold mt-3" style="width: 100%;">
@@ -219,6 +224,9 @@
                     <div>
                         <small>:</small>
                     </div>
+                    <div>
+                        <small>:</small>
+                    </div>
                 </div>
                 <div class="justify-content-center mt-5" style="width: 30%;">
                     <div>
@@ -232,6 +240,9 @@
                     </div>
                     <div>
                         <small>{{ $sep['kelasRawat']}}</small>
+                    </div>
+                    <div>
+                        <small>{{$sep['dpjp']['nmDPJP']}}</small>
                     </div>
 
                     <!-- TTD -->
