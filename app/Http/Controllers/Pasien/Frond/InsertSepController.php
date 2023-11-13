@@ -165,6 +165,7 @@ class InsertSepController extends Controller
                             'noKartu' => $data['peserta']['noKartu'],
                             'noMr' => $data['peserta']['noMr'],
                             'nama' => $data['peserta']['nama'],
+                            'hakKelas' => $data['peserta']['hakKelas'],
                             'poli' => $data['poli'],
                             'jnsPelayanan' => $data['jnsPelayanan']
                         ];
@@ -368,6 +369,8 @@ class InsertSepController extends Controller
                                 $insertSep = json_encode($requestData, true);
                                 $response =   $this->sepRepository->insert($insertSep);
 
+                            
+
                                 if ($response['metaData']['code'] == 200) {
                                     $data = $response['response']['sep'];
                                     $printData = [
@@ -376,8 +379,11 @@ class InsertSepController extends Controller
                                         'noKartu' => $data['peserta']['noKartu'],
                                         'noMr' => $data['peserta']['noMr'],
                                         'nama' => $data['peserta']['nama'],
+                                        'hakKelas' => $data['peserta']['hakKelas'],
                                         'poli' => $data['poli'],
-                                        'jnsPelayanan' => $data['jnsPelayanan']
+                                        'jnsPelayanan' => $data['jnsPelayanan'],
+                                        'kodeDokter' => $kodeDokter, 
+                                        'namaDokter' => $namaDokter 
                                     ];
                                     // CREATE SEP BY ANJUNGAN
                                     $this->createSepByAnjungan($printData, 2);
@@ -442,6 +448,12 @@ class InsertSepController extends Controller
     public function cetak($printData)
     {
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> e5ad49166db5e0231720b7166b2c073d43b7ac04
         $connector = new FilePrintConnector(config('app.printer_url'));
         $printer = new Printer($connector);
 
@@ -469,6 +481,10 @@ class InsertSepController extends Controller
 
         $printer->setTextSize(1, 1);
         $printer->text("Poli Tujuan : " . $printData['poli'] . " \n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Nama Dokter : " . $printData['namaDokter'] . " \n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Hak Kelas : " . $printData['hakKelas'] . " \n");
 
         $printer->setTextSize(1, 1);
         $printer->text("Jenis Pelayanan : " . $printData['jnsPelayanan'] . " \n\n");
@@ -520,6 +536,11 @@ class InsertSepController extends Controller
         $printer->text("Poli Tujuan : " . $printData['poli'] . " \n");
 
         $printer->setTextSize(1, 1);
+        $printer->text("Nama Dokter : " . $printData['namaDokter'] . " \n");
+        $printer->setTextSize(1, 1);
+        $printer->text("Hak Kelas : " . $printData['hakKelas'] . " \n");
+
+        $printer->setTextSize(1, 1);
         $printer->text("Jenis Pelayanan : " . $printData['jnsPelayanan'] . " \n\n");
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
@@ -565,6 +586,8 @@ class InsertSepController extends Controller
             'no_mr' => $printData['noMr'],
             'nama' => $printData['nama'],
             'poli' => $printData['poli'],
+            'kode_dokter' => $printData['kodedokter'],
+            'nama_dokter' => $printData['namadokter'],
             'status' => $status,
             'created_by' => auth()->user()->name ?? ''
         ]);

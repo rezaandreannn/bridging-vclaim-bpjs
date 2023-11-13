@@ -38,6 +38,8 @@ class CetakSepController extends Controller
             $diagnosa = Str::limit($sepRen['diagnosa'], 30, '');
         }
 
+        // dd($sep);
+
 
         // dd($sep);
         // $print = PDF::loadView('sep.cetak-sep');
