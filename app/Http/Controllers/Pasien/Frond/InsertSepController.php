@@ -578,8 +578,8 @@ class InsertSepController extends Controller
             'no_mr' => $printData['noMr'],
             'nama' => $printData['nama'],
             'poli' => $printData['poli'],
-            'kode_dokter' => $printData['kodedokter'],
-            'nama_dokter' => $printData['namadokter'],
+            'kode_dokter' => $printData['kodeDokter'],
+            'nama_dokter' => $printData['namaDokter'],
             'status' => $status,
             'created_by' => auth()->user()->name ?? ''
         ]);
