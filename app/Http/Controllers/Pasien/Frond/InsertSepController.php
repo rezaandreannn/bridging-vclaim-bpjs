@@ -425,7 +425,6 @@ class InsertSepController extends Controller
                     } else {
                         return redirect()->back()->with('error', 'surat kontrol failed');
                     }
-                    dd($suratKontrol);
                 } else {
                     return redirect()->back()->with('error', $insertRencanKontrol['metaData']['message']);
                 }
