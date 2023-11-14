@@ -208,21 +208,44 @@ class InsertSepController extends Controller
         try {
             //CARI NO SEP BERDASARKAN POLI YANG SAMA DENGAN PENDAFTARAN ONLINE
             $sepHistories = $this->getHistoriSep($nomorKartu);
+            // dd($sepHistories);
 
             // CEK APAKAH SEP ADA
             if ($sepHistories != null) {
-                $oldSep = [];
+                $oldSep = null;
+                $noRujukanAktif = null; // Initialize before the loop
+
                 // GET 1 BARIS DARI BERDASARKAN KODE DOKTER YANG ADA DI RS
                 $bridge = $this->findPoli($kodeDokterRs);
                 $poliRs = $bridge['kode_poli'];
 
+                // foreach ($sepHistories as $sepHistory) {
+                //     $getPoliTujuan = $sepHistory['poliTujSep'];
+                //     $jnsPelayanan = $sepHistory['jnsPelayanan'];
+                //     $noRujukan = $sepHistory['noRujukan'];
+
+                //     // $noRujukanAktif = [];
+                //     // CEK RUJUKAN AKTIF DAN AMBIL RUJUKAN 1
+                //     $rujukanAktif = $this->rujukanService->rujukanStatusAktif($nomorKartu);
+                //     foreach ($rujukanAktif as $aktive) {
+                //         if ($aktive['poliRujukan']['kode'] == $getPoliTujuan) {
+                //             $noRujukanAktif = $aktive['noKunjungan'];
+                //         }
+                //     }
+
+                //     // Bandingkan kode poli dengan kode yang ada di database
+                //     if ($getPoliTujuan == $poliRs && $jnsPelayanan == 2 && $noRujukan == $noRujukanAktif) {
+                //         $oldSep = $sepHistory;
+                //     }
+
+                //     dd($oldSep);
+                //     $noSep = $oldSep['noSep'];
+                // }
                 foreach ($sepHistories as $sepHistory) {
                     $getPoliTujuan = $sepHistory['poliTujSep'];
                     $jnsPelayanan = $sepHistory['jnsPelayanan'];
                     $noRujukan = $sepHistory['noRujukan'];
 
-                    // $noRujukanAktif = [];
-                    // CEK RUJUKAN AKTIF DAN AMBIL RUJUKAN 1
                     $rujukanAktif = $this->rujukanService->rujukanStatusAktif($nomorKartu);
                     foreach ($rujukanAktif as $aktive) {
                         if ($aktive['poliRujukan']['kode'] == $getPoliTujuan) {
@@ -230,9 +253,10 @@ class InsertSepController extends Controller
                         }
                     }
 
-                    // Bandingkan kode poli dengan kode yang ada di database
                     if ($getPoliTujuan == $poliRs && $jnsPelayanan == 2 && $noRujukan == $noRujukanAktif) {
-                        $oldSep = $sepHistory;
+                        if ($oldSep == null || $sepHistory['tglSep'] > $oldSep['tglSep']) {
+                            $oldSep = $sepHistory;
+                        }
                     }
                 }
                 // AMBIL NO SEP
