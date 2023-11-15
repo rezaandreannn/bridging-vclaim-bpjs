@@ -29,7 +29,22 @@
             @can('cetak sep')
             <li class="{{Request::is('cetaksep') ? 'active' : ''}}"><a class="nav-link" href="{{ route('cetaksep.verify')}}"><i class="fas fa-user"></i><span>Cetak SEP Petugas</span></a>
             </li>
+            {{-- <li class="{{Request::is('cetaksep') ? 'active' : ''}}"><a class="nav-link" href="{{ route('cetaksep.verify')}}"><i class="fas fa-user"></i><span>Finger Peserta</span></a>
+            </li> --}}
 
+            @endcan
+            @can('sep')
+            <li class="dropdown {{Request::is('sep*') ? 'active' : ''}}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i>
+                    <span>SEP</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{Request::is('sep/finger*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('sep.finger')}}">Finger Peserta</a></li>
+                    <li class="{{Request::is('sep/by-anjungan*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('sep.by.anjungan')}}">SEP By Anjungan</a></li>
+                    <li class="{{Request::is('rencana-kontrol/kronis*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('rencana_kontrol.kronis.index')}}">Aproval Pengajuan SEP</a></li>
+                    <li class="{{Request::is('rencana-kontrol/kronis*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('rencana_kontrol.kronis.index')}}">List Data Persetujuan SEP</a></li>
+                    <li class="{{Request::is('rencana-kontrol/kronis*') ? 'active' : ''}}"><a class="nav-link" href="{{ route('rencana_kontrol.kronis.index')}}">Update Tanggal Pulang</a></li>
+                </ul>
+            </li>
             @endcan
             @can('rencana kontrol')
             <li class="dropdown {{Request::is('rencana-kontrol*') ? 'active' : ''}}">

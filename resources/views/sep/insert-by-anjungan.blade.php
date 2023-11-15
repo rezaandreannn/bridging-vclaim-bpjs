@@ -9,7 +9,7 @@
         </div>
 
         <h2 class="section-title">Table</h2>
-        <p class="section-lead">Data Peserta <span class="text-success text-bold">Rumah Sakit</span> pada tanggal
+        <p class="section-lead">Data Peserta Cetak SEP Dari Anjungan pada tanggal
             {{ date('d M, Y')}} </p>
         <div class="card">
             <div class="card-body">
@@ -18,35 +18,27 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">No MR</th>
+                                <th scope="col">No SEP</th>
                                 <th scope="col">No Kartu</th>
+                                <th scope="col">No MR</th>
                                 <th scope="col">Nama</th>
+                                <th scope="col">Poli</th>
                                 <th scope="col">Dokter</th>
-                                <th scope="col">Finger</th>
-                                <th scope="col">Terbit SEP</th>
-                                <th scope="col">No HP</th>
-                                <th scope="col">Aksi</th>
+                                <th scope="col">Status</th>
+                                {{-- <th scope="col">Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pasiens as $pasien)
+                            @foreach($data as $sep)
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
-                                <td width="10%">{{ $pasien['no_mr']}}</td>
-                                <td width="15%">{{ $pasien['no_kartu']}}</td>
-                                <td width="12%">{{ $pasien['nama_pasien']}}</td>
-                                <td width="15%">{{ $pasien['nama_dokter'] }}
-                                <td>
-                                    @if($pasien['finger'] == 1)
-                                    <div title="sudah verifikasi finger" class="badge badge-success"><i class="fas fa-fingerprint"></i></div>
-                                    @endif
-                                </td>
-                                <td width="15%">{{ $pasien['no_sep'] }}
-                                <td width="10%">{{ $pasien['no_telepon'] }}
-                                <td width="15%">
-                                    <a href="{{ route('sep.create', $pasien['no_kartu'] ?? '')}}" class="btn btn-primary btn-sm btn-action">Buat SEP</a>
-                                    <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-sm btn-action mt-1">Detail</a>
-                                </td>
+                                <td width="15%">{{ $sep['no_sep']}}</td>
+                                <td width="15%">{{ $sep['no_kartu']}}</td>
+                                <td width="5%">{{ $sep['no_mr'] }}
+                                <td width="10%">{{ $sep['nama'] }}
+                                <td width="10%">{{ $sep['poli'] }}
+                                <td width="10%">{{ $sep['nama_dokter'] }}
+                                <td width="10%">{{ $sep['status'] == 1 ? 'Rujukan Baru' : 'Kontrol' }}
                             </tr>
                             @endforeach
                         </tbody>

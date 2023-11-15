@@ -34,16 +34,17 @@ class FingerPrintController extends Controller
      * @param  string  $tanggalPelayanan
      * @return 
      */
-    public function index($tanggalPelayanan)
+    public function index($tanggalPelayanan = null)
     {
+        $tanggalPelayanan = date('Y-m-d');
         $data = $this->fingerPrint->byTanggal($tanggalPelayanan);
         if ($data['metaData']['code'] == 200) {
-            return $data['response']['list'];
+            $pesertas = $data['response']['list'];
         } else {
-            return $data;
+            $pesertas = [];
         }
-        // $endpoint = 'SEP/FingerPrint/List/Peserta/TglPelayanan/' . $tanggalPelayanan;
-        // return $this->bridging->getRequest($endpoint);
+
+        return view('sep.finger-list', compact('pesertas'));
     }
 
     public function getNoKartu($noKartu, $tanggalPelayanan)

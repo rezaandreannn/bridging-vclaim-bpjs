@@ -32,11 +32,13 @@ class PesertaController extends Controller
                 $pasiens = []; // Inisialisasi array pasien
                 foreach ($getPasiens as $value) {
                     $fingerPrint = false; // Set mula-mula fingerPrint ke false
+                    $no_sep = ''; // Set mula-mula fingerPrint ke false
                     if ($value['KodeRekanan'] == '032') {
                         $rekanan = $value['KodeRekanan'];
                         foreach ($fingers['response']['list'] as $finger) {
                             if ($finger['noKartu'] == $value['No_Identitas']) {
                                 $fingerPrint = true;
+                                $noSep = $finger['noSEP'];
                                 break; // Hentikan loop setelah menemukan finger
                             }
                         }
@@ -45,6 +47,7 @@ class PesertaController extends Controller
                             'no_kartu' => $value['No_Identitas'],
                             'nama_pasien' => $value['Nama_Pasien'],
                             'finger' => $fingerPrint,
+                            'no_sep' => $noSep ?? '',
                             'nama_dokter' => $value['Nama_Dokter'],
                             'no_telepon' => $value['HP1']
                         ];
@@ -57,8 +60,6 @@ class PesertaController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('warning', $th->getMessage());
         }
-
-        // dd($pasiens);
 
         return view('peserta', compact('pasiens'));
     }

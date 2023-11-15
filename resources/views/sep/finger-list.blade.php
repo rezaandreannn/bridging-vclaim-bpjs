@@ -18,34 +18,20 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">No MR</th>
                                 <th scope="col">No Kartu</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Dokter</th>
-                                <th scope="col">Finger</th>
                                 <th scope="col">Terbit SEP</th>
-                                <th scope="col">No HP</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pasiens as $pasien)
+                            @foreach($pesertas as $peserta)
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
-                                <td width="10%">{{ $pasien['no_mr']}}</td>
-                                <td width="15%">{{ $pasien['no_kartu']}}</td>
-                                <td width="12%">{{ $pasien['nama_pasien']}}</td>
-                                <td width="15%">{{ $pasien['nama_dokter'] }}
-                                <td>
-                                    @if($pasien['finger'] == 1)
-                                    <div title="sudah verifikasi finger" class="badge badge-success"><i class="fas fa-fingerprint"></i></div>
-                                    @endif
-                                </td>
-                                <td width="15%">{{ $pasien['no_sep'] }}
-                                <td width="10%">{{ $pasien['no_telepon'] }}
+                                <td width="15%">{{ $peserta['noKartu']}}</td>
+                                <td width="10%">{{ $peserta['noSEP'] }}
                                 <td width="15%">
-                                    <a href="{{ route('sep.create', $pasien['no_kartu'] ?? '')}}" class="btn btn-primary btn-sm btn-action">Buat SEP</a>
-                                    <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-sm btn-action mt-1">Detail</a>
+                                    {{-- <a href="{{ route('sep.create', $pasien['no_kartu'] ?? '')}}" class="btn btn-primary btn-sm btn-action">Buat SEP</a>
+                                    <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-sm btn-action mt-1">Detail</a> --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -63,11 +49,11 @@
     @push('css-libraries')
     <style>
         table.table td {
-            font-size: 10px;
+            font-size: 12px;
         }
 
         table.table th {
-            font-size: 11px;
+            font-size: 13px;
         }
 
     </style>

@@ -26,6 +26,10 @@ class RujukanService
                 $currentDate = Carbon::now();
                 $threeMonthsAgo = $currentDate->subMonths(3);
 
+                // 90 hari ekpired
+                // tampilin expired date
+
+
                 if ($tglKunjungan->gt($threeMonthsAgo)) {
                     $rujukans[] = $rujukan;
                 }

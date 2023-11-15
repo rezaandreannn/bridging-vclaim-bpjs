@@ -9,4 +9,5 @@ class AnjunganSep extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $timezone = 'Asia/Jakarta';
 }

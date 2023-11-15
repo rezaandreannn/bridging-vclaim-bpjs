@@ -33,6 +33,7 @@ use App\Http\Controllers\Auth\AuthenticatedPesertaController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Back\Monitoring\KunjunganController;
 use App\Http\Controllers\Back\SEP\CreateSepController;
+use App\Http\Controllers\Back\SEP\InsertByAnjunganController;
 use App\Http\Controllers\Frond\VerifikasiIdentitasController;
 use App\Http\Controllers\RencanaKontrol\Sep\CariSepController;
 use App\Http\Controllers\cetakSepAdmin\InsertSepAdminController;
@@ -112,6 +113,8 @@ Route::prefix('sep')->name('sep.')->middleware(['auth'])->group(function () {
     Route::get('print/thermal/{noSep}', CetakSepThermalController::class)->name('print.thermal');
     Route::get('detail/{noSep}', DetailController::class)->name('detail');
     Route::get('unduh/{noSep}', UnduhSepController::class)->name('unduh');
+    Route::get('finger/list', [FingerPrintController::class, 'index'])->name('finger');
+    Route::get('by-anjungan', [InsertByAnjunganController::class, 'index'])->name('by.anjungan');
 });
 
 // ROUTE CETAK SEP PETUGAS
@@ -177,9 +180,9 @@ Route::get('dpjp', [DpjpController::class, 'getDpjp']);
 Route::get('poli/{kodePoli}', [PoliController::class, 'getPoli']);
 // Route::get('peserta', [FindByNomorKartuController::class, 'index']);
 
-Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
-Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);
-Route::get('SEP/{noSEP}', [CariController::class, 'index']);
+// Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
+// Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);
+// Route::get('SEP/{noSEP}', [CariController::class, 'index']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/pasien.php';

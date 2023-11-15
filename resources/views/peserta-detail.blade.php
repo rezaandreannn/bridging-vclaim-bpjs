@@ -57,8 +57,7 @@
                     <div class="card-body">
                         <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
                             <li class="media">
-                                <img alt="image" class="mr-3 rounded-circle" width="70"
-                                    src="{{ asset('img/avatar.png') }}">
+                                <img alt="image" class="mr-3 rounded-circle" width="70" src="{{ asset('img/avatar.png') }}">
                                 <div class="media-body">
                                     <div class="media-right">
                                         <div class="btn btn-primary">
@@ -123,21 +122,17 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab2" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab"
-                                    aria-controls="home" aria-selected="true">History</a>
+                                <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab" aria-controls="home" aria-selected="true">History</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab"
-                                    aria-controls="profile" aria-selected="false">Rujukan</a>
+                                <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile" aria-selected="false">Rujukan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab"
-                                    aria-controls="contact" aria-selected="false">Rencana Kontrol</a>
+                                <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#contact2" role="tab" aria-controls="contact" aria-selected="false">Rencana Kontrol</a>
                             </li>
                         </ul>
                         <div class="tab-content tab-bordered" id="myTab3Content">
-                            <div class="tab-pane fade show active" id="home2" role="tabpanel"
-                                aria-labelledby="home-tab2">
+                            <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
                                 <div class="card">
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
@@ -165,16 +160,8 @@
                                                         </td>
                                                         <td>{{ $history['noRujukan']}}</td>
                                                         <td>
-                                                            <a href="{{ route('sep.print', $history['noSep'] )}}"
-                                                                class="btn btn-primary btn-action mr-1"
-                                                                data-toggle="tooltip" title="Print" id="printButton"><i
-                                                                    class="fas fa-print"></i></a>
-                                                            <a href="#" class="btn btn-danger btn-action"
-                                                                data-toggle="modal"
-                                                                data-target="#deleteConfirmationHistory"
-                                                                data-href="{{ route('sep.delete', $history['noSep']) }}"
-                                                                data-toggle="tooltip" title="Delete"><i
-                                                                    class="fas fa-trash"></i></a>
+                                                            <a href="{{ route('sep.print', $history['noSep'] )}}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Print" id="printButton"><i class="fas fa-print"></i></a>
+                                                            <a href="#" class="btn btn-danger btn-action" data-toggle="modal" data-target="#deleteConfirmationHistory" data-href="{{ route('sep.delete', $history['noSep']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                     </tr>
 
@@ -195,6 +182,7 @@
                                                     <tr>
                                                         <th>No Rujukan</th>
                                                         <th>Tanggal</th>
+                                                        <th>Expired</th>
                                                         <th>Poli</th>
                                                         <th>Diagnosa</th>
                                                         <th>Pelayanan</th>
@@ -206,6 +194,7 @@
                                                     <tr>
                                                         <td>{{ $rujukan['noKunjungan']}} </td>
                                                         <td>{{ $rujukan['tglKunjungan']}}</td>
+                                                        <td>{{ $rujukan['expiredDate']}}</td>
                                                         <td title="{{ $rujukan['poliRujukan']['nama']}}">
                                                             {{ $rujukan['poliRujukan']['kode']}}</td>
                                                         <td title="{{ $rujukan['diagnosa']['nama']}}">
@@ -255,14 +244,8 @@
                                                             {{ $suratKontrol['terbitSEP']}}
                                                         </td>
                                                         <td>
-                                                            <a class="btn btn-warning btn-action mr-1"
-                                                                data-toggle="tooltip" title="Edit"><i
-                                                                    class="fas fa-pencil-alt"></i></a>
-                                                            <a href="#" class="btn btn-danger btn-action"
-                                                                data-toggle="modal" data-target="#deleteConfirmation"
-                                                                data-href="{{ route('rencana_kontrol.delete', $suratKontrol['noSuratKontrol']) }}"
-                                                                data-toggle="tooltip" title="Delete"><i
-                                                                    class="fas fa-trash"></i></a>
+                                                            <a class="btn btn-warning btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                            <a href="#" class="btn btn-danger btn-action" data-toggle="modal" data-target="#deleteConfirmation" data-href="{{ route('rencana_kontrol.delete', $suratKontrol['noSuratKontrol']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                     </tr>
 
@@ -281,8 +264,7 @@
     </section>
 
     <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog"
-        aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -302,8 +284,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteConfirmationHistory" tabindex="-1" role="dialog"
-        aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteConfirmationHistory" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -344,11 +325,9 @@
         }
 
     </style>
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
 
-    <link rel="stylesheet"
-        href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('stisla/node_modules/select2/dist/css/select2.min.css') }}" />
     @endpush
 
@@ -360,13 +339,13 @@
     <script src="{{ asset('stisla/assets/js/page/modules-datatables.js')}}"></script>
 
     <script>
-        $('#deleteConfirmation').on('show.bs.modal', function (e) {
+        $('#deleteConfirmation').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var deleteURL = button.data('href');
             $('#deleteButton').attr('href', deleteURL);
         });
 
-        $('#deleteConfirmationHistory').on('show.bs.modal', function (e) {
+        $('#deleteConfirmationHistory').on('show.bs.modal', function(e) {
             var button = $(e.relatedTarget);
             var deleteURL = button.data('href');
             $('#deleteButtonHistory').attr('href', deleteURL);
