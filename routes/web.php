@@ -45,6 +45,7 @@ use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 use App\Http\Controllers\cetakSepAdmin\VerifiedIdentitasAdminController;
 use App\Http\Controllers\Referensi\PoliController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolPasienKronisController;
+use App\Http\Controllers\TesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::get('/dokumentasi', DocumentationController::class)
     ->middleware('auth')
     ->name('dokumentasi');
+
+Route::get('/tes', [TesController::class, 'index'])
+    ->name('tes');
 
 // COUNT KLAIM DASHBOARD
 Route::get('/status-klaim-rajal', [DashboardController::class, 'countKlaimRajal'])

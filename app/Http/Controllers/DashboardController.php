@@ -91,8 +91,8 @@ class DashboardController extends Controller
     private function countPeserta()
     {
         $client = new Client();
-        $endpoint = 'https://192.168.2.131/api.simrs/index.php/api/pasien/pendaftaran';
-        // $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran';
+        // $endpoint = 'https://192.168.2.131/api.simrs/index.php/api/pasien/pendaftaran';
+        $endpoint = 'https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran';
         $response = $client->get($endpoint, ['verify' => false]);
         $result = json_decode($response->getBody()->getContents(), true);
 
