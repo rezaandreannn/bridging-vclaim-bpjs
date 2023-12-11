@@ -17,9 +17,9 @@ class VerifiedIdentitasController extends Controller
     public function store(Request $request)
     {
         $noMr = $request->no_mr;
-        $response = Http::withOptions(['verify' => false])->get('https://192.168.2.131/api.simrs/index.php/api/pasien/pendaftaran/' . $noMr);
+        // $response = Http::withOptions(['verify' => false])->get('https://192.168.2.131/api.simrs/index.php/api/pasien/pendaftaran/' . $noMr);
 
-        // $response = Http::get('https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran/' . $noMr);
+        $response = Http::get('https://daftar.rsumm.co.id/api.simrs/index.php/api/pasien/pendaftaran/' . $noMr);
         if ($response->status() == 200) {
             $result = json_decode($response->getBody()->getContents(), true);
             $data = $result['data'][0];
