@@ -1,28 +1,24 @@
 <x-app-layout>
     <section class="section">
         <div class="section-header">
-            <h1>Master Data Permission</h1>
+            <h1>Data Permission</h1>
         </div>
-
     </section>
 
     <section class="content">
-
         <div class="row">
             <div class="col-12">
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                    <i class="ion ion-plus"> </i> Tambah permission
+                </button>
                 <div class="card">
                     <div class="card-body">
-                        <div class="pb-2">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                <i class="ion ion-plus"> </i> Add permission
-                            </button>
-                        </div>
-                        <table id="table-1" class="table table-bordered table-hover">
+                        <table id="table-1" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>permission name</th>
-                                    <th>Guard Name</th>
+                                    <th>Nama Permission</th>
+                                    <th>Tipe</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -31,8 +27,11 @@
                                 <tr>
                                     <td style="width: 5%">{{ $loop->iteration }}</td>
                                     <td>{{ $permission->name }}</td>
-                                    <td>{{ $permission->guard_name }}</td>
-
+                                    <td>
+                                        <div class="badge badge-{{ $permission->guard_name == 'web' ? 'dark' : 'light'}}">
+                                            {{ $permission->guard_name}}
+                                        </div>
+                                    </td>
                                     <td>
                                         <x-a-link-edit-modal param="{{ $permission->id }}">
                                         </x-a-link-edit-modal>
@@ -79,7 +78,7 @@
                             </label>
                             <select class="form-control select2" name="guard_name">
                                 <option value="web" selected>web</option>
-                                <option value="api">api</option>   
+                                <option value="api">api</option>
                             </select>
                             <div class="valid-feedback">
 
@@ -128,7 +127,7 @@
                             </label>
                             <select class="form-control select2" name="guard_name">
                                 <option value="web" {{ $permission->guard_name=='web' ? 'selected' : ''}}>web</option>
-                                <option value="api" {{ $permission->guard_name=='api' ? 'selected' : ''}}>api</option>   
+                                <option value="api" {{ $permission->guard_name=='api' ? 'selected' : ''}}>api</option>
                             </select>
                             <div class="valid-feedback">
 

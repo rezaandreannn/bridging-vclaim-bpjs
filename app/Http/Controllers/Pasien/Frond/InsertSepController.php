@@ -294,6 +294,8 @@ class InsertSepController extends Controller
                 $insert = json_encode($requestData, true);
                 $insertRencanKontrol = $this->rencanaKontrolRepository->insert($insert);
 
+                // DIUBAH CARI SURAT KONTROL
+
                 if ($insertRencanKontrol['metaData']['code'] == 200) {
                     $response = $insertRencanKontrol['response'];
                     // AMBIL NO RENCANA KONTROL UNTUK KEPERLUAN INSERT SEP

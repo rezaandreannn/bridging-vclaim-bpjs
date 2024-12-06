@@ -31,12 +31,15 @@
                     <table class="table table-striped" id="table-1">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">No</th>
                                 <th scope="col">No SEP</th>
                                 <th scope="col">No Kartu</th>
+                                <th scope="col">No MR</th>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Nama</th>
+                                @if(request()->input('jenis_pelayanan') == 2)
                                 <th scope="col">Poli</th>
+                                @endif
                                 <th scope="col">No Rujukan</th>
                                 <th scope="col">Aksi</th>
                             </tr>
@@ -46,20 +49,28 @@
                             <tr>
                                 <td scope="row" width="2%">{{ $loop->iteration}}</td>
                                 <td width="20%">
-                                    <a href="{{ route('sep.detail', $kunjungan['noSep'])}}">{{ $kunjungan['noSep'] }}</a>
+                                    {{-- <a href="{{ route('sep.detail', $kunjungan['noSep'])}}">{{ $kunjungan['noSep'] }}</a> --}}
+                                    <a href="#">{{ $kunjungan['noSep'] }}</a>
                                 </td>
                                 <td width="15%">{{ $kunjungan['noKartu']}}</td>
+                                <td width="10%">
+                                    <div class="badge badge-primary">
+                                        {{ \App\Helpers\PasienHelper::generateNoMR($kunjungan['noKartu']) }}
+                                    </div>
+                                </td>
                                 <td width="15%">{{ $kunjungan['tglSep']}}</td>
                                 <td width="12%">{{ $kunjungan['nama']}}</td>
+                                @if(request()->input('jenis_pelayanan') == 2)
                                 <td>{{ $kunjungan['poli']}}</td>
+                                @endif
                                 <td width="15%">
                                     <a href="">{{ $kunjungan['noRujukan']}}</a>
                                 </td>
                                 <td width="25%">
                                     <a href="{{ route('sep.print.thermal', $kunjungan['noSep'] )}}" class="btn btn-primary btn-sm mb-1" data-toggle="tooltip" title="Print" id="printButton"><i class="fas fa-toilet-paper"></i></a>
                                     <a href="{{ route('sep.print', $kunjungan['noSep'] )}}" class="btn btn-primary btn-sm mb-1" data-toggle="tooltip" title="Print" id="printButton"><i class="fas fa-print"></i></a>
-                                    <a href="{{ route('sep.unduh', $kunjungan['noSep'])}}" class="btn btn-info btn-sm mb-1" data-toggle="tooltip" title="Unduh"><i class="fas fa-download"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#deleteConfirmationHistory" data-href="{{ route('sep.delete', $kunjungan['noSep']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a>
+                                    {{-- <a href="{{ route('sep.unduh', $kunjungan['noSep'])}}" class="btn btn-info btn-sm mb-1" data-toggle="tooltip" title="Unduh"><i class="fas fa-download"></i></a> --}}
+                                    {{-- <a href="#" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#deleteConfirmationHistory" data-href="{{ route('sep.delete', $kunjungan['noSep']) }}" data-toggle="tooltip" title="Delete"><i class="fas fa-trash"></i></a> --}}
                                 </td>
                             </tr>
                             @endforeach

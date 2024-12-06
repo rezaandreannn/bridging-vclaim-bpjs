@@ -238,9 +238,9 @@
                         <div class="text-center">
                             <small> Petugas </small>
                         </div>
-                        <div class="text-center">
+                        {{-- <div class="text-center">
                             <small>BPJS Kesehatan</small>
-                        </div>
+                        </div> --}}
                         <div class="text-center mt-5 border-bottom border-dark">
                             <small></small>
                         </div>

@@ -23,8 +23,9 @@ class CreateSepController extends Controller
     }
     public function create($noKartu = null)
     {
-        if ($noKartu == null) {
-            return redirect()->back()->with('error', 'No Kartu Tidak Boleh Kosong');
+        $peserta = [];
+        if ($noKartu == 1) {
+            return view('sep.create', compact('peserta'));
         }
         // AMBIL PESERTA BERDAASARKAN NOMOR
         $dataPeserta = $this->pesertaRepository->byNomor($noKartu);
@@ -51,7 +52,7 @@ class CreateSepController extends Controller
                 }
             }
         }
-        dd($rujukans);
+
 
         return view('sep.create', compact('peserta'));
     }

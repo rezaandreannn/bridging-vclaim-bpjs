@@ -6,7 +6,10 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name') }} &mdash; {{ config('app.name') }} </title>
+    <title>RSUMM - {{ config('app.name') }} | {{ $title }} </title>
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="{{ asset('img/logo_rsumm.ico')}}" />
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -43,8 +46,8 @@
         <section class="section">
             <div class="container mt-5">
                 <div class="row">
-                <div class="col-12 col-sm-12">
-                    <!-- <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4"> -->
+                    <div class="col-12 col-sm-12">
+                        <!-- <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4"> -->
                         {{-- <div class="login-brand">
                             <img src="{{ asset('stisla/assets/img/stisla-fill.svg') }}" alt="logo" width="100"
                         class="shadow-light rounded-circle">

@@ -6,8 +6,7 @@
     {{-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> --}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <style>
         @media print {
@@ -15,6 +14,10 @@
                 size: 21cm 14cm;
                 margin: 0;
 
+            }
+
+            .barcode {
+                display: block !important;
             }
 
             body {
@@ -26,7 +29,7 @@
 
             /* Tambahkan gaya khusus untuk elemen yang ingin Anda cetak */
             .print-this {
-                font-size: 12px;
+                font-size: 11px;
                 /* Atur ukuran font sesuai kebutuhan */
             }
         }
@@ -36,8 +39,7 @@
 
 <body style="width: 21cm; height: 12cm;" id="pdf-content" class="print-this">
     <div class="justify-content-center">
-        <div class="p-0 m-4 width: 12cm; height: 9cm; border-1 align-self-start d-flex justify-content-center mb-3"
-            style="width: 100%;">
+        <div class="p-0 m-4 width: 12cm; height: 9cm; border-1 align-self-start d-flex justify-content-center mb-3" style="width: 100%;">
             <div class="fw-bold border-0 p-0" style="width:20%;">
                 <div class="p-2">
                 </div>
@@ -192,9 +194,12 @@
                     <div>
                         <small>Kelas Rawat</small>
                     </div>
+                    <div>
+                        <small>DPJP</small>
+                    </div>
 
                     <!-- TTD -->
-                    <div class="fw-bold mt-3" style="width: 100%;">
+                    {{-- <div class="fw-bold mt-3" style="width: 100%;">
                         <div class="text-center">
                             <small> Pasien / </small>
                         </div>
@@ -204,13 +209,16 @@
                         <div class="text-center mt-5 border-bottom border-dark">
                             <small></small>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="justify-content-center mt-5" style="width: 2.5%;">
                     <div>
                         <small>:</small>
                     </div>
                     <div class="mt-4">
+                        <small>:</small>
+                    </div>
+                    <div>
                         <small>:</small>
                     </div>
                     <div>
@@ -233,9 +241,23 @@
                     <div>
                         <small>{{ $sep['kelasRawat']}}</small>
                     </div>
+                    <div>
+                        <small>{{$sep['dpjp']['nmDPJP']}}</small>
+                    </div>
 
                     <!-- TTD -->
-                    <div class="fw-bold ms-3 mt-3" style="width: 70%;">
+                    <div class="fw-bold mt-4" style="width: 100%;">
+                        <div class="text-center">
+                            <small> Pasien / Keluarga Pasien </small>
+                        </div>
+                        <div class="text-center barcode">
+                            <img src="data:image/png;base64,{!! DNS2D::getBarcodePNG($sep['peserta']['noKartu'], 'QRCODE', 3, 3) !!}" alt="QR Code" />
+                        </div>
+                        <div class="text-center">
+                            <p>{{$sep['peserta']['nama']}}</p>
+                        </div>
+                    </div>
+                    {{-- <div class="fw-bold ms-3 mt-3" style="width: 70%;">
                         <div class="text-center">
                             <small> Petugas </small>
                         </div>
@@ -245,7 +267,7 @@
                         <div class="text-center mt-5 border-bottom border-dark">
                             <small></small>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
@@ -260,8 +282,7 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.1/html2pdf.bundle.min.js"></script>
 
@@ -269,17 +290,17 @@
     <script>
         const element = document.getElementById('pdf-content');
         const namaFile = '<?php echo $namaFile; ?>';
-        window.onload = function () {
+        window.onload = function() {
             html2pdf(element, {
-                margin: 0,
-                filename: namaFile,
-                html2canvas: {
+                margin: 0
+                , filename: namaFile
+                , html2canvas: {
                     scale: 2
-                },
-                jsPDF: {
-                    unit: 'cm',
-                    format: [21, 14],
-                    orientation: 'landscape'
+                }
+                , jsPDF: {
+                    unit: 'cm'
+                    , format: [21, 14]
+                    , orientation: 'landscape'
                 }
             });
         };

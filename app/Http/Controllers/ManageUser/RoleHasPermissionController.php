@@ -16,8 +16,8 @@ class RoleHasPermissionController extends Controller
      */
     public function index()
     {
-        //
-        $roles = Role::all();
+
+        $roles = Role::whereNotIn('name', ['admin', 'super admin'])->get();
         $title = 'Role Has Permission';
         return view('manajemen-user.role-permission.index', compact('roles', 'title'));
     }

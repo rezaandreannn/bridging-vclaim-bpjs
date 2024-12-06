@@ -1,21 +1,20 @@
-<x-app-layout>
+<x-app-layout title="Pengguna">
     <section class="section">
         <div class="section-header">
-            <h1>Master Data user</h1>
+            <h1>Data Pengguna</h1>
         </div>
 
     </section>
 
     <section class="content">
-
         <div class="row">
             <div class="col-12">
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModal">
+                    <i class="ion ion-plus"> </i> Tambah Pengguna
+                </button>
                 <div class="card">
                     <div class="card-body">
                         <div class="pb-2">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                <i class="ion ion-plus"> </i> Add user
-                            </button>
                         </div>
                         <table id="table-1" class="table table-bordered table-hover">
                             <thead>
@@ -288,6 +287,7 @@
                 dropdownParent: $('#editModal')
             });
         });
+
     </script>
 
     @endpush

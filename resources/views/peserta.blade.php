@@ -1,4 +1,7 @@
-<x-app-layout>
+@php
+$title = Request::is('peserta/1') ? 'Rawat Inap' : 'Rawat Jalan';
+@endphp
+<x-app-layout title="Kunjungan {{ $title}}">
     <section class="section">
         <div class="section-header">
             <h4>Data Peserta</h4>
@@ -8,16 +11,16 @@
             </div>
         </div>
 
-        <h2 class="section-title">Table</h2>
-        <p class="section-lead">Data Peserta <span class="text-success text-bold">Rumah Sakit</span> pada tanggal
-            {{ date('d M, Y')}} </p>
+        <h2 class="section-title">{{$title }}</h2>
+        <p class="section-lead">Data Peserta <span class="text-success text-bold font-weight-bold">Rumah Sakit Umum Muhammadiyah Metro</span> pada tanggal
+            {{ date('d M Y')}} </p>
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped" id="table-1">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">No</th>
                                 <th scope="col">No MR</th>
                                 <th scope="col">No Kartu</th>
                                 <th scope="col">Nama</th>
@@ -44,8 +47,8 @@
                                 <td width="15%">{{ $pasien['no_sep'] }}
                                 <td width="10%">{{ $pasien['no_telepon'] }}
                                 <td width="15%">
-                                    <a href="{{ route('sep.create', $pasien['no_kartu'] ?? '')}}" class="btn btn-primary btn-sm btn-action">Buat SEP</a>
-                                    <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-sm btn-action mt-1">Detail</a>
+                                    <a href="{{ route('sep.create', $pasien['no_kartu'] ?? '')}}" class="btn btn-primary btn-sm btn-action btn-responsive">Buat SEP</a>
+                                    <a href="{{ route('peserta.detail', $pasien['no_kartu'] ?? '')}}" class="btn btn-info btn-sm btn-action btn-responsive btn-detail">Detail</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -68,6 +71,16 @@
 
         table.table th {
             font-size: 11px;
+        }
+
+        @media (max-width: 767px) {
+            .btn-responsive {
+                font-size: 10px;
+            }
+
+            .btn-detail {
+                margin-top: 3px;
+            }
         }
 
     </style>

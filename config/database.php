@@ -91,6 +91,19 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_RSUMM', 'localhost'),
+            'port' => env('DB_PORT_RSUMM', '1433'),
+            'database' => env('DB_DATABASE_RSUMM', 'forge'),
+            'username' => env('DB_USERNAME_RSUMM', 'forge'),
+            'password' => env('DB_PASSWORD_RSUMM', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
+
     ],
 
     /*

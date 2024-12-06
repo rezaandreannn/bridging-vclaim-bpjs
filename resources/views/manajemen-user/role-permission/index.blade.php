@@ -1,23 +1,21 @@
-<x-app-layout>
+<x-app-layout title="{{ $title}}">
     <section class="section">
         <div class="section-header">
             <h1>Role Permission</h1>
         </div>
-
     </section>
 
     <section class="content">
-
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="table-1" class="table table-bordered table-hover">
+                        <table id="table-1" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Role Name</th>
-                                    <th>Action</th>
+                                    <th>Nama Role</th>
+                                    <th>Permission</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -31,23 +29,12 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Role Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
-
-
-
 
     {{-- css library --}}
     @push('css-libraries')

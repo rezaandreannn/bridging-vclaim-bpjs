@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\PasienHelper;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SEP\CariController;
@@ -43,9 +44,12 @@ use App\Http\Controllers\Pasien\Frond\VerifiedIdentitasController;
 use App\Http\Controllers\RencanaKontrol\ListSuratKontrolController;
 use App\Http\Controllers\RencanaKontrol\DeleteRencanaKontrolController;
 use App\Http\Controllers\cetakSepAdmin\VerifiedIdentitasAdminController;
+use App\Http\Controllers\IcareController;
+use App\Http\Controllers\LembarPengajuanKlaimController;
 use App\Http\Controllers\Referensi\PoliController;
 use App\Http\Controllers\RencanaKontrol\RencanaKontrolPasienKronisController;
 use App\Http\Controllers\TesController;
+use App\Models\Pasien;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +125,11 @@ Route::prefix('sep')->name('sep.')->middleware(['auth'])->group(function () {
     Route::get('by-anjungan', [InsertByAnjunganController::class, 'index'])->name('by.anjungan');
 });
 
+//  LEMBAR PENGAJUAN KLAIM
+Route::prefix('lpk')->name('lpk.')->group(function () {
+    Route::get('/', [LembarPengajuanKlaimController::class, 'index'])->name('index');
+});
+
 // ROUTE CETAK SEP PETUGAS
 Route::prefix('cetaksep')->name('cetaksep.')->group(function () {
     Route::get('/verify', [VerifiedIdentitasAdminController::class, 'index'])->name('verify');
@@ -148,6 +157,11 @@ Route::prefix('monitoring')->name('monitoring.')->group(function () {
 Route::prefix('bridging')->name('bridging.')->group(function () {
     Route::resource('dokter', BridgingDokterController::class)->middleware(['auth']);
     Route::post('find-dokter', [BridgingDokterController::class, 'findDokter'])->middleware(['auth'])->name('findDokter');
+});
+
+Route::get('test', function () {
+    $noMR = PasienHelper::generateNoMR('0001405144754');
+    dd($noMR);
 });
 
 // // 
@@ -182,7 +196,8 @@ Route::get('rujukan/{nomorRujukan}', [RujukanController::class, 'byNomorRujukan'
 
 Route::get('dpjp', [DpjpController::class, 'getDpjp']);
 Route::get('poli/{kodePoli}', [PoliController::class, 'getPoli']);
-// Route::get('peserta', [FindByNomorKartuController::class, 'index']);
+
+
 
 // Route::get('SEP/{nomorSEP}', [CariController::class, 'index']);
 // Route::get('/SEP/finger/{tanggal}', [FingerPrintController::class, 'index']);
@@ -191,3 +206,4 @@ Route::get('poli/{kodePoli}', [PoliController::class, 'getPoli']);
 require __DIR__ . '/auth.php';
 require __DIR__ . '/pasien.php';
 require __DIR__ . '/manage_user.php';
+require __DIR__ . '/anjungan.php';

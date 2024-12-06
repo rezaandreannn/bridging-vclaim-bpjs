@@ -1,0 +1,15 @@
+{
+    "Jenis Pasien": "Rujukan Baru",
+    "Keterangan" : "Pasien baru dari faskes 1 bawa rujukan, hanya berlaku 1 kali rujukannya",
+    "status" : "true"
+},
+{
+    "Jenis Pasien": "Kontrol",
+    "Keterangan" : "Pasien yang sudah pernah periksa di dokter kemudian kontrol ke dokter kembali, dengan catatan dokter yang sama ",
+    "status" : "true"
+},
+{
+    "Jenis Pasien": "Post Ranap",
+    "Keterangan" : "Pasien yang di rawat inap kemudian ingin kontrol, hanya bisa cetak sep 1 kali",
+    "status" : "false"
+},

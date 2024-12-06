@@ -27,7 +27,7 @@ class DpjpController extends Controller
     {
 
         // $endpoint = 'referensi/dokter/pelayanan/' . $namaKodePoli. '/tglPelayanan/'. $sdfsdf.  '/Spesialin/'. $dsf;
-        $endpoint = 'referensi/dokter/pelayanan/2/tglPelayanan/2023-10-30/Spesialis/ORT';
+        $endpoint = 'referensi/dokter/pelayanan/2/tglPelayanan/2024-01-12/Spesialis/BED';
         return $this->bridging->getRequest($endpoint);
     }
 }
